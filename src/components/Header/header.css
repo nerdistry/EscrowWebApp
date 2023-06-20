@@ -1,0 +1,206 @@
+.header {
+    width: 100%;
+    height: 70px;
+    line-height: 70px;
+}
+
+.nav__wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+    column-gap: 8px;
+}
+.logo img{
+    width: 5rem;
+}
+.logo h1 {
+    font-size: 1.2rem;
+    font-weight: 700;
+    color: var(--primary-color)
+}
+.menu {
+    display: flex;
+    align-items: center;
+    column-gap: 2.7rem;
+    margin-bottom: 0;
+}
+
+.nav__item a {
+    color: var(--primary-color);
+    font-weight: 500;
+    cursor: pointer;
+    transition: 0.3s ease-in;
+    position: relative;
+}
+
+.nav__icons {
+    display: flex;
+    align-items: center;
+    column-gap: 1.2rem;
+}
+
+.nav__icons span i {
+    font-size: 1.5rem;
+    color: var(--primary-color);
+    cursor: pointer;
+}
+
+.nav__icons .account img {
+    width: 25px;
+    height: 25px;
+    border-radius: 50%;
+}
+
+.nav__icons span {
+    cursor: pointer;
+}
+
+.nav__icons .account {
+    border-radius: 30px;
+    padding: 10px 20px;
+    line-height: 0;
+    font-weight: 500;
+    font-size: 15px;
+    background-color: var(--main-bg-color);
+    cursor: pointer;
+    margin-bottom: 0;
+}
+
+
+.nav__icons .profile {
+    position: relative;
+    z-index: 9;
+}
+
+.nav__icons .profile .account_actions {
+    position: absolute;
+    top: 115%;
+    left: 0;
+    width: 170px;
+    z-index: 10;
+    padding: 15px;
+    display: flex;
+    align-items: center;
+    background-color: var(--main-bg-color);
+    line-height: 30px;
+    border-radius: 10px;
+    cursor: pointer;
+    display: none;
+}
+
+.show_profileActions {
+    display: block !important;
+}
+
+.nav__icons .profile .account_actions div {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}
+
+.nav__icons .profile .account_actions div a, .nav__icons .profile .account_actions div span {
+    transition: .3s ease-in-out;
+    border-radius: 10px;
+    padding: 5px 10px;
+    margin: 2px 0px;
+    font-weight: 500;
+}
+
+.nav__icons .profile .account_actions div a:hover, .nav__icons .profile .account_actions div span:hover {
+    color: inherit;
+    background-color: rgba(255, 255, 255, 0.53);
+}
+
+.fav__icon, .cart__icon {
+    position: relative;
+}
+
+.badge {
+    position: absolute;
+    top: 20%;
+    right: -9%;
+    width: 17px;
+    height: 17px;
+    content: '';
+    background: var(--button-color);
+    color: #fff;
+    border-radius: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.7rem;
+    font-weight: 600;
+    z-index: 10;
+}
+
+.mobile__menu {
+    font-size: 1.3rem;
+    color: var(--primary-color);
+    display: none;
+}
+
+.nav__item a:hover ,.nav__item .nav__active {
+    color: var(--button-color);
+    font-weight: 700 !important;
+}
+
+.nav__item .nav__active::after, .nav__item a:hover::after {
+    content: "";
+    width: 50%;
+    height: 2px;
+    background-color: var(--button-color);
+    position: absolute;
+    bottom: -4px;
+    left: 25%;
+}
+
+.sticky_header {
+    width: 100%;
+    height: 70px;
+    line-height: 70px;
+    position: sticky;
+    top: 0;
+    left: 0;
+    z-index: 999;
+    box-shadow: 3px 3px 8px -3px #ddd;
+    background: #fff;
+}
+
+@media only screen and (max-width: 768px) {
+    .navigation {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0,0,0,0.53);
+        z-index: 999; 
+        display: none;
+    }
+    
+    .menu {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 250px;
+        height: 100%;
+        background: #fff;
+        z-index: 99999;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .active__menu {
+        display: block;
+    }
+
+    .mobile__menu {
+        display: block;
+    }
+}
