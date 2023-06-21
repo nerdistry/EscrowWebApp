@@ -113,7 +113,7 @@ const SignUp = () => {
       setLoading(false);
       toast.success("Account created successfully");
       navigate('/home');
-      setTimeout(function () { window.location.reload(); }, 5000);
+      setTimeout(function () { window.location.reload(); }, 2000);
     } catch (error) {
       setLoading(false);
       console.log(error);
@@ -152,7 +152,7 @@ const SignUp = () => {
 
       toast.success("Account created successfully");
       navigate('/home');
-      setTimeout(function () { window.location.reload(); }, 5000)
+      setTimeout(function () { window.location.reload(); }, 2000)
 
     } catch (error) {
       setLoading(false);
@@ -190,7 +190,7 @@ const SignUp = () => {
       setLoading(false);
       toast.success("Account created successfully");
       navigate('/home');
-      setTimeout(function () { window.location.reload(); }, 5000)
+      setTimeout(function () { window.location.reload(); }, 2000)
 
     } catch (error) {
       setLoading(false);

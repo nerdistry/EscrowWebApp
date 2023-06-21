@@ -7,6 +7,7 @@ import Checkout from "../views/Checkout";
 import Login from "../views/Login";
 import SignUp from "../views/SignUp";
 import ProductDetails from "../views/ProductDetails";
+import Profile from "../views/Profile";
 import ProtectedRoute from "./ProtectedRoute";
 
 const Routers = () => {
@@ -15,6 +16,7 @@ const Routers = () => {
       <Route path="/" element={<Navigate to="home" />} />
       <Route path="home" element={<Home />} />
       <Route path="cart" element={<Cart />} />
+      <Route path="profile" element={<Profile />} />
       <Route path="category" element={<Category />} />
       <Route
         path="checkout"

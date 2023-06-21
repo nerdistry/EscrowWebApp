@@ -10,6 +10,7 @@ import userIcon from "../../assets/images/user-icon.png";
 import { signOut } from "firebase/auth";
 import { auth } from "../../firebase";
 import { toast } from "react-toastify";
+import { useSelector } from "react-redux";
 
 const nav_links = [
   {
@@ -28,6 +29,7 @@ const nav_links = [
 
 const Header = () => {
   // const navigate = useNavigate();
+  const totalQuantity = useSelector(state => state.cart.totalQuantity)
 
   const { currentUser } = useAuth();
   const uName = currentUser?.displayName;
@@ -91,7 +93,7 @@ const Header = () => {
 
             <div className="nav__icons">
               <span className="fav__icon"><i className="ri-heart-line"></i><span className="badge">1</span></span>
-              <span className="cart__icon"><i className="ri-shopping-cart-2-fill"></i><span className="badge">1</span></span>
+              <span className="cart__icon"><i className="ri-shopping-cart-2-fill"></i><span className="badge">{totalQuantity}</span></span>
 
               <div className="profile">
                 <motion.div whileTap={{ scale: 1.05 }} whileHover={{ opacity: 0.7 }} className="account" onClick={toggleProfileActions}>

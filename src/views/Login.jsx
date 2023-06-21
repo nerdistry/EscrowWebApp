@@ -187,7 +187,11 @@ const Login = () => {
                                         </FormGroup>
 
                                         <button type="submit" className='buy_button auth_btn mb-4'>Login</button>
-                                        <p className='or'><hr />or<hr /></p>
+
+
+                                        <div className='or'><hr />or<hr /></div>
+
+{/****************************   SOCIAL LOGIN   ****************************/}
                                         <div className="social mb-5">
 
                                             <motion.div whileTap={{ scale: 1.05 }} whileHover={{ opacity: 0.5 }} className="social_item" onClick={signUpWithGoogle}>
