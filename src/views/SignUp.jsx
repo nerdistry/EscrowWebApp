@@ -5,7 +5,7 @@ import googleImg from "../assets/images/google.png"
 import facebookImg from "../assets/images/facebook.svg"
 import twitterImg from "../assets/images/twitter.svg"
 
-import { Container, Row, Col, Form, FormGroup } from 'reactstrap'
+import { Container, Row, Col, Form, FormGroup, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap'
 import { Link, useNavigate } from 'react-router-dom'
 import { motion } from 'framer-motion'
 import { toast } from 'react-toastify'
@@ -25,7 +25,8 @@ const SignUp = () => {
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
   const [profilePicture, setProfilePicture] = useState(null);
-
+  const [user, setUser] = useState("")
+  const [modal, setModal] = useState(false);
 
   const signup = async (e) => {
     e.preventDefault();
@@ -33,8 +34,9 @@ const SignUp = () => {
 
     try {
       const userCredential = await createUserWithEmailAndPassword(auth, email, password);
-      const user = userCredential.user;
+      setUser(userCredential.user);
       sendEmailVerification(user);
+      setModal(true);
 
       updateProfile(user, {
         displayName: username,
@@ -72,8 +74,10 @@ const SignUp = () => {
       if (error.code === 'auth/weak-password') {
         toast.error('Weak Password');
       } else if (error.code === 'auth/email-already-in-use') {
-        toast.error("Email is already in use");
-      } else if (error.code === 'auth/invalid-email') {
+        toast.error("Account already exists");
+      } else if (error.code === 'auth/account-exists-with-different-credential') {
+        toast.error("Account already exists");
+      }else if (error.code === 'auth/invalid-email') {
         toast.error("Invalid Email");
       } else {
         console.log(error.message);
@@ -122,7 +126,9 @@ const SignUp = () => {
         console.log(error.message);
       } else if (error.code === 'auth/internal-error') {
         toast.error("Something went wrong. Try Again");
-      } else {
+      } else if (error.code === 'auth/account-exists-with-different-credential') {
+        toast.error("Account already exists");
+      }else {
         console.log(error.message);
         toast.error("Something went wrong. Try Again");
       }
@@ -138,7 +144,7 @@ const SignUp = () => {
     try {
       const twprovider = new TwitterAuthProvider();
       const result = await signInWithPopup(auth, twprovider);
-      const user = result.user;
+      setUser(result.user);
       console.log(user);
 
       setDoc(doc(db, 'users', user.uid), {
@@ -175,7 +181,7 @@ const SignUp = () => {
     try {
       const googleprovider = new GoogleAuthProvider();
       const userCredential = await signInWithPopup(auth, googleprovider);
-      const user = userCredential.user;
+      setUser(userCredential.user);
       console.log(userCredential);
 
       setDoc(doc(db, 'users', user.uid), {
@@ -196,7 +202,9 @@ const SignUp = () => {
       setLoading(false);
       if (error.code === 'auth/popup-closed-by-user') {
         console.log(error.message)
-      } else {
+      } else if (error.code === 'auth/account-exists-with-different-credential') {
+        toast.error("Account already exists");
+      }else {
         console.log(error.message);
         toast.error(error.code);
       }
@@ -294,6 +302,25 @@ const SignUp = () => {
           </Row>
         </Container>
       </section>
+
+      <Modal isOpen={modal} toggle={() => setModal(false)} backdrop="static" keyboard={false} className='popup'>
+
+<ModalHeader toggle={() => setModal(false)} className='popup_header'>
+    Verify Email
+</ModalHeader>
+<ModalBody className='popup_body'>
+    <p>Click the Link send to your Email to verify your account</p>
+    <button onClick={() => sendEmailVerification(user)} className='popup_btn'>Resend Email</button>
+</ModalBody>
+<ModalFooter>
+    <button onClick={() => { 
+        setModal(false);
+        window.location.reload();
+         }} className='popup_btn'>
+        Close
+    </button>
+</ModalFooter>
+</Modal>
     </Helmet>
   )
 }

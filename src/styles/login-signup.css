@@ -1,4 +1,4 @@
-.auth_form {
+.auth_form, .validate {
     padding: 40px;
     border-radius: 5px;
     margin-top: 4px;
@@ -56,6 +56,7 @@
     align-items: center;
     justify-content: center;
 }
+
 .social_item {
     display: flex;
     justify-content: space-around;
@@ -68,11 +69,35 @@
     cursor: pointer;
 }
 
-.social_item img {
+.social_item img, .social_item i {
     width: 1.8rem;
     height: 1.8rem;
 }
 
 .social_item p {
     color:white;
+}
+
+.popup {
+    vertical-align: middle;
+    align-items: center;
+}
+
+.popup_body {
+    align-items: center;
+}
+
+.popup_btn {
+    background-color: white;
+    color: var(--primary-color);
+    font-weight: 600;
+    border-radius: 10px;
+    border: 3px var(--primary-color) solid;
+    padding: 10px 20px;
+    transition: .3s ease-in-out;
+}
+
+.popup_btn:hover {
+    color: white;
+    background-color: var(--primary-color);
 }

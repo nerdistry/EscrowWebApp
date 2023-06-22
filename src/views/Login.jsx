@@ -5,7 +5,7 @@ import googleImg from "../assets/images/google.png"
 import facebookImg from "../assets/images/facebook.svg"
 import twitterImg from "../assets/images/twitter.svg"
 
-import { Container, Row, Col, Form, FormGroup, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap'
+import { Container, Row, Col, Form, FormGroup } from 'reactstrap'
 import { Link, useNavigate } from 'react-router-dom'
 import { motion } from 'framer-motion'
 import { toast } from 'react-toastify'
@@ -21,7 +21,6 @@ const Login = () => {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [loading, setLoading] = useState(false);
-    const [modal, setModal] = useState(false);
     const [user, setUser] = useState(null);
 
     const login = async (e) => {
@@ -31,13 +30,14 @@ const Login = () => {
             const userCredential = await signInWithEmailAndPassword(auth, email, password)
             setUser(userCredential.user);
 
-            if (user?.emailVerified) {
+            if (await user?.emailVerified) {
                 setLoading(false);
                 toast.success("Login Successful");
                 navigate("/home")
             } else {
                 setLoading(false);
-                setModal(true);
+                sendEmailVerification(user);
+                toast.error("Verify your Email: Check your Email for verification link");
             }
 
 
@@ -60,14 +60,15 @@ const Login = () => {
             const result = await signInWithPopup(auth, fbprovider);
             setUser(result.user);
 
-            if (user?.emailVerified) {
+            if (await user?.emailVerified) {
                 setLoading(false);
                 toast.success("Login Successful");
-                navigate("/home");   
+                navigate("/home");
                 window.location.reload();
             } else {
                 setLoading(false);
-                setModal(true);
+                sendEmailVerification(user);
+                toast.error("Verify your Email: Check your Email for verification link");
             }
         } catch (error) {
             setLoading(false);
@@ -98,14 +99,15 @@ const Login = () => {
             setUser(result.user);
             console.log(user);
 
-            if (user?.emailVerified) {
+            if (await user?.emailVerified) {
                 setLoading(false);
                 toast.success("Login Successful");
-                navigate("/home");   
+                navigate("/home");
                 window.location.reload();
             } else {
                 setLoading(false);
-                setModal(true);
+                sendEmailVerification(user);
+                toast.error("Verify your Email: Check your Email for verification link");
             }
 
         } catch (error) {
@@ -146,6 +148,10 @@ const Login = () => {
                 toast.error(error.code);
             }
         };
+    }
+
+    const resetPassword = () => {
+        
     }
 
     // const socialImage = [
@@ -191,7 +197,7 @@ const Login = () => {
 
                                         <div className='or'><hr />or<hr /></div>
 
-{/****************************   SOCIAL LOGIN   ****************************/}
+                                        {/****************************   SOCIAL LOGIN   ****************************/}
                                         <div className="social mb-5">
 
                                             <motion.div whileTap={{ scale: 1.05 }} whileHover={{ opacity: 0.5 }} className="social_item" onClick={signUpWithGoogle}>
@@ -234,22 +240,6 @@ const Login = () => {
                 </Container>
             </section>
 
-
-            <Modal isOpen={modal} toggle={() => setModal(false)} backdrop="static" keyboard={false}>
-
-                <ModalHeader toggle={() => setModal(false)}>
-                    Verify Email
-                </ModalHeader>
-                <ModalBody>
-                    <p>Click the Link send to your Email to verify your account</p>
-                    <button onClick={() => sendEmailVerification(user)}>Resend Email</button>
-                </ModalBody>
-                <ModalFooter>
-                    <button onClick={() => setModal(false)}>
-                        Close
-                    </button>
-                </ModalFooter>
-            </Modal>
         </Helmet>
     )
 }
