@@ -14,6 +14,13 @@ import { toast } from 'react-toastify'
 import { auth, db } from '../firebase'
 import { setDoc, doc } from "firebase/firestore"
 import { createUserWithEmailAndPassword, GoogleAuthProvider, FacebookAuthProvider, TwitterAuthProvider, sendEmailVerification, signInWithPopup, updateProfile } from 'firebase/auth'
+
+  /********ADDED*******/
+
+    /********DONE*******/
+
+
+// import ConfirmPasswordInputField from "./ConfirmPasswordInputField";
 // import { ref, uploadBytesResumable, getDowloadURL } from 'firebase/storage'
 
 const SignUp = () => {
@@ -23,8 +30,54 @@ const SignUp = () => {
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+
+  /********ADDED*******/
+  const [confirmPassword, setConfirmPassword] = useState('');
+  const [emailError, setEmailError] = useState('');
+  const [passwordError, setPasswordError] = useState('');
+  const [confirmPasswordError, setConfirmPasswordError] = useState('');
+  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  const passwordRegex = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,20}$/;
+    /********DONE*******/
+
+
   const [loading, setLoading] = useState(false);
   const [profilePicture, setProfilePicture] = useState(null);
+
+    /********ADDED*******/
+
+    const handleEmailInput = (e) => {
+      setEmail(e.target.value);
+  
+      if (!emailRegex.test(e.target.value)) {
+        setEmailError('Invalid email format');
+      } else {
+        setEmailError('');
+      }
+    };
+
+  
+    const handlePasswordInput = (e) => {
+      setPassword(e.target.value);
+  
+      if (!passwordRegex.test(e.target.value)) {
+        setPasswordError('Password must be 6-20 characters and contain at least one number, one uppercase letter, and one lowercase letter');
+      } else {
+        setPasswordError('');
+      }
+    };
+  
+    const handleConfirmPasswordInput = (e) => {
+      setConfirmPassword(e.target.value);
+  
+      if (e.target.value !== password) {
+        setConfirmPasswordError('Passwords do not match');
+      } else {
+        setConfirmPasswordError('');
+      }
+    };      /********DONE*******/
+
+
 
 
   const signup = async (e) => {
@@ -64,7 +117,7 @@ const SignUp = () => {
       // })
 
       setLoading(false);
-      toast.success("Account created successfully");
+      toast.success("Account created successfully, check your email for activation link.");
       navigate('/login');
 
     } catch (error) {
@@ -238,14 +291,25 @@ const SignUp = () => {
                   <Form className="auth_form" onSubmit={signup}>
                     <FormGroup className='form-group'>
                       <input type="text" placeholder="Username" value={username} onChange={text => setUsername(text.target.value)} />
+                     
+
                     </FormGroup>
                     <FormGroup className='form-group'>
-                      <input type="email" placeholder="Enter your Email" value={email} onChange={text => setEmail(text.target.value)} />
+                      <input type="email" placeholder="Enter your Email" value={email} onChange={handleEmailInput} />
+                      {emailError && <div className="error" style={{color: 'orange'}}>{emailError}</div>}
                     </FormGroup>
 
                     <FormGroup className='form-group'>
-                      <input type="password" placeholder="Create password" value={password} onChange={text => setPassword(text.target.value)} />
+                    <input type="password" placeholder="Create password" value={password} onChange={handlePasswordInput} />
+                    {passwordError && <div className="error" style={{color: 'orange'}}>{passwordError}</div>}                    
                     </FormGroup>
+                    
+                    {/**** ADDED ********/}
+
+                    <FormGroup className='form-group'>
+                    <input type="password" placeholder="Confirm password" value={confirmPassword} onChange={handleConfirmPasswordInput} />
+                     {confirmPasswordError && <div className="error" style={{color: 'orange'}}>{confirmPasswordError}</div>}                    
+                     </FormGroup>
 
                     <button type="submit" className='buy_button auth_btn mb-4'>Sign Up</button>
 
