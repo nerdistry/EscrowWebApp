@@ -76,3 +76,19 @@
 .social_item p {
     color:white;
 }
+
+/* ADDED */
+.react-tel-input{
+    font-family: 'Poppins', sans-serif !important;
+    font-size: 16px !important;
+    
+
+}
+
+.react-tel-input .form-control{
+   height: 45px !important;
+   width:80% !important;
+   border: 0 !important;
+   box-sizing: border-box !important;
+}
+
