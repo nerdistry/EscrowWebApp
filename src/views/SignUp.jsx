@@ -1,3 +1,16 @@
+
+import React, { useState } from 'react'
+import Helmet from '../components/Helmet/Helmet'
+import "../styles/login-signup.css"
+import googleImg from "../assets/images/google.png"
+import facebookImg from "../assets/images/facebook.svg"
+import twitterImg from "../assets/images/twitter.svg"
+
+import { Container, Row, Col, Form, FormGroup, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap'
+import { Link, useNavigate } from 'react-router-dom'
+import { motion } from 'framer-motion'
+import { toast } from 'react-toastify'
+
 import React, { useState } from "react";
 import Helmet from "../components/Helmet/Helmet";
 import "../styles/login-signup.css";
@@ -9,6 +22,7 @@ import { Container, Row, Col, Form, FormGroup } from "reactstrap";
 import { Link, useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
 import { toast } from "react-toastify";
+
 
 //Auth
 import { auth, db } from "../firebase";
@@ -52,7 +66,9 @@ const SignUp = () => {
   /********DONE*******/
 
   const [loading, setLoading] = useState(false);
-  const [profilePicture, setProfilePicture] = useState(null);
+  const [profilePicture, setProfilePicture] = useState(
+  const [modal, setModal] = useState(false);
+
 
   /********ADDED*******/
 
@@ -88,6 +104,7 @@ const SignUp = () => {
     }
   }; /********DONE*******/
 
+
   const signup = async (e) => {
     e.preventDefault();
     setLoading(true);
@@ -100,6 +117,7 @@ const SignUp = () => {
       );
       const user = userCredential.user;
       sendEmailVerification(user);
+      setModal(true);
 
       updateProfile(user, {
         displayName: username,
@@ -130,6 +148,19 @@ const SignUp = () => {
       // })
 
       setLoading(false);
+
+      toast.success("Account created successfully: Check Email for Activation Link");
+
+    } catch (error) {
+      setLoading(false);
+      if (error.code === 'auth/weak-password') {
+        toast.error('Weak Password');
+      } else if (error.code === 'auth/email-already-in-use') {
+        toast.error("Account already exists");
+      } else if (error.code === 'auth/account-exists-with-different-credential') {
+        toast.error("Account already exists");
+      } else if (error.code === 'auth/invalid-email') {
+
       toast.success(
         "Account created successfully, check your email for activation link."
       );
@@ -141,9 +172,11 @@ const SignUp = () => {
       } else if (error.code === "auth/email-already-in-use") {
         toast.error("Email is already in use");
       } else if (error.code === "auth/invalid-email") {
+
         toast.error("Invalid Email");
       } else {
         console.log(error.message);
+        toast.error(error.message);
         toast.error("Something went wrong. Try Again");
       }
     }
@@ -159,16 +192,24 @@ const SignUp = () => {
       const user = result.user;
 
       const accessToken = result.access_token;
+
+      fetch(`https://graph.facebook.com/${result.user.providerData[0].uid}/picture?type=large&access_token=${accessToken}`).then((response) => response.blob())
+
       fetch(
         `https://graph.facebook.com/${result.user.providerData[0].uid}/picture?type=large&access_token=${accessToken}`
       )
         .then((response) => response.blob())
+
         .then((blob) => {
           setProfilePicture(URL.createObjectURL(blob));
           updateProfile(user, {
             photoURL: profilePicture,
           });
+
+        })
+
         });
+
 
       setDoc(doc(db, "users", user.uid), {
         userId: user.uid,
@@ -193,6 +234,8 @@ const SignUp = () => {
         console.log(error.message);
       } else if (error.code === "auth/internal-error") {
         toast.error("Something went wrong. Try Again");
+      } else if (error.code === 'auth/account-exists-with-different-credential') {
+        toast.error("Account already exists");
       } else {
         console.log(error.message);
         toast.error("Something went wrong. Try Again");
@@ -267,32 +310,21 @@ const SignUp = () => {
       }, 2000);
     } catch (error) {
       setLoading(false);
+
+      if (error.code === 'auth/popup-closed-by-user') {
+        console.log(error.message)
+      } else if (error.code === 'auth/account-exists-with-different-credential') {
+        toast.error("Account already exists");
+
       if (error.code === "auth/popup-closed-by-user") {
         console.log(error.message);
+
       } else {
         console.log(error.message);
         toast.error(error.code);
       }
     }
   };
-
-  // const socialImage = [
-  //   {
-  //     social: googleImg,
-  //     name: "Continue with Google",
-  //     func: { signUpWithGoogle }
-  //   },
-  //   {
-  //     social: facebookImg,
-  //     name: "Continue with Facebook",
-  //     func: {}
-  //   },
-  //   {
-  //     social: twitterImg,
-  //     name: "Continue with Twitter",
-  //     func: {}
-  //   },
-  // ];
 
   return (
     <Helmet title="SignUp">
@@ -430,6 +462,24 @@ const SignUp = () => {
           </Row>
         </Container>
       </section>
+
+      <Modal isOpen={modal} toggle={() => setModal(false)} backdrop="static" keyboard={false} className='popup'>
+
+        <ModalHeader toggle={() => setModal(false)} className='popup_header'>
+          Verify Email
+        </ModalHeader>
+        <ModalBody className='popup_body'>
+          <p>Click the Link send to your Email to verify your account</p>
+        </ModalBody>
+        <ModalFooter>
+          <button onClick={() => {
+            setModal(false);
+            navigate("/login");
+          }} className='popup_btn'>
+            Close
+          </button>
+        </ModalFooter>
+      </Modal>
     </Helmet>
   );
 };
