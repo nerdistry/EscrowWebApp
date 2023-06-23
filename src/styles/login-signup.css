@@ -1,4 +1,4 @@
-.auth_form {
+.auth_form, .validate {
     padding: 40px;
     border-radius: 5px;
     margin-top: 4px;
@@ -12,7 +12,14 @@
     font-weight: 600;
     transition: .3s ease-in-out;
     border-radius: 5px;
-    width: 50% !important;
+    padding: inherit 80px !important;
+}
+
+.reset_btn {
+    display: inline-flex;
+    align-items: center;
+    font-size: 14pt;
+    width: max-content;
 }
 
 .auth_btn:hover {
@@ -26,6 +33,11 @@
 
 .auth_form a{
     color: darkturquoise !important;
+}
+
+.auth_form .reset {
+    width: 100%;
+    text-align: right;
 }
 
 .auth_form input {
@@ -56,6 +68,7 @@
     align-items: center;
     justify-content: center;
 }
+
 .social_item {
     display: flex;
     justify-content: space-around;
@@ -68,13 +81,53 @@
     cursor: pointer;
 }
 
-.social_item img {
+.social_item img, .social_item i {
     width: 1.8rem;
     height: 1.8rem;
 }
 
 .social_item p {
     color:white;
+}
+
+
+.loader {
+    border: 5px solid rgb(153, 153, 153); /* Light grey */
+    border-top: 5px solid var(--primary-color); /* Blue */
+    border-radius: 50%;
+    margin-right: 20px;
+    width: 22px;
+    height: 22px;
+    animation: spin 1s linear infinite;
+  }
+  
+  @keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+  }
+
+.popup {
+    vertical-align: middle;
+    align-items: center;
+}
+
+.popup_body {
+    align-items: center;
+}
+
+.popup_btn {
+    background-color: white;
+    color: var(--primary-color);
+    font-weight: 600;
+    border-radius: 10px;
+    border: 3px var(--primary-color) solid;
+    padding: 10px 20px;
+    transition: .3s ease-in-out;
+}
+
+.popup_btn:hover {
+    color: white;
+    background-color: var(--primary-color);
 }
 
 /* ADDED */
