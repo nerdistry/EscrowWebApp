@@ -11,7 +11,9 @@ import Profile from "../views/Profile";
 import ProtectedRoute from "./ProtectedRoute";
 
 /******ADDED********/
+
 import ResetPassword from "../views/ResetPassword";
+
 import PhoneLogIn from "../views/PhoneLogIn";
 
 const Routers = () => {
@@ -32,9 +34,14 @@ const Routers = () => {
       />
       <Route path="login" element={<Login />} />
       <Route path="signup" element={<SignUp />} />
+
       <Route path="product/:id" element={<ProductDetails />} />
       <Route path="phonesignin" element={<PhoneLogIn />} />
       <Route path="resetpassword" element={<ResetPassword />} />
+
+      <Route path="category/:id" element={<ProductDetails />} />
+      <Route path="phonesignin" element={<PhoneLogIn />} />
+
     </Routes>
   );
 };

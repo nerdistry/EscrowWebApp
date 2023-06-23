@@ -90,6 +90,7 @@
     color:white;
 }
 
+
 .loader {
     border: 5px solid rgb(153, 153, 153); /* Light grey */
     border-top: 5px solid var(--primary-color); /* Blue */
@@ -128,6 +129,7 @@
     color: white;
     background-color: var(--primary-color);
 }
+
 /* ADDED */
 .react-tel-input{
     font-family: 'Poppins', sans-serif !important;
