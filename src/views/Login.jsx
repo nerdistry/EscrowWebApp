@@ -14,30 +14,33 @@ import { toast } from 'react-toastify'
 import { auth } from '../firebase'
 import { signInWithEmailAndPassword, GoogleAuthProvider, FacebookAuthProvider, TwitterAuthProvider, sendEmailVerification, signInWithPopup } from 'firebase/auth'
 
-
-
 const Login = () => {
     const navigate = useNavigate();
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [loading, setLoading] = useState(false);
-    const [user, setUser] = useState(null);
+    // set that a user cannot go back to login if they are already logged in / signed up
 
     const login = async (e) => {
         e.preventDefault();
         setLoading(true);
         try {
             const userCredential = await signInWithEmailAndPassword(auth, email, password)
-            setUser(userCredential.user);
+            const user = userCredential.user;
 
-            if (await user?.emailVerified) {
+            if (user?.emailVerified) {
                 setLoading(false);
                 toast.success("Login Successful");
+                console.log(user);
                 navigate("/home")
+                window.location.reload();
+
             } else {
                 setLoading(false);
+                setEmail(user.email);
+                setPassword(user.password);
                 sendEmailVerification(user);
-                toast.error("Verify your Email: Check your Email for verification link");
+                toast.error("Verify your Email: Check your Email for verification link");                
             }
 
 
@@ -58,18 +61,22 @@ const Login = () => {
         try {
             const fbprovider = new FacebookAuthProvider();
             const result = await signInWithPopup(auth, fbprovider);
-            setUser(result.user);
+            const user = result.user;
+            console.log(user)
 
-            if (await user?.emailVerified) {
-                setLoading(false);
-                toast.success("Login Successful");
-                navigate("/home");
-                window.location.reload();
-            } else {
-                setLoading(false);
-                sendEmailVerification(user);
-                toast.error("Verify your Email: Check your Email for verification link");
-            }
+            toast.success("Login Successful");
+            navigate("/home");
+
+            // if (user?.emailVerified) {
+            //     setLoading(false);
+            //     toast.success("Login Successful");
+            //     navigate("/home");
+            //     window.location.reload();
+            // } else {
+            //     setLoading(false);
+            //     sendEmailVerification(user);
+            //     toast.error("Verify your Email: Check your Email for verification link");
+            // }
         } catch (error) {
             setLoading(false);
             console.log(error);
@@ -96,19 +103,22 @@ const Login = () => {
         try {
             const twprovider = new TwitterAuthProvider();
             const result = await signInWithPopup(auth, twprovider);
-            setUser(result.user);
+            const user = result.user;
             console.log(user);
 
-            if (await user?.emailVerified) {
-                setLoading(false);
-                toast.success("Login Successful");
-                navigate("/home");
-                window.location.reload();
-            } else {
-                setLoading(false);
-                sendEmailVerification(user);
-                toast.error("Verify your Email: Check your Email for verification link");
-            }
+            toast.success("Login Successful");
+            navigate("/home");
+
+            // if (user?.emailVerified) {
+            //     setLoading(false);
+            //     toast.success("Login Successful");
+            //     navigate("/home");
+            //     window.location.reload();
+            // } else {
+            //     setLoading(false);
+            //     sendEmailVerification(user);
+            //     toast.error("Verify your Email: Check your Email for verification link");
+            // }
 
         } catch (error) {
             setLoading(false);
@@ -131,7 +141,7 @@ const Login = () => {
         try {
             const googleprovider = new GoogleAuthProvider();
             const userCredential = await signInWithPopup(auth, googleprovider);
-            setUser(userCredential.user);
+
             console.log(userCredential);
 
             setLoading(false);
@@ -148,10 +158,6 @@ const Login = () => {
                 toast.error(error.code);
             }
         };
-    }
-
-    const resetPassword = () => {
-        
     }
 
     // const socialImage = [
@@ -192,8 +198,8 @@ const Login = () => {
                                             <input type="password" placeholder="Enter your password" value={password} onChange={text => setPassword(text.target.value)} />
                                         </FormGroup>
 
+                                        <p><Link className='reset' to="/resetpassword">Forgot Password</Link></p>
                                         <button type="submit" className='buy_button auth_btn mb-4'>Login</button>
-
 
                                         <div className='or'><hr />or<hr /></div>
 

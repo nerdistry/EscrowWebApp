@@ -10,6 +10,10 @@ import ProductDetails from "../views/ProductDetails";
 import Profile from "../views/Profile";
 import ProtectedRoute from "./ProtectedRoute";
 
+/******ADDED********/
+import ResetPassword from "../views/ResetPassword";
+import PhoneLogIn from "../views/PhoneLogIn";
+
 const Routers = () => {
   return (
     <Routes>
@@ -29,6 +33,8 @@ const Routers = () => {
       <Route path="login" element={<Login />} />
       <Route path="signup" element={<SignUp />} />
       <Route path="product/:id" element={<ProductDetails />} />
+      <Route path="phonesignin" element={<PhoneLogIn />} />
+      <Route path="resetpassword" element={<ResetPassword />} />
     </Routes>
   );
 };

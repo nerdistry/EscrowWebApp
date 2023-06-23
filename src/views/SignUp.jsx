@@ -25,7 +25,6 @@ const SignUp = () => {
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
   const [profilePicture, setProfilePicture] = useState(null);
-  const [user, setUser] = useState("")
   const [modal, setModal] = useState(false);
 
   const signup = async (e) => {
@@ -34,7 +33,7 @@ const SignUp = () => {
 
     try {
       const userCredential = await createUserWithEmailAndPassword(auth, email, password);
-      setUser(userCredential.user);
+      const user = userCredential.user;
       sendEmailVerification(user);
       setModal(true);
 
@@ -66,8 +65,7 @@ const SignUp = () => {
       // })
 
       setLoading(false);
-      toast.success("Account created successfully");
-      navigate('/login');
+      toast.success("Account created successfully: Check Email for Activation Link");
 
     } catch (error) {
       setLoading(false);
@@ -77,10 +75,11 @@ const SignUp = () => {
         toast.error("Account already exists");
       } else if (error.code === 'auth/account-exists-with-different-credential') {
         toast.error("Account already exists");
-      }else if (error.code === 'auth/invalid-email') {
+      } else if (error.code === 'auth/invalid-email') {
         toast.error("Invalid Email");
       } else {
         console.log(error.message);
+        toast.error(error.message);
         toast.error("Something went wrong. Try Again");
       }
     }
@@ -95,15 +94,15 @@ const SignUp = () => {
       const fbprovider = new FacebookAuthProvider();
       const result = await signInWithPopup(auth, fbprovider);
       const user = result.user;
-      
+
       const accessToken = result.access_token;
-      fetch(`https://graph.facebook.com/${result.user.providerData[0].uid}/picture?type=large&access_token=${accessToken}`).then((response)=>response.blob())
-      .then((blob)=>{
-        setProfilePicture(URL.createObjectURL(blob));
-        updateProfile(user, {
-          photoURL: profilePicture,
-        });
-      })
+      fetch(`https://graph.facebook.com/${result.user.providerData[0].uid}/picture?type=large&access_token=${accessToken}`).then((response) => response.blob())
+        .then((blob) => {
+          setProfilePicture(URL.createObjectURL(blob));
+          updateProfile(user, {
+            photoURL: profilePicture,
+          });
+        })
 
       setDoc(doc(db, 'users', user.uid), {
         userId: user.uid,
@@ -128,7 +127,7 @@ const SignUp = () => {
         toast.error("Something went wrong. Try Again");
       } else if (error.code === 'auth/account-exists-with-different-credential') {
         toast.error("Account already exists");
-      }else {
+      } else {
         console.log(error.message);
         toast.error("Something went wrong. Try Again");
       }
@@ -144,7 +143,7 @@ const SignUp = () => {
     try {
       const twprovider = new TwitterAuthProvider();
       const result = await signInWithPopup(auth, twprovider);
-      setUser(result.user);
+      const user = result.user;
       console.log(user);
 
       setDoc(doc(db, 'users', user.uid), {
@@ -181,7 +180,7 @@ const SignUp = () => {
     try {
       const googleprovider = new GoogleAuthProvider();
       const userCredential = await signInWithPopup(auth, googleprovider);
-      setUser(userCredential.user);
+      const user = userCredential.user;
       console.log(userCredential);
 
       setDoc(doc(db, 'users', user.uid), {
@@ -204,30 +203,12 @@ const SignUp = () => {
         console.log(error.message)
       } else if (error.code === 'auth/account-exists-with-different-credential') {
         toast.error("Account already exists");
-      }else {
+      } else {
         console.log(error.message);
         toast.error(error.code);
       }
     };
   }
-
-  // const socialImage = [
-  //   {
-  //     social: googleImg,
-  //     name: "Continue with Google",
-  //     func: { signUpWithGoogle }
-  //   },
-  //   {
-  //     social: facebookImg,
-  //     name: "Continue with Facebook",
-  //     func: {}
-  //   },
-  //   {
-  //     social: twitterImg,
-  //     name: "Continue with Twitter",
-  //     func: {}
-  //   },
-  // ];
 
   return (
     <Helmet title="SignUp">
@@ -305,22 +286,21 @@ const SignUp = () => {
 
       <Modal isOpen={modal} toggle={() => setModal(false)} backdrop="static" keyboard={false} className='popup'>
 
-<ModalHeader toggle={() => setModal(false)} className='popup_header'>
-    Verify Email
-</ModalHeader>
-<ModalBody className='popup_body'>
-    <p>Click the Link send to your Email to verify your account</p>
-    <button onClick={() => sendEmailVerification(user)} className='popup_btn'>Resend Email</button>
-</ModalBody>
-<ModalFooter>
-    <button onClick={() => { 
-        setModal(false);
-        window.location.reload();
-         }} className='popup_btn'>
-        Close
-    </button>
-</ModalFooter>
-</Modal>
+        <ModalHeader toggle={() => setModal(false)} className='popup_header'>
+          Verify Email
+        </ModalHeader>
+        <ModalBody className='popup_body'>
+          <p>Click the Link send to your Email to verify your account</p>
+        </ModalBody>
+        <ModalFooter>
+          <button onClick={() => {
+            setModal(false);
+            navigate("/login");
+          }} className='popup_btn'>
+            Close
+          </button>
+        </ModalFooter>
+      </Modal>
     </Helmet>
   )
 }
