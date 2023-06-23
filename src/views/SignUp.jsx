@@ -103,6 +103,7 @@ const SignUp = () => {
 
       updateProfile(user, {
         displayName: username,
+        phoneNumber: phoneNumber,
       });
 
       setDoc(doc(db, "users", user.uid), {
