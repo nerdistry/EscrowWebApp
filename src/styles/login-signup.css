@@ -1,4 +1,4 @@
-.auth_form {
+.auth_form, .validate {
     padding: 40px;
     border-radius: 5px;
     margin-top: 4px;
@@ -90,7 +90,6 @@
     color:white;
 }
 
-
 .loader {
     border: 5px solid rgb(153, 153, 153); /* Light grey */
     border-top: 5px solid var(--primary-color); /* Blue */
@@ -129,7 +128,6 @@
     color: white;
     background-color: var(--primary-color);
 }
-
 /* ADDED */
 .react-tel-input{
     font-family: 'Poppins', sans-serif !important;
@@ -138,10 +136,14 @@
 
 }
 
+.form-group {
+    width: 100% !important;
+    align-items: center !important;
+}
+
 .react-tel-input .form-control{
    height: 45px !important;
    width:80% !important;
    border: 0 !important;
    box-sizing: border-box !important;
 }
-

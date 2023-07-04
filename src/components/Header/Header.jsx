@@ -32,8 +32,7 @@ const Header = () => {
   const totalQuantity = useSelector(state => state.cart.totalQuantity)
 
   const { currentUser } = useAuth();
-  console.log(currentUser);
-  // const uName = currentUser?.displayName;
+  const uName = currentUser?.displayName;
 
   const headerRef = useRef(null);
   const stickyHeaderFunc = () => {
@@ -99,7 +98,7 @@ const Header = () => {
               <div className="profile">
                 <motion.div whileTap={{ scale: 1.05 }} whileHover={{ opacity: 0.7 }} className="account" onClick={toggleProfileActions}>
                   <img src={currentUser ? (currentUser.photoURL ? currentUser.photoURL : userIcon) : userIcon} alt="" />&nbsp;
-                  {currentUser ? currentUser.displayName : "Account"}
+                  {currentUser ? uName : "Account"}
                 </motion.div>
 
                 <div className="account_actions" ref={profileActionRef} onClick={toggleProfileActions}>

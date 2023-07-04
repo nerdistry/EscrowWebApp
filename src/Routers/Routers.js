@@ -39,9 +39,6 @@ const Routers = () => {
       <Route path="phonesignin" element={<PhoneLogIn />} />
       <Route path="resetpassword" element={<ResetPassword />} />
 
-      <Route path="category/:id" element={<ProductDetails />} />
-      <Route path="phonesignin" element={<PhoneLogIn />} />
-
     </Routes>
   );
 };

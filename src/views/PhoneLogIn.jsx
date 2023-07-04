@@ -9,6 +9,7 @@ import { Link, useNavigate } from "react-router-dom";
 import PhoneInput from "react-phone-input-2";
 import { parsePhoneNumberFromString } from "libphonenumber-js";
 import app from "../firebase";
+import { toast } from "react-toastify";
 
 const PhoneLogIn = () => {
   const [error, setError] = useState("");
@@ -58,6 +59,7 @@ const PhoneLogIn = () => {
       const verificationResult = await result.confirm(otp);
       if (verificationResult.user) {
         navigate("/home");
+        toast.success("Login Successful");
       } else {
         setError("Failed to verify OTP");
       }
@@ -71,9 +73,9 @@ const PhoneLogIn = () => {
   return (
     <>
       <div className="p-4 box">
-        <h2 className="mb-3">Firebase Phone Auth</h2>
+        <h2 className="mb-3 text-center">Easy Buy Phone Authentication</h2>
         {error && <Alert color="danger">{error}</Alert>}
-        <Form onSubmit={getOtp} style={{ display: !flag ? "block" : "none" }}>
+        <Form onSubmit={getOtp} style={{ display: !flag ? "block" : "none" }} className="auth_form">
           <FormGroup className="mb-3" controlId="formBasicEmail">
             <PhoneInput
                country={"ke"}
@@ -105,7 +107,7 @@ const PhoneLogIn = () => {
             />
           </FormGroup>
           <div className="button-right">
-            <Link to="/">
+            <Link to="/login">
               <Button color="secondary">Cancel</Button>
             </Link>
             &nbsp;
@@ -117,6 +119,7 @@ const PhoneLogIn = () => {
       </div>
     </>
   );
+
 };
 
 export default PhoneLogIn;

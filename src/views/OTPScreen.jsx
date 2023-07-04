@@ -1,4 +1,4 @@
-<Form onSubmit={getOtp}>
+<Form onSubmit={getOtp} className="auth_form">
 <FormGroup>
   <PhoneInput
     placeholder="Enter the number you registered with"

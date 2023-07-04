@@ -1,16 +1,3 @@
-
-import React, { useState } from 'react'
-import Helmet from '../components/Helmet/Helmet'
-import "../styles/login-signup.css"
-import googleImg from "../assets/images/google.png"
-import facebookImg from "../assets/images/facebook.svg"
-import twitterImg from "../assets/images/twitter.svg"
-
-import { Container, Row, Col, Form, FormGroup, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap'
-import { Link, useNavigate } from 'react-router-dom'
-import { motion } from 'framer-motion'
-import { toast } from 'react-toastify'
-
 import React, { useState } from "react";
 import Helmet from "../components/Helmet/Helmet";
 import "../styles/login-signup.css";
@@ -18,12 +5,20 @@ import googleImg from "../assets/images/google.png";
 import facebookImg from "../assets/images/facebook.svg";
 import twitterImg from "../assets/images/twitter.svg";
 
-import { Container, Row, Col, Form, FormGroup } from "reactstrap";
+import {
+  Container,
+  Row,
+  Col,
+  Form,
+  FormGroup,
+  Modal,
+  ModalHeader,
+  ModalBody,
+  ModalFooter,
+} from "reactstrap";
 import { Link, useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
 import { toast } from "react-toastify";
-
-
 //Auth
 import { auth, db } from "../firebase";
 import { setDoc, doc } from "firebase/firestore";
@@ -66,9 +61,8 @@ const SignUp = () => {
   /********DONE*******/
 
   const [loading, setLoading] = useState(false);
-  const [profilePicture, setProfilePicture] = useState(
+  const [profilePicture, setProfilePicture] = useState(null);
   const [modal, setModal] = useState(false);
-
 
   /********ADDED*******/
 
@@ -104,7 +98,6 @@ const SignUp = () => {
     }
   }; /********DONE*******/
 
-
   const signup = async (e) => {
     e.preventDefault();
     setLoading(true);
@@ -121,7 +114,6 @@ const SignUp = () => {
 
       updateProfile(user, {
         displayName: username,
-        phoneNumber: phoneNumber,
       });
 
       setDoc(doc(db, "users", user.uid), {
@@ -148,21 +140,8 @@ const SignUp = () => {
       // })
 
       setLoading(false);
-
-      toast.success("Account created successfully: Check Email for Activation Link");
-
-    } catch (error) {
-      setLoading(false);
-      if (error.code === 'auth/weak-password') {
-        toast.error('Weak Password');
-      } else if (error.code === 'auth/email-already-in-use') {
-        toast.error("Account already exists");
-      } else if (error.code === 'auth/account-exists-with-different-credential') {
-        toast.error("Account already exists");
-      } else if (error.code === 'auth/invalid-email') {
-
       toast.success(
-        "Account created successfully, check your email for activation link."
+        "Account created successfully: Check email for activation link."
       );
       navigate("/login");
     } catch (error) {
@@ -170,9 +149,12 @@ const SignUp = () => {
       if (error.code === "auth/weak-password") {
         toast.error("Weak Password");
       } else if (error.code === "auth/email-already-in-use") {
-        toast.error("Email is already in use");
+        toast.error("Account already exists");
+      } else if (
+        error.code === "auth/account-exists-with-different-credential"
+      ) {
+        toast.error("Account already exists");
       } else if (error.code === "auth/invalid-email") {
-
         toast.error("Invalid Email");
       } else {
         console.log(error.message);
@@ -192,24 +174,16 @@ const SignUp = () => {
       const user = result.user;
 
       const accessToken = result.access_token;
-
-      fetch(`https://graph.facebook.com/${result.user.providerData[0].uid}/picture?type=large&access_token=${accessToken}`).then((response) => response.blob())
-
       fetch(
         `https://graph.facebook.com/${result.user.providerData[0].uid}/picture?type=large&access_token=${accessToken}`
       )
         .then((response) => response.blob())
-
         .then((blob) => {
           setProfilePicture(URL.createObjectURL(blob));
           updateProfile(user, {
             photoURL: profilePicture,
           });
-
-        })
-
         });
-
 
       setDoc(doc(db, "users", user.uid), {
         userId: user.uid,
@@ -234,7 +208,9 @@ const SignUp = () => {
         console.log(error.message);
       } else if (error.code === "auth/internal-error") {
         toast.error("Something went wrong. Try Again");
-      } else if (error.code === 'auth/account-exists-with-different-credential') {
+      } else if (
+        error.code === "auth/account-exists-with-different-credential"
+      ) {
         toast.error("Account already exists");
       } else {
         console.log(error.message);
@@ -310,21 +286,32 @@ const SignUp = () => {
       }, 2000);
     } catch (error) {
       setLoading(false);
-
-      if (error.code === 'auth/popup-closed-by-user') {
-        console.log(error.message)
-      } else if (error.code === 'auth/account-exists-with-different-credential') {
-        toast.error("Account already exists");
-
       if (error.code === "auth/popup-closed-by-user") {
         console.log(error.message);
-
       } else {
         console.log(error.message);
         toast.error(error.code);
       }
     }
   };
+
+  // const socialImage = [
+  //   {
+  //     social: googleImg,
+  //     name: "Continue with Google",
+  //     func: { signUpWithGoogle }
+  //   },
+  //   {
+  //     social: facebookImg,
+  //     name: "Continue with Facebook",
+  //     func: {}
+  //   },
+  //   {
+  //     social: twitterImg,
+  //     name: "Continue with Twitter",
+  //     func: {}
+  //   },
+  // ];
 
   return (
     <Helmet title="SignUp">
@@ -462,20 +449,27 @@ const SignUp = () => {
           </Row>
         </Container>
       </section>
-
-      <Modal isOpen={modal} toggle={() => setModal(false)} backdrop="static" keyboard={false} className='popup'>
-
-        <ModalHeader toggle={() => setModal(false)} className='popup_header'>
+      <Modal
+        isOpen={modal}
+        toggle={() => setModal(false)}
+        backdrop="static"
+        keyboard={false}
+        className="popup"
+      >
+        <ModalHeader toggle={() => setModal(false)} className="popup_header">
           Verify Email
         </ModalHeader>
-        <ModalBody className='popup_body'>
+        <ModalBody className="popup_body">
           <p>Click the Link send to your Email to verify your account</p>
         </ModalBody>
         <ModalFooter>
-          <button onClick={() => {
-            setModal(false);
-            navigate("/login");
-          }} className='popup_btn'>
+          <button
+            onClick={() => {
+              setModal(false);
+              navigate("/login");
+            }}
+            className="popup_btn"
+          >
             Close
           </button>
         </ModalFooter>
