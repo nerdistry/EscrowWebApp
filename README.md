@@ -62,11 +62,13 @@ $ npm start
 ```
 
 > **Note**
-⚠️ We are using testnets for this web application and for security reasons it is highly recommended you follow suit. ⚠️
+>
+> ⚠️ We are using testnets for this web application, and for security reasons, it is highly recommended you follow suit. ⚠️
+>
+> If you're using Linux Bash for Windows, [see this guide](https://www.howtogeek.com/261575/how-to-run-graphical-linux-desktop-applications-from-windows-10s-bash-shell/) or use `node` from the command prompt.
+>
+> Check the above gif if you're stuck.
 
-If you're using Linux Bash for Windows, [see this guide](https://www.howtogeek.com/261575/how-to-run-graphical-linux-desktop-applications-from-windows-10s-bash-shell/) or use `node` from the command prompt.
-
-Check the above gif if you're stuck.
 
 ## Download
 
