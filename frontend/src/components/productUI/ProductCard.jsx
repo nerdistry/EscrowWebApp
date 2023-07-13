@@ -15,7 +15,7 @@ const ProductCard = ({ item }) => {
             id: item.id,
             productName: item.productName,
             price: item.price,
-            image: item.imgUrl,
+            imgUrl: item.imgUrl,
         })
         );
 
@@ -24,8 +24,8 @@ const ProductCard = ({ item }) => {
 
     return (
         <Col lg="3" md="4">
-            <motion.div whileHover={{ scale: 0.9 }} className="product_item">
-                <Link to={`/category/${item.id}`}>
+            <motion.div whileHover={{ scale: 0.95 }} className="product_item">
+                <Link to={`/product/${item.id}`}>
                     <div className="product_img">
                         <img src={item.imgUrl} alt="" />
                     </div>

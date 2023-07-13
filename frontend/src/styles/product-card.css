@@ -1,6 +1,6 @@
 .product_item {
     cursor: pointer;
-
+    border-radius: 5px;
 }
 
 .product_info h3{
@@ -33,3 +33,4 @@
     border-radius: 50px;
     cursor: pointer;
 }
+
