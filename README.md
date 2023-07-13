@@ -13,13 +13,14 @@
     <img src="https://img.shields.io/badge/MongoDB-%234ea94b.svg?style=for-the-badge&logo=mongodb&logoColor=white"
          alt="MongoDB">
   </a>
+  
+
 
   <a href="https://soliditylang.org/">
       <img src="https://img.shields.io/badge/Solidity-%23363636.svg?style=for-the-badge&logo=solidity&logoColor=white" alt="Solidity">
   </a>
 
-    <a href="https://soliditylang.org/">
-      <img src="https://img.shields.io/badge/Solidity-%23363636.svg?style=for-the-badge&logo=solidity&logoColor=white" alt="Solidity">
+    <a href="https://nodejs.org/en"><img src="https://img.shields.io/badge/node.js-6DA55F?style=for-the-badge&logo=node.js&logoColor=white" alt="NodeJS">
   </a>
 
 </p>
