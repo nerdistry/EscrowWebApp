@@ -114,6 +114,7 @@ const SignUp = () => {
 
       updateProfile(user, {
         displayName: username,
+        phoneNumber,
       });
 
       setDoc(doc(db, "users", user.uid), {
@@ -122,7 +123,6 @@ const SignUp = () => {
         email,
         phoneNumber,
         photoURL: null,
-        phoneNo: null,
         userRole: "buyer", // ?????????????????????????????????????????????????????
       });
 
@@ -385,6 +385,7 @@ const SignUp = () => {
 
                   <FormGroup className="form-group">
                     <PhoneInput
+                      className="PhoneInput"
                       country={"ke"} // default selected country, can be changed according to your preference
                       value={phoneNumber}
                       onChange={(phone) => setPhoneNumber(phone)}

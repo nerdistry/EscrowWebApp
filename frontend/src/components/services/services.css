@@ -27,3 +27,19 @@
     margin-top: 4px;
     color: rgb(119, 119, 119);
 }
+
+
+@media only screen and (max-width: 992px) {
+    .service_item span i{
+        font-size: 1.8rem;
+        padding: 5px;
+    }
+
+    .service_item h3 {
+        font-size: 1rem;
+    }
+
+    .service_item {
+        padding: 10px;
+    }
+}
