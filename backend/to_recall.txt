@@ -1,0 +1,24 @@
+Credentials
+{
+    "firstname":"Bryan",
+    "lastname":"Mutinda",
+    "email":"mutinda.bryan@strathmore.edu",
+    "mobile": "0723637132",
+    "password": "Bryan@EasyBuy1"
+}
+
+{
+    "firstname":"Arabella",
+    "lastname":"Mutende",
+    "email":"arabella.mutende@strathmore.edu",
+    "mobile": "0746853020",
+    "password": "Bella@EasyBuy1"
+}
+
+What I haven't done cause it's Blockchain related:
+- Make admin update and delete their products (as would a normal ecommerce do)  instead the one who uploads can delete.
+
+
+- Didn't use code grepper, might come to regret?
+- Haven't done blog, no need for it.?
+- Multer Sharp Cloudinary
