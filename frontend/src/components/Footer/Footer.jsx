@@ -45,13 +45,13 @@ const Footer = () => {
 
           <Col lg="2">
             <div className="footer_quick_links">
-              <h4 className="quick_link_title">Useful Link</h4>
+              <h4 className="quick_link_title">Useful Links</h4>
               <ListGroup className='mb-3'>
                 <ListGroupItem className='ps-0 border-0'>
                   <Link to="/home">Home</Link>
                 </ListGroupItem>
                 <ListGroupItem className='ps-0 border-0'>
-                  <Link to="/category">Category</Link>
+                  <Link to="/products">Products</Link>
                 </ListGroupItem>
                 <ListGroupItem className='ps-0 border-0'>
                   <Link to="/cart">Cart</Link>

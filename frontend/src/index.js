@@ -18,11 +18,10 @@ root.render(
         <ToastContainer
         theme="dark"
           position="top-right"
-          autoClose={3000}
+          autoClose={2000}
           closeOnClick
           draggable
           pauseOnHover={false}
-          
         />
 
         <App />

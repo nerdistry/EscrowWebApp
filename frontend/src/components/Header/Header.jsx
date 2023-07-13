@@ -1,7 +1,7 @@
-import React, { useRef, useEffect } from "react";
-import { Link, NavLink } from "react-router-dom";
+import React, { useRef, useEffect, useState } from "react";
+import { NavLink, useNavigate } from "react-router-dom";
 import "./header.css";
-import { Container, Row } from "reactstrap";
+import { Container, Modal, ModalBody, ModalFooter, ModalHeader, Row } from "reactstrap";
 import { motion } from "framer-motion";
 import useAuth from "../../custom-hooks/useAuth"
 
@@ -18,8 +18,8 @@ const nav_links = [
     display: "Home",
   },
   {
-    path: "category",
-    display: "Category",
+    path: "products",
+    display: "Products",
   },
   {
     path: "cart",
@@ -28,19 +28,28 @@ const nav_links = [
 ];
 
 const Header = () => {
-  // const navigate = useNavigate();
-  const totalQuantity = useSelector(state => state.cart.totalQuantity)
+  const headerRef = useRef(null);
+  const [modal, setModal] = useState(false);
+
+
+  const navigate = useNavigate();
+  const totalQuantity = useSelector((state) => state.cart.totalQuantity)
 
   const { currentUser } = useAuth();
   const uName = currentUser?.displayName;
 
-  const headerRef = useRef(null);
+  const navigateToCart = () => {
+    navigate('/cart');
+  }
+
   const stickyHeaderFunc = () => {
     window.addEventListener('scroll', () => {
-      if (document.body.scrollTop > 80 || document.documentElement.scrollTop > 80) {
-        headerRef.current.classList.add("sticky_header");
-      } else {
-        headerRef.current.classList.remove("sticky_header");
+      if (headerRef.current) {
+        if (document.body.scrollTop > 80 || document.documentElement.scrollTop > 80) {
+          headerRef.current.classList.add("sticky_header");
+        } else {
+          headerRef.current.classList.remove("sticky_header");
+        }
       }
     })
   }
@@ -49,7 +58,7 @@ const Header = () => {
   const logout = () => {
     signOut(auth).then(() => {
       toast.success("Logout Successful")
-      window.location.reload(); 
+      window.location.reload();
 
     }).catch((err) => {
       toast.error(err.message);
@@ -57,16 +66,18 @@ const Header = () => {
   }
 
   useEffect(() => {
-    stickyHeaderFunc()
+    stickyHeaderFunc();
     return () => window.removeEventListener("scroll", stickyHeaderFunc)
   });
 
   const toggleProfileActions = () => {
-    profileActionRef.current.classList.toggle('show_profileActions');
+    if (profileActionRef.current) {
+      profileActionRef.current.classList.toggle('show_profileActions');
+    }
   };
 
   return (
-    <header className="header" ref={headerRef} >
+    <header className="header" ref={headerRef}>
       <Container>
         <Row>
           <div className="nav__wrapper">
@@ -93,7 +104,7 @@ const Header = () => {
 
             <div className="nav__icons">
               <span className="fav__icon"><i className="ri-heart-line"></i><span className="badge">1</span></span>
-              <span className="cart__icon"><i className="ri-shopping-cart-2-fill"></i><span className="badge">{totalQuantity}</span></span>
+              <span className="cart__icon" onClick={navigateToCart}><i className="ri-shopping-cart-2-fill"></i><span className="badge">{totalQuantity}</span></span>
 
               <div className="profile">
                 <motion.div whileTap={{ scale: 1.05 }} whileHover={{ opacity: 0.7 }} className="account" onClick={toggleProfileActions}>
@@ -105,21 +116,21 @@ const Header = () => {
                   {
                     currentUser ? (
                       <div>
-                        <Link to="/profile" className="account_action">
+                        <NavLink to="/profile" className="account_action">
                           Profile
-                        </Link>
-                        <span onClick={logout}>
+                        </NavLink>
+                        <span onClick={setModal}>
                           Logout
                         </span>
                       </div>
                     ) : (
                       <div>
-                        <Link to="login" className="account_action">
+                        <NavLink to="login" className="account_action">
                           Login
-                        </Link>
-                        <Link to="signup" className="account_action">
+                        </NavLink>
+                        <NavLink to="signup" className="account_action">
                           Sign Up
-                        </Link>
+                        </NavLink>
                       </div>
                     )
                   }
@@ -134,6 +145,42 @@ const Header = () => {
 
         </Row>
       </Container>
+
+      <Modal
+        isOpen={modal}
+        toggle={() => setModal(false)}
+        backdrop="static"
+        keyboard={false}
+        className="popup"
+      >
+        <ModalHeader toggle={() => setModal(false)} className="popup_header">
+          Logout
+        </ModalHeader>
+        <ModalBody>
+          Are you sure you want to LogOut
+        </ModalBody>
+        <ModalFooter>
+          <motion.button
+            whileTap={{ scale: 1.1 }}
+            className="modal-danger"
+            onClick={() => {
+              setModal(false);
+              logout();
+            }}
+          >
+            Logout
+          </motion.button>
+          <motion.button
+            whileTap={{ scale: 1.1 }}
+            className="modal-danger-bg"
+            onClick={() => {
+              setModal(false);
+            }}
+          >
+            Cancel
+          </motion.button>
+        </ModalFooter>
+      </Modal>
     </header>
   );
 };

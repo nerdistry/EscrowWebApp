@@ -40,7 +40,7 @@
     text-align: right;
 }
 
-.auth_form input {
+.auth_form input, .auth_form .PhoneInput {
     width: 80%;
     height: 45px;
     background-color: white;

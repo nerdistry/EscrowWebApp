@@ -1,0 +1,93 @@
+.badge-danger {
+    background-color: var(--danger);
+    border-radius: 5px;
+    width: min-content;
+}
+
+.badge-info {
+    background-color: var(--info);
+}
+
+.nav-link:hover p{
+    color: #fff;
+}
+
+.active p{
+    color: #fff;
+}
+
+.nav-link {
+    cursor: pointer;
+}
+
+.inner p {
+    color: #fff;
+    font-weight: 600;
+}
+
+.buy_button {
+    margin-right: 20px;
+}
+
+select{
+    display: block;
+    padding: 8px 20px;
+    border: 1px solid var(--primary-color) !important;
+    cursor: pointer;
+    border-radius: 5px;
+    background: #fff;
+    color: var(--primary-color);
+    width: 100%;
+}
+
+input {
+    border: 1px solid var(--primary-color) !important;
+}
+
+.action {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    justify-content: space-between;
+}
+
+.action .info {
+    background-color: var(--info);
+    border-radius: 5px;
+    color: #fff;
+    /* width: 30%; */
+    padding: 10px 20px !important;
+    box-shadow: 2px 2px 5px rgba(0, 0,0,0.5);
+    cursor: pointer;
+}
+
+.action .danger {
+    background-color: var(--danger);
+    border-radius: 5px;
+    color: #fff;
+    /* width: 30%; */
+    padding: 10px 20px;
+    box-shadow: 2px 2px 5px rgba(0, 0,0,0.5);
+    cursor: pointer;
+}
+
+.modal-danger {
+    color: var(--danger);
+    border-radius: 5px;
+    padding: 10px 20px;
+    border: 0;
+    background-color: #fff;
+    cursor: pointer;
+    margin: 0px 10px;
+}
+
+.modal-danger-bg {
+    background-color: var(--danger);
+    border: 0;
+    border-radius: 5px;
+    color: #fff;
+    padding: 10px 20px;
+    cursor: pointer;
+    margin: 0px 10px;
+
+}

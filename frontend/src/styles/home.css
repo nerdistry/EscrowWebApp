@@ -24,7 +24,7 @@
     border: 2px solid var(--primary-color);
     outline: none;
     padding: 8px 40px;
-    border-radius: 30px;
+    border-radius: 5px;
     background-color: white;
     cursor: pointer;
     font-size: 1.3rem;
@@ -46,4 +46,32 @@
 
 img {
     object-fit: contain;
+}
+
+@media only screen and (max-width: 992px) {
+    .hero_content h2 {
+        font-size: 2rem;
+    }
+}
+
+
+@media only screen and (max-width: 768px) {
+    .hero_content h2 {
+        font-size: 1.6rem;
+    }
+
+    .hero_content p {
+        font-size: 1rem;
+    }
+
+    .buy_button {
+        font-size: .9rem;
+    }
+}
+
+@media only screen and (max-width: 576px) {
+    .hero_content {
+        padding-top: 0;
+        margin-bottom: 40px;
+    }
 }

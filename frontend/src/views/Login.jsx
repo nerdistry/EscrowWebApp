@@ -265,47 +265,46 @@ const signUpWithGoogle = async (e) => {
                       </p>
                     </motion.div>
 
-                    <motion.div
-                      whileTap={{ scale: 1.05 }}
-                      whileHover={{ opacity: 0.5 }}
-                      className="social_item"
-                      onClick={signUpWithFacebook}
-                    >
-                      <img src={facebookImg} alt="" />
-                      <p>
-                        <span>Continue with Facebook</span>
-                      </p>
-                    </motion.div>
+                      <motion.div
+                        whileTap={{ scale: 1.05 }}
+                        whileHover={{ opacity: 0.5 }}
+                        className="social_item"
+                        onClick={signUpWithFacebook}
+                      >
+                        <img src={facebookImg} alt="" />
+                        <p>
+                          <span>Continue with Facebook</span>
+                        </p>
+                      </motion.div>
 
-                    <motion.div
-                      whileTap={{ scale: 1.05 }}
-                      whileHover={{ opacity: 0.5 }}
-                      className="social_item"
-                      onClick={signUpWithTwitter}
-                    >
-                      <img src={twitterImg} alt="" />
-                      <p>
-                        <span>Continue with Twitter</span>
-                      </p>
-                    </motion.div>
-                    <motion.div
-                      whileTap={{ scale: 1.05 }}
-                      whileHover={{ opacity: 0.5 }}
-                      className="social_item"
-                      onClick={navigateToPhoneSignIn}
-                    >
-                      <img src={phoneImg} alt="" />
-                      <p>
-                        <span>Continue with Phone</span>
-                      </p>
-                    </motion.div>
-                  </div>
-                  <p>
-                    Don't have an account? <Link to="/signup">Sign Up</Link>
-                  </p>
-                </Form>
-              </Col>
-            )}
+                      <motion.div
+                        whileTap={{ scale: 1.05 }}
+                        whileHover={{ opacity: 0.5 }}
+                        className="social_item"
+                        onClick={signUpWithTwitter}
+                      >
+                        <img src={twitterImg} alt="" />
+                        <p>
+                          <span>Continue with Twitter</span>
+                        </p>
+                      </motion.div>
+                      <motion.div
+                        whileTap={{ scale: 1.05 }}
+                        whileHover={{ opacity: 0.5 }}
+                        className="social_item"
+                        onClick={navigateToPhoneSignIn}
+                      >
+                        <img src={phoneImg} alt="" />
+                        <p>
+                          <span>Continue with Phone</span>
+                        </p>
+                      </motion.div>
+                    </div>
+                    <p>Don't have an account? <Link to="/signup">Sign Up</Link></p>
+                  </Form>
+                </Col>
+              )
+            }
           </Row>
         </Container>
       </section>
@@ -328,8 +327,7 @@ const signUpWithGoogle = async (e) => {
         </ModalFooter>
       </Modal> */}
     </Helmet>
-  );
-};
+  )
+}
 
-export default Login;
-
+export default Login
