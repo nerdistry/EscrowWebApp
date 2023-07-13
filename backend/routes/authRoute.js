@@ -49,7 +49,7 @@ router.get("/logout", logout);
 router.get("/wishlist", authMiddleware, getWishlist);
 router.get("/cart", authMiddleware, getUserCart);
 
-router.get("/:id", authMiddleware, isAdmin, getaUser);
+router.get("/:id", getaUser);
 
 
 

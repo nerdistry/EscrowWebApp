@@ -26,10 +26,10 @@ const createUser = asyncHandler(async (req, res) => {
 });
 
 const loginUserCtrl = asyncHandler(async (req, res) => {
-  const { email, password } = req.body;
+  const { email } = req.body;
   //check if user exists.
   const findUser = await User.findOne({ email });
-  if (findUser && (await findUser.isPasswordMatched(password))) {
+  if (findUser) {
     const refreshToken = await generateRefreshToken(findUser?._id);
     const updateuser = await User.findByIdAndUpdate(
       findUser._id,
@@ -46,8 +46,7 @@ const loginUserCtrl = asyncHandler(async (req, res) => {
     });
     res.json({
       _id: findUser?._id,
-      firstname: findUser?.firstname,
-      lastname: findUser?.lastname,
+      username: findUser?.username,
       email: findUser?.email,
       mobile: findUser?.mobile,
       token: generateToken(findUser?._id),
@@ -93,14 +92,14 @@ const loginAdminCtrl = asyncHandler(async (req, res) => {
 
 // Updating a User.
 const updatedUser = asyncHandler(async (req, res) => {
-  const { _id } = req.user;
-  validateMongodbId(_id);
+  const { id } = req.user;
+  console.log(id);
+  validateMongodbId(id);
   try {
     const updatedUser = await User.findByIdAndUpdate(
-      _id,
+      id,
       {
-        firstname: req?.body.firstname,
-        lastname: req?.body.lastname,
+        username: req?.body.username,
         email: req?.body.email,
         mobile: req?.body.mobile,
       },
@@ -150,7 +149,7 @@ const getallUser = asyncHandler(async (req, res) => {
 // Get a single user.
 const getaUser = asyncHandler(async (req, res) => {
   const { id } = req.params;
-  validateMongodbId(id);
+  // validateMongodbId(_id);
 
   try {
     const getaUser = await User.findById(id);
@@ -164,8 +163,8 @@ const getaUser = asyncHandler(async (req, res) => {
 
 // Deleting a user.
 const deleteaUser = asyncHandler(async (req, res) => {
-  const { id } = req.params;
-  validateMongodbId(id);
+  const { _id } = req.params;
+  validateMongodbId(_id);
 
   try {
     const deleteaUser = await User.findByIdAndDelete(id);

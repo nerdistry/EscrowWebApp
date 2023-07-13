@@ -8,18 +8,18 @@ import AdminRouters from "../../Routers/AdminRouters";
 const Layout = () => {
   return (
     <>
-      <>
+      {/* <>
         <Header />
         <div>
           <Routers />
         </div>
-      </>
+      </> */}
       <>
-        {/* <AdminHeader />
+        <AdminHeader />
         <Sidebar />
         <div>
           <AdminRouters />
-        </div> */}
+        </div>
       </>
     </>
   );

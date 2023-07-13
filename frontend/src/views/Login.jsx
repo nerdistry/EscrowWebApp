@@ -12,15 +12,12 @@ import {
   Row,
   Col,
   Form,
-  FormGroup,
-  Modal,
-  ModalHeader,
-  ModalBody,
-  ModalFooter,
+  FormGroup
 } from "reactstrap";
 import { Link, useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
 import { toast } from "react-toastify";
+import axios from 'axios';
 
 //Auth
 import { auth } from "../firebase";
@@ -52,7 +49,7 @@ import { signInWithPhoneNumber, RecaptchaVerifier } from "firebase/auth";
             const userCredential = await signInWithEmailAndPassword(auth, email, password)
             const user = userCredential.user;
 
-            if (user?.emailVerified) {
+            if (await user?.emailVerified) {
                 setLoading(false);
                 toast.success("Login Successful");
                 console.log(user);
@@ -100,16 +97,6 @@ import { signInWithPhoneNumber, RecaptchaVerifier } from "firebase/auth";
         toast.success("Login Successful");
         navigate("/home");
 
-        // if (user?.emailVerified) {
-        //     setLoading(false);
-        //     toast.success("Login Successful");
-        //     navigate("/home");
-        //     window.location.reload();
-        // } else {
-        //     setLoading(false);
-        //     sendEmailVerification(user);
-        //     toast.error("Verify your Email: Check your Email for verification link");
-        // }
     } catch (error) {
         setLoading(false);
         console.log(error);
@@ -141,17 +128,6 @@ const signUpWithTwitter = async (e) => {
 
       toast.success("Login Successful");
       navigate("/home");
-
-      // if (user?.emailVerified) {
-      //     setLoading(false);
-      //     toast.success("Login Successful");
-      //     navigate("/home");
-      //     window.location.reload();
-      // } else {
-      //     setLoading(false);
-      //     sendEmailVerification(user);
-      //     toast.error("Verify your Email: Check your Email for verification link");
-      // }
 
   } catch (error) {
       setLoading(false);
@@ -192,21 +168,6 @@ const signUpWithGoogle = async (e) => {
       }
   };
 }
-
-// const socialImage = [
-//     {
-//         social: googleImg,
-//         name: "Continue with Google",
-//     },
-//     {
-//         social: facebookImg,
-//         name: "Continue with Facebook",
-//     },
-//     {
-//         social: twitterImg,
-//         name: "Continue with Twitter",
-//     },
-// ];
 
   return (
     <Helmet title="Login">

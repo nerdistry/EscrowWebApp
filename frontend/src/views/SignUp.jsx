@@ -19,9 +19,10 @@ import {
 import { Link, useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
 import { toast } from "react-toastify";
+import api from '../api/posts'
+
 //Auth
-import { auth, db } from "../firebase";
-import { setDoc, doc } from "firebase/firestore";
+import { auth } from "../firebase";
 import {
   createUserWithEmailAndPassword,
   GoogleAuthProvider,
@@ -117,27 +118,12 @@ const SignUp = () => {
         phoneNumber,
       });
 
-      setDoc(doc(db, "users", user.uid), {
-        userId: user.uid,
+      await api.post('/user/register', {
+        _id: user.uid,
         username: username,
         email,
-        phoneNumber,
-        photoURL: null,
-        userRole: "buyer", // ?????????????????????????????????????????????????????
+        mobile: phoneNumber,
       });
-
-      // const storageRef = ref(storage, `images/${Date.now() + username}`);
-      // const uploadTask = uploadBytesResumable(storageRef, userCredential.user.photoURL);
-
-      // uploadTask.on((error)=>{
-      //   toast.error(error.message)
-      // }, ()=>{
-      //   getDowloadURL(uploadTask.snapshot.ref).then(async(downloadURL)=>{
-      //    await updateProfile(user, {
-      //       photoURL: downloadURL,
-      //     })
-      //   })
-      // })
 
       setLoading(false);
       toast.success(
@@ -150,16 +136,13 @@ const SignUp = () => {
         toast.error("Weak Password");
       } else if (error.code === "auth/email-already-in-use") {
         toast.error("Account already exists");
-      } else if (
-        error.code === "auth/account-exists-with-different-credential"
-      ) {
+      } else if (error.code === "auth/account-exists-with-different-credential") {
         toast.error("Account already exists");
       } else if (error.code === "auth/invalid-email") {
         toast.error("Invalid Email");
       } else {
         console.log(error.message);
         toast.error(error.message);
-        toast.error("Something went wrong. Try Again");
       }
     }
   };
@@ -185,13 +168,12 @@ const SignUp = () => {
           });
         });
 
-      setDoc(doc(db, "users", user.uid), {
-        userId: user.uid,
-        username: user.displayName,
-        email: user.email,
-        photoURL: user.photoURL ? user.photoURL : null,
-        phoneNo: user.phoneNumber,
-        userRole: "buyer",
+
+      await api.post('/user/register', {
+        _id: user.uid,
+        username: username,
+        email,
+        mobile: phoneNumber,
       });
 
       setLoading(false);
@@ -208,10 +190,9 @@ const SignUp = () => {
         console.log(error.message);
       } else if (error.code === "auth/internal-error") {
         toast.error("Something went wrong. Try Again");
-      } else if (
-        error.code === "auth/account-exists-with-different-credential"
-      ) {
+      } else if (error.code === "auth/account-exists-with-different-credential") {
         toast.error("Account already exists");
+        navigate("/login");
       } else {
         console.log(error.message);
         toast.error("Something went wrong. Try Again");
@@ -229,13 +210,12 @@ const SignUp = () => {
       const user = result.user;
       console.log(user);
 
-      setDoc(doc(db, "users", user.uid), {
-        userId: user.uid,
-        username: user.displayName,
-        email: user.email,
-        photoURL: user.photoURL ? user.photoURL : null,
-        phoneNo: user.phoneNumber,
-        userRole: "buyer",
+
+      await api.post('/user/register', {
+        _id: user.uid,
+        username: username,
+        email,
+        mobile: phoneNumber,
       });
 
       toast.success("Account created successfully");
@@ -269,13 +249,12 @@ const SignUp = () => {
       const user = userCredential.user;
       console.log(userCredential);
 
-      setDoc(doc(db, "users", user.uid), {
-        userId: user.uid,
-        username: user.displayName,
-        email: user.email,
-        photoURL: user.photoURL ? user.photoURL : null,
-        phoneNo: user.phoneNumber,
-        userRole: "buyer",
+      
+      await api.post('/user/register', {
+        _id: user.uid,
+        username: username,
+        email,
+        mobile: phoneNumber,
       });
 
       setLoading(false);
@@ -294,24 +273,6 @@ const SignUp = () => {
       }
     }
   };
-
-  // const socialImage = [
-  //   {
-  //     social: googleImg,
-  //     name: "Continue with Google",
-  //     func: { signUpWithGoogle }
-  //   },
-  //   {
-  //     social: facebookImg,
-  //     name: "Continue with Facebook",
-  //     func: {}
-  //   },
-  //   {
-  //     social: twitterImg,
-  //     name: "Continue with Twitter",
-  //     func: {}
-  //   },
-  // ];
 
   return (
     <Helmet title="SignUp">

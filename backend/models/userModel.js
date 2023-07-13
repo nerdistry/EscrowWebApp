@@ -4,14 +4,23 @@ const crypto = require('crypto');
 
 // Declare the Schema of the Mongo model
 var userSchema = new mongoose.Schema({
-    firstname:{
-        type:String,
-        required:true,
+    _id: { 
+        type: String,
+        required: true,
     },
-    lastname:{
-        type:String,
-        required:true,
+
+    username: {
+        type: String,
+        required: true,
     },
+    // firstname:{
+    //     type:String,
+    //     required:true,
+    // },
+    // lastname:{
+    //     type:String,
+    //     required:true,
+    // },
     email:{
         type:String,
         required:true,
@@ -22,10 +31,10 @@ var userSchema = new mongoose.Schema({
         required:true,
         unique:true,
     },
-    password:{
-        type:String,
-        required:true,
-    },
+    // password:{
+    //     type:String,
+    //     required:true,
+    // },
     role:{
         type:String,
         default: 'user',
@@ -58,19 +67,19 @@ var userSchema = new mongoose.Schema({
 );
 
 userSchema.pre('save', async function(next){
-         // If password is not modified, then don't hash it.
+    // If password is not modified, then don't hash it.
 
-    if(!this.isModified('password')){
-        next();
-    }
-    const salt = await bcrypt.genSaltSync(10);
-    this.password = await bcrypt.hashSync(this.password, salt);
+    // if(!this.isModified('password')){
+    //     next();
+    // }
+    // const salt = await bcrypt.genSaltSync(10);
+    // this.password = await bcrypt.hashSync(this.password, salt);
     next();
 });
 
-userSchema.methods.isPasswordMatched = async function(enteredPassword){
-    return await bcrypt.compare(enteredPassword, this.password);
-}
+// userSchema.methods.isPasswordMatched = async function(enteredPassword){
+//     return await bcrypt.compare(enteredPassword, this.password);
+// }
  
 userSchema.methods.createPasswordResetToken = async function(){	
     const resettoken = crypto.randomBytes(32).toString('hex');

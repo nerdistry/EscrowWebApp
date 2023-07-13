@@ -119,7 +119,7 @@ const ProductDetails = () => {
                     // buttonPlacement="leftAndRight"
                     value={quantity}
                     onChange={(num) => { setQuantity(num) }}
-                    size="medium"
+                    size="large"
                   />
                 </div>
               </div>
