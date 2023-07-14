@@ -9,17 +9,20 @@ import api from '../api/posts'
 const ViewProducts = () => {
 
     function truncateString(str, num) {
-    if (str.length <= num) {
-        return str
+        if (str.length <= num) {
+            return str
+        }
+        return str.slice(0, num) + '...'
     }
-    return str.slice(0, num) + '...'
-}
 
 
     const [modal, setModal] = useState(false);
     const [products, setProducts] = useState([]);
+    const [prodId, setId] = useState("");
 
-    const deleteProduct = () => {
+    const deleteProduct = async () => {
+        await api.delete(`/product/${prodId}`)
+
         toast.success("Product deleted");
     }
 

@@ -27,11 +27,14 @@ const AdminRouters = () => {
       <Route path="admin/view-transactions" element={<ViewTransactions />} />
       <Route path="admin/view-stats" element={<ViewStats />} />
       <Route path='admin/update-product/:id' element={<UpdateProduct />} />
+      <Route path="admin/add-category" element={<AddCategory />} />
       <Route path='admin/profile' element={<AdminProfile />} />
 
       <Route path="vendor" element={<Vendor />} />
       <Route path="vendor/add-category" element={<AddCategory />} />
       <Route path="vendor/add-product" element={<AddProduct />} />
+      <Route path="vendor/view-products" element={<ViewProducts />} />
+      <Route path="admin/view-vendors" element={<ViewVendors />} />
       <Route path="vendor/view-orders" element={<VendorOrders />} />
       <Route path="vendor/view-transactions" element={<VendorTransactions />} />
       <Route path="vendor/view-products" element={<ViewProducts />} />

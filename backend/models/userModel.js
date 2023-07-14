@@ -13,14 +13,6 @@ var userSchema = new mongoose.Schema({
         type: String,
         required: true,
     },
-    // firstname:{
-    //     type:String,
-    //     required:true,
-    // },
-    // lastname:{
-    //     type:String,
-    //     required:true,
-    // },
     email:{
         type:String,
         required:true,
@@ -31,10 +23,6 @@ var userSchema = new mongoose.Schema({
         required:true,
         unique:true,
     },
-    // password:{
-    //     type:String,
-    //     required:true,
-    // },
     role:{
         type:String,
         default: 'user',
@@ -55,6 +43,20 @@ var userSchema = new mongoose.Schema({
     }],
     refreshToken:{
         type: String,
+    },
+    applyAsVendor: [{
+        shopName: {
+            type: String,
+        },shopDesc: {
+            type: String,
+        },KRACert: {
+            type: String,
+        },
+    }   
+    ],
+    isApprovedVendor: {
+        type: Boolean,
+        default: false
     },
     passwordChangedAt: Date,
     passwordResetToken: String,	

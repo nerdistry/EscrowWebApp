@@ -108,6 +108,16 @@ input {
     cursor: pointer;
 }
 
+.action .success {
+    background-color: var(--success);
+    border-radius: 5px;
+    color: #fff !important;
+    /* width: 30%; */
+    padding: 10px 20px;
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5);
+    cursor: pointer;
+}
+
 .form_group div {
     width: 50%;
 }
@@ -131,4 +141,44 @@ input {
     cursor: pointer;
     margin: 0px 10px;
 
+}
+
+.modal-info {
+    color: var(--info);
+    border-radius: 5px;
+    padding: 10px 20px;
+    border: 0;
+    background-color: #fff;
+    cursor: pointer;
+    margin: 0px 10px;
+}
+
+.modal-info-bg {
+    background-color: var(--info);
+    border: 0;
+    border-radius: 5px;
+    color: #fff;
+    padding: 10px 20px;
+    cursor: pointer;
+    margin: 0px 10px;
+}
+
+.modal-success{
+    color: var(--success);
+    border-radius: 5px;
+    padding: 10px 20px;
+    border: 0;
+    background-color: #fff;
+    cursor: pointer;
+    margin: 0px 10px;
+}
+
+.modal-success-bg {
+    background-color: var(--success);
+    border: 0;
+    border-radius: 5px;
+    color: #fff;
+    padding: 10px 20px;
+    cursor: pointer;
+    margin: 0px 10px;
 }
