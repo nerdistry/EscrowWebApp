@@ -1,4 +1,3 @@
-
 const hre = require("hardhat");
 
 async function main() {
@@ -10,17 +9,11 @@ async function main() {
 
   console.log("Greeter deployed to:", greeter.address);
 
-  main()
-  .then(() => process.exit(0))
-  .catch((error) => {
-    console.error(error);
-    process.exit(1);
-  });
-
-//   await hre.run("laika-sync", {
-//     contract: "Greeter",
-//     address: greeter.address,
-//   })
+  // Uncomment if you want to sync with Laika (your plugin)
+  // await hre.run("laika-sync", {
+  //   contract: "Greeter",
+  //   address: greeter.address,
+  // })
 }
 
 // We recommend this pattern to be able to use async/await everywhere

@@ -34,6 +34,10 @@
 
 ![screenshot](https://raw.githubusercontent.com/amitmerchant1990/electron-markdownify/master/app/img/markdownify.gif)
 
+## Introduction
+
+
+
 ## Key Features
 
 - Connect to MetaMask Wallet.
@@ -98,6 +102,56 @@ There were just worth mentioning, you can check out the rest in the package-lock
 
 The packages are more than we can mention!
 
+#### Output Structure
+---
+
+```shell
+Escrow_Web_App/
+├── backend/
+│   ├── config/
+│   │   └── dbConnect.js
+│   │   └── jwtToken.js
+│   │   └── refreshtoken.js
+│   ├── contracts/
+│   │   └── escrow.sol
+│   ├── controller/
+│   │   └── brandCtrl.js
+│   │   └── categoryCtrl.js
+│   │   └── emailCtrl.js
+│   │   └── productCtrl.js
+│   │   └── userCtrl.js
+│   ├── middlewares/
+│   │   └── authMiddleware.js
+│   │   └── errprHandler.js
+│   │   └── uploadImages.js
+│   ├── models/
+│   │   └── brandModel.js
+│   │   └── cartModel.js
+│   │   └── categoryModel.js
+│   │   └── orderModel.js
+│   │   └── productModel.js
+│   │   └── userModel.js
+│   ├── routes/
+│   │   └── authRoute.js
+│   │   └── brandRoute.js
+│   │   └── categoryRoute.js
+│   │   └── productRoute.js
+│   ├── scripts/
+│   │   └── deploy.js
+│   ├── index.js
+│   └── package.json
+├── frontend/
+│   ├── public/
+│   │   └── index.html
+│   ├── src/
+│   │   ├── components/
+│   │   ├── App.js
+│   │   └── index.js
+│   ├── package.json
+│   └── ...
+└── README.md
+
+```
 
 ## License
 

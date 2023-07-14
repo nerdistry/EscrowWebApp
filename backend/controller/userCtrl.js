@@ -94,6 +94,7 @@ const loginAdminCtrl = asyncHandler(async (req, res) => {
 // Updating a User.
 const updatedUser = asyncHandler(async (req, res) => {
   const { _id } = req.user;
+  console.log(_id);
   validateMongodbId(_id);
   try {
     const updatedUser = await User.findByIdAndUpdate(
