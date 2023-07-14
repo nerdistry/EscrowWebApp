@@ -66,7 +66,7 @@ const Login = () => {
             navigate("/home")
           }
 
-        // window.location.reload();
+        window.location.reload();
 
       } else {
         setLoading(false);
