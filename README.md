@@ -32,9 +32,26 @@
   <a href="#license">License</a>
 </p>
 
-![screenshot](https://raw.githubusercontent.com/amitmerchant1990/electron-markdownify/master/app/img/markdownify.gif)
+<!-- ![screenshot](https://raw.githubusercontent.com/amitmerchant1990/electron-markdownify/master/app/img/markdownify.gif) -->
 
 ## Introduction
+Ecommerce platforms have always been very beneficial in terms of wider access to goods. 
+Despite its many advantages there exist challenges that plague online transactions which include 
+data security, lack of trust and payment disputes. To confront these challenges, this study 
+presents an application that leverages principles of blockchain technology and escrow services to 
+create a secure, trustworthy ecommerce marketplace. Addressing the inherent challenges 
+ultimately enhances user confidence and mitigates potential risks. The methodology involves 
+designing an intuitive application that integrates escrow services, securely holding the buyer's 
+payment until both parties reach an agreement. Smart contracts powered by blockchain which 
+define the conditions for releasing the funds from escrow to the seller upon successful delivery 
+and buyer approval; will also be developed. The anticipated findings of this research suggest that 
+the combination of escrow services and blockchain technology will enhance the credibility of 
+online marketplaces. Users will have the assurance that their funds are safeguarded until the 
+product’s condition is verified and the transaction deemed satisfactory. By addressing the 
+challenge of trust, this application aims to revolutionize ecommerce platforms, enabling the 
+market to engage in transactions with confidence. Ultimately, this solution aims to foster a 
+thriving ecommerce ecosystem that benefits both buyers and sellers alike, leading to increased 
+user satisfaction and improved transactional experiences.
 
 
 
@@ -69,7 +86,7 @@ $ npm start
 >
 > ⚠️⚠️ We're using testnets for this web application and for security reasons, it is highly recommended you follow suit. 
 >
-> If you're stuck breathe in-out then check the above gif.
+<!-- > If you're stuck breathe in-out then check the above gif. -->
 
 
 ## Credits
