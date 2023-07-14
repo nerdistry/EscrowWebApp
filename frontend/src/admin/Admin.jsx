@@ -1,7 +1,33 @@
 import React from 'react'
+import { useEffect, useState } from 'react'
 import '../styles/admin.css'
+import api from '../api/posts'
 
 const Admin = () => {
+  const [allUsers, setAllUsers] = useState([]);
+  const [products, setProducts] = useState([]);
+
+  useEffect(() => {
+    const getUsers = async () => {
+      const response = await api.get('/user/all-users');
+      setAllUsers(response.data);
+      console.log(response.data);
+    }
+
+    const getProducts = async () => {
+      try {
+        const response = await api.get('/product');
+        setProducts(response.data);
+
+      } catch (error) {
+
+      }
+    }
+
+    getProducts();
+    getUsers();
+  }, [])
+
   return (
     <div>
       {/* Content Wrapper. Contains page content */}
@@ -32,7 +58,7 @@ const Admin = () => {
                 {/* small box */}
                 <div className="small-box bg-info">
                   <div className="inner">
-                    <h3>150</h3>
+                    <h3>{products.length > 0 ? products.length : 0}</h3>
                     <p>Products</p>
                   </div>
                   <div className="icon">
@@ -46,7 +72,7 @@ const Admin = () => {
                 {/* small box */}
                 <div className="small-box bg-success">
                   <div className="inner">
-                    <h3>200</h3>
+                    <h3>20</h3>
                     <p>Sales</p>
                   </div>
                   <div className="icon">
@@ -60,7 +86,7 @@ const Admin = () => {
                 {/* small box */}
                 <div className="small-box bg-warning">
                   <div className="inner">
-                    <h3>44</h3>
+                    <h3>{allUsers.length > 0 ? allUsers.length : 0}</h3>
                     <p>User Registrations</p>
                   </div>
                   <div className="icon">

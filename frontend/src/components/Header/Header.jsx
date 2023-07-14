@@ -1,7 +1,7 @@
 import React, { useRef, useEffect, useState } from "react";
 import { NavLink, useNavigate } from "react-router-dom";
 import "./header.css";
-import { Container, Modal, ModalBody, ModalFooter, ModalHeader, Row } from "reactstrap";
+import { Container, Form, FormGroup, Label, Modal, ModalBody, ModalFooter, ModalHeader, Row } from "reactstrap";
 import { motion } from "framer-motion";
 import useAuth from "../../custom-hooks/useAuth"
 import api from '../../api/posts'
@@ -31,13 +31,38 @@ const nav_links = [
 const Header = () => {
   const headerRef = useRef(null);
   const [modal, setModal] = useState(false);
-
+  const [apply, setApply] = useState(false);
 
   const navigate = useNavigate();
   const totalQuantity = useSelector((state) => state.cart.totalQuantity)
 
   const { currentUser } = useAuth();
   const uName = currentUser?.displayName;
+  const [userRole, setUserRole] = useState("user");
+
+  useEffect(() => {
+    const getUser = async () => {
+      try {
+        const userId = currentUser?.uid;
+        const response = await api.get(`/user/${userId}`);
+        if (response.status === "200") {
+          const user = (response.data.getaUser);
+          setUserRole(user.role);
+        }
+        console.log(response.data.getaUser);
+
+      } catch (error) {
+        if (error.response) {
+          console.log(error.response.data);
+          console.log(error.response.status);
+        } else {
+          console.log(error.message);
+        }
+      }
+    };
+
+    getUser();
+  }, []);
 
   const navigateToCart = () => {
     navigate('/cart');
@@ -56,7 +81,7 @@ const Header = () => {
   }
   const profileActionRef = useRef(null);
 
-  const logout = async () => {   
+  const logout = async () => {
     try {
       // await api.get('/user/logout');
 
@@ -80,6 +105,12 @@ const Header = () => {
       profileActionRef.current.classList.toggle('show_profileActions');
     }
   };
+
+  const applyAsVendor = (e) => {
+    e.preventDefault();
+
+    toast.success('Application Submitted: Wait for Approval');
+  }
 
   return (
     <header className="header" ref={headerRef}>
@@ -126,10 +157,21 @@ const Header = () => {
                           <i className="ri-user-fill" />
                           Profile
                         </NavLink>
-                        <span className="account_action">
-                          <i className="ri-pencil-fill" />
-                          Sell
-                        </span>
+                        {
+                          userRole === 'user' ? (
+                            <span onClick={setApply} className="account_action">
+                              <i className="ri-pencil-fill" />
+                              Sell
+                            </span>
+                          ) : (
+                            <a href="/vendor" className="account_action">
+                              <i className="ri-pencil-fill" />
+                              Sell
+                            </a>
+                          )
+                        }
+
+
                         <span onClick={setModal} className="account_action">
                           <i className="ri-shut-down-line" />
                           Logout
@@ -157,6 +199,58 @@ const Header = () => {
 
         </Row>
       </Container>
+
+      <Modal
+        isOpen={apply}
+        toggle={() => setApply(false)}
+        backdrop="static"
+        keyboard={false}
+        className="popup"
+      >
+        <ModalHeader toggle={() => setApply(false)} className="popup_header">
+          Apply as Vendor
+        </ModalHeader>
+        <ModalBody>
+          <Form>
+            <FormGroup className="form_group">
+              <Label>Shop Name</Label>
+              <input type="text" placeholder="My Shop" />
+            </FormGroup>
+            <FormGroup className="form_group">
+              <Label>Shop Description</Label>
+              <textarea type="text" placeholder="Description..." />
+            </FormGroup>
+            <FormGroup className="form_group">
+              <Label>KRA Pin Certificate</Label>
+              <input type="file" />
+            </FormGroup>
+
+            <motion.button
+              whileTap={{ scale: 1.1 }}
+              className="modal-info"
+              onClick={(e) => {
+                e.preventDefault();
+                setApply(false);
+              }}
+            >
+              Cancel
+            </motion.button>
+
+            <motion.button
+              type="submit"
+              whileTap={{ scale: 1.1 }}
+              className="modal-info-bg"
+              onClick={() => {
+                setApply(false);
+                applyAsVendor();
+              }}
+            >
+              Apply
+            </motion.button>
+          </Form>
+        </ModalBody>
+
+      </Modal>
 
       <Modal
         isOpen={modal}

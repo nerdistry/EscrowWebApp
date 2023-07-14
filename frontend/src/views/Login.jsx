@@ -34,6 +34,9 @@ import {
 import { signInWithPhoneNumber, RecaptchaVerifier } from "firebase/auth";
 /**************DONE************/
 
+const USER = [
+
+]
 
 const Login = () => {
   const navigate = useNavigate();
@@ -54,7 +57,7 @@ const Login = () => {
           email: user.email,
         })
 
-        console.log(response.data)
+        // console.log(response.data)
           if (response.data.role === 'admin') {
             setLoading(false);
             toast.success("Login Successful");
