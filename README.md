@@ -95,7 +95,8 @@ $ npm start
 ```
 
 > **Note**
-> Remember for Windows you have to have XAMPP installed. And the database we are using is MongoDB.
+> 
+>Remember for Windows you have to have XAMPP installed. And the database we are using is MongoDB.
 >
 > ⚠️⚠️ We're using testnets for this web application and for security reasons, it is highly recommended you follow suit. 
 >
