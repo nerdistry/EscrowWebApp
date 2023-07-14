@@ -1,11 +1,15 @@
 import React, { useEffect, useState } from 'react'
 import api from '../api/posts'
 import '../styles/admin.css'
+import { motion } from 'framer-motion'
+import { Modal, ModalBody, ModalFooter, ModalHeader } from 'reactstrap'
+import { toast } from 'react-toastify'
 
 const ViewUsers = () => {
 
     const [allUsers, setAllUsers] = useState([]);
     const [roles, setRoles] = useState([]);
+    const [modal, setModal] = useState(false);
 
     useEffect(() => {
         const getUsers = async () => {
@@ -17,7 +21,11 @@ const ViewUsers = () => {
         getUsers();
     }, [])
 
+    const deleteProduct = async (e) => {
+        e.preventDefault();
 
+        toast.success("User deleted");
+    }
 
     return (
         <div>
@@ -66,13 +74,17 @@ const ViewUsers = () => {
                                                             <td>{user.email}</td>
                                                             <td>{user.mobile}</td>
                                                             <td>
-                                                                <select defaultValue={user.role} className={user.role}>
-                                                                    <option value="admin" id='admin'>admin</option>
-                                                                    <option value="vendor" id='vendor'>vendor</option>
-                                                                    <option value="user" id='user'>user</option>
-                                                                </select>
+                                                                <span className={user.role}>{user.role}
+                                                                </span>
                                                             </td>
-                                                            <td>Edit Block Delete</td>
+                                                            <td className='action'>
+                                                                <motion.a whileTap={{ scale: 1.2 }} href='#' className='info' >
+                                                                    <i className="fas fa-edit" />
+                                                                </motion.a>
+                                                                <motion.span whileTap={{ scale: 1.2 }} className='danger' onClick={setModal}>
+                                                                    <i className="fas fa-trash-alt" />
+                                                                </motion.span>
+                                                            </td>
                                                         </tr>
                                                     ))
                                                 }
@@ -92,7 +104,41 @@ const ViewUsers = () => {
                 </section>
             </div>
             {/* /.content-wrapper */}
-
+            <Modal
+                isOpen={modal}
+                toggle={() => setModal(false)}
+                backdrop="static"
+                keyboard={false}
+                className="popup"
+            >
+                <ModalHeader toggle={() => setModal(false)} className="popup_header">
+                    Delete Product
+                </ModalHeader>
+                <ModalBody>
+                    Are you sure you want to delete this product
+                </ModalBody>
+                <ModalFooter>
+                    <motion.button
+                        whileTap={{ scale: 1.2 }}
+                        className="modal-danger"
+                        onClick={() => {
+                            setModal(false);
+                            deleteProduct();
+                        }}
+                    >
+                        Delete
+                    </motion.button>
+                    <motion.button
+                        whileTap={{ scale: 1.2 }}
+                        className="modal-danger-bg"
+                        onClick={() => {
+                            setModal(false);
+                        }}
+                    >
+                        Cancel
+                    </motion.button>
+                </ModalFooter>
+            </Modal>
         </div>
 
 

@@ -1,19 +1,36 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { Form, FormGroup, Label } from "reactstrap";
-import products from "../assets/data/products";
+// import products from "../assets/data/products";
 import { toast } from "react-toastify";
+import api from '../api/posts'
+
 
 const UpdateProduct = () => {
   const navigate = useNavigate();
+  const [products, setProducts] = useState([]);
+
+  useEffect(() => {
+    const getProducts = async () => {
+      try {
+        const response = await api.get('/product');
+        setProducts(response.data);
+        console.log(response.data);
+      } catch (error) {
+
+      }
+    }
+
+    getProducts();
+  }, []);
 
   const { id } = useParams();
-  const product = products.find((item) => item.id === id);
-  const { productName, price, description, shortDesc, category } = product;
+  const product = products.find((item) => item._id === id);
+  const { title , price, description, brand, category } = product;
 
-  const [newProductName, setProductName] = useState("");
+  const [newtitle, setTitle] = useState("");
   const [newProdCategory, setProdCategory] = useState("");
-  const [newShortDesc, setShortDesc] = useState("");
+  const [newbrand, setbrand] = useState("");
   const [newDescription, setDescription] = useState("");
   const [newPrice, setPrice] = useState("");
   const [newQuantity, setQuantity] = useState("");
@@ -22,20 +39,10 @@ const UpdateProduct = () => {
   const handleUpdate = (e) => {
     e.preventDefault();
 
-    // ******* JUST IN CASE *******
-
-    // const newProductName = productName.current.value
-    // const newProdCategory = prodCategory.current.value
-    // const newShortDesc = shortDesc.current.value
-    // const newDescription = description.current.value
-    // const newPrice = price.current.value
-    // const newQuantity = quantity.current.value
-    // const newProdImg = prodImg.current.value
-
     const productObj = {
-      productName: newProductName,
+      title: newtitle,
       category: newProdCategory,
-      shortDesc: newShortDesc,
+      brand: newbrand,
       description: newDescription,
       price: newPrice,
       quantity: newQuantity,
@@ -91,9 +98,9 @@ const UpdateProduct = () => {
                         <Label>Product Name</Label>
                         <input
                           type="text"
-                          value={productName}
+                          value={title}
                           required
-                          onChange={(text) => setProductName(text.target.value)}
+                          onChange={(text) => setTitle(text.target.value)}
                         />
                       </FormGroup>
                       <FormGroup className="form_group">
@@ -118,9 +125,9 @@ const UpdateProduct = () => {
                         <Label>Short Description</Label>
                         <input
                           type="text"
-                          value={shortDesc}
+                          value={brand}
                           required
-                          onChange={(text) => setShortDesc(text.target.value)}
+                          onChange={(text) => setbrand(text.target.value)}
                         />
                       </FormGroup>
                       <FormGroup className="form_group">

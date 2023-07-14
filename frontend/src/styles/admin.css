@@ -40,28 +40,41 @@ select {
     width: 100%;
 }
 
-select.admin {
-    background-color: rgb(104, 1, 104);
+td span {
+    display: block;
+
+}
+span.admin {
+    background-color: rgb(117, 0, 117);
     border: 0 !important;
     outline: none;
     color: #fff;
-    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5);
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
+    padding: 8px 20px;
+    border-radius: 5px;
+    width: 100%;
 }
 
-select.vendor {
-    background-color: rgb(165, 107, 0);
+span.vendor {
+    background-color: rgb(209, 178, 1);
     border: 0 !important;
     outline: none;
     color: #fff;
-    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5);
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
+    padding: 8px 20px;
+    border-radius: 5px;
+    width: 100%;
 }
 
-select.user {
-    background-color: rgb(0, 68, 0);
+span.user {
+    background-color: rgb(0, 126, 0);
     border: 0 !important;
     outline: none;
-    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5);
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
     color: #fff;
+    padding: 8px 20px;
+    border-radius: 5px;
+    width: 100%;
 }
 
 input {
@@ -72,7 +85,7 @@ input {
     display: flex;
     align-items: center;
     gap: 10px;
-    justify-content: space-between;
+    justify-content: space-around;
 }
 
 .action .info {
