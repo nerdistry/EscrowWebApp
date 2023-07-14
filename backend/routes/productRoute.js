@@ -18,12 +18,11 @@ const {
 const router = express.Router();
 
 //Post Requests
-router.post("/", isAdmin, createProduct);
-router.put(
-  "/upload/:id",
-    isAdmin,
-  uploadPhoto.array("images", 10),
-  productImgResize,
+router.post("/",createProduct);
+router.post(
+  "/upload/",
+  // uploadPhoto.array("images", 10),
+  // productImgResize,
   uploadImages
 );
 

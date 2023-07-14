@@ -14,6 +14,8 @@ const cookieParser = require('cookie-parser');
 
 const morgan = require('morgan');
 const cors = require('cors');
+app.use(express.static('public'));
+
 
 dbConnect();
 
