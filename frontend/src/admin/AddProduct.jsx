@@ -1,52 +1,66 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { toast } from 'react-toastify'
 import { Form, FormGroup, Label } from 'reactstrap'
 import '../styles/admin.css'
+import api from '../api/posts'
 
 const AddProduct = () => {
 
   const [productName, setProductName] = useState('');
   const [prodCategory, setProdCategory] = useState('');
-  const [shortDesc, setShortDesc] = useState('');
+  const [brand, setBrand] = useState('');
   const [description, setDescription] = useState('');
   const [price, setPrice] = useState('');
   const [quantity, setQuantity] = useState('');
   const [prodImg, setProdImg] = useState('');
+  const [allCategories, setAllCategories] = useState([]);
 
-  const addProduct = (e) => {
+useEffect(() => {
+  const getCategories = async () => {
+      try {
+        const response = await api.get('/category');
+        setAllCategories(response.data);
+        console.log(response.data);
+
+      } catch (error) {
+        toast.error(error.message);
+        console.log(error.message);
+      }
+    }
+
+    getCategories();
+}, [])
+
+
+  const addProduct = async (e) => {
     e.preventDefault();
 
-    // ******* JUST IN CASE *******
-
-    // const newProductName = productName.current.value
-    // const newProdCategory = prodCategory.current.value
-    // const newShortDesc = shortDesc.current.value
-    // const newDescription = description.current.value
-    // const newPrice = price.current.value
-    // const newQuantity = quantity.current.value
-    // const newProdImg = prodImg.current.value
-
     const productObj = {
-      productName: productName,
+      title: productName,
       category: prodCategory,
-      shortDesc: shortDesc,
+      brand: brand,
       description: description,
       price: price,
       quantity: quantity,
-      productImage: prodImg,
     }
 
-    console.log(productObj);
+    try {
+      await api.post('/product', productObj).then( async (response) => {
+        await api.put(`/product/upload/${response.data._id}`,{
+          images: [prodImg]
+        })
+      })
 
-    toast.success("Product added successfully");
+      console.log(productObj);
 
-    setProductName('');
-    setProdCategory('');
-    setShortDesc('');
-    setDescription('');
-    setPrice('');
-    setQuantity('');
-    setProdImg('');
+      toast.success("Product added successfully");
+
+      clearInputs();
+    } catch (error) {
+      console.log(error.message);
+    }
+
+
   }
 
   const clearInputs = (e) => {
@@ -54,7 +68,7 @@ const AddProduct = () => {
 
     setProductName('');
     setProdCategory('');
-    setShortDesc('');
+    setBrand('');
     setDescription('');
     setPrice('');
     setQuantity('');
@@ -95,38 +109,44 @@ const AddProduct = () => {
                     <Form className='billing_form' onSubmit={addProduct}>
                       <FormGroup className='form_group'>
                         <Label>Product Name</Label>
-                        <input type='text' required onChange={(text) => setProductName(text.target.value)} value={productName}/>
+                        <input type='text' required onChange={(text) => setProductName(text.target.value)} />
                       </FormGroup>
                       <FormGroup className='form_group'>
                         <Label>Product Category</Label>
-                        <select required onChange={(text) => setProdCategory(text.target.value)} value={prodCategory}>
+                        <select required onChange={(text) => setProdCategory(text.target.value)} >
                           <option> -- Select Category -- </option>
-                          <option value="sofa">Sofas</option>
-                          <option value="mobile">Mobile</option>
-                          <option value="chair">Chair</option>
-                          <option value="watch">Watches</option>
-                          <option value="wireless">Wireless</option>
+                          {
+                            allCategories.map((category) => (
+                              <option value={category.title} key={category._id}>{category.title}</option>
+                            ))
+                          }
+                          
                         </select>
                       </FormGroup>
                       <FormGroup className='form_group'>
-                        <Label>Short Description</Label>
-                        <input type='text' required onChange={(text) => setShortDesc(text.target.value)} value={shortDesc} />
+                        <Label>Brand</Label>
+                        <input type='text' required onChange={(text) => setBrand(text.target.value)} />
                       </FormGroup>
                       <FormGroup className='form_group'>
                         <Label>Description</Label>
-                        <textarea type='text' rows='4' required onChange={(text) => setDescription(text.target.value)} value={description} />
+                        <textarea type='text' rows='4' required onChange={(text) => setDescription(text.target.value)} />
                       </FormGroup>
-                      <FormGroup className='form_group'>
-                        <Label>Price</Label>
-                        <input type='number' required onChange={(text) => setPrice(text.target.value)} value={price} />
-                      </FormGroup>
-                      <FormGroup className='form_group'>
-                        <Label>Quantity</Label>
-                        <input type='number' required onChange={(text) => setQuantity(text.target.value)} value={quantity} />
+                      <FormGroup className='form_group d-flex gap-2'>
+                        <div>
+                          <Label>Price</Label>
+                          <input type='number' required onChange={(text) => setPrice(text.target.value)} />
+
+                        </div>
+
+                        <div>
+                          <Label>Quantity</Label>
+                          <input type='number' required onChange={(text) => setQuantity(text.target.value)} />
+                        </div>
+
                       </FormGroup>
                       <FormGroup className='form_group'>
                         <Label>Upload Photo</Label>
-                        <input type='file' required onChange={(val) => setProdImg(val.target.value)} value={prodImg} />
+                        <input type='file' required onChange={(val) => setProdImg(val.target.value)} />
                       </FormGroup>
 
                       <button type="submit" className='buy_button'>Add</button>

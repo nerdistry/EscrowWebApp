@@ -6,57 +6,62 @@ import { Col, Container, Row } from 'reactstrap'
 
 import "../styles/products.css"
 
-import products from '../assets/data/products'
 import ProductList from '../components/productUI/ProductList'
+import { useEffect } from 'react'
+import api from '../api/posts'
 
 const Category = () => {
 
-  const [productData, setProductData] = useState(products);
-  const categoryData = [
-    {
-      name: 'sofa',
-      display: 'Sofas',
-    },
-    {
-      name: 'mobile',
-      display: 'Mobile',
-    },
-    {
-      name: 'chair',
-      display: 'Chair',
-    },
-    {
-      name: 'watch',
-      display: 'Watch',
-    },
-    {
-      name: 'wireless',
-      display: 'Wireless',
+  useEffect(() => {
+    const getProducts = async () => {
+      try {
+        const response = await api.get('/product');
+        setProductData(response.data);
+        setProducts(response.data);
+        // console.log(response.data);
+      } catch (error) {
+        console.log(error.message);
+      }
     }
-  ];
+
+    const getCategory = async () => {
+    try {
+        const response = await api.get('/category');
+        setCategoryData(response.data);
+        // console.log(response.data);
+      } catch (error) {
+        console.log(error.message);
+      }
+  }
+
+    getCategory();
+    getProducts();
+  }, [])
+
+  const [productData, setProductData] = useState([]);
+  const [products, setProducts] = useState([]);
+  
+  const [categoryData, setCategoryData] = useState([]);
 
   const handleFilter = (e) => {
     const filterValue = e.target.value
 
     // eslint-disable-next-line array-callback-return
     categoryData.map((category) => {
-      if (filterValue === category.name) {
+      if (filterValue === category.title) {
         const filteredProducts = products.filter(
-          (item) => item.category === category.name
+          (item) => item.category === category.title
         );
 
         setProductData(filteredProducts);
       }
     })
 
-
   }
 
   const handleSearch = (e) => {
     const searchTerm = e.target.value;
-
-    const searchedProducts = products.filter(item => item.productName.toLowerCase().includes(searchTerm.toLowerCase()))
-
+    const searchedProducts = products.filter(item => item.title.toLowerCase().includes(searchTerm.toLowerCase()))
     setProductData(searchedProducts)
   }
 
@@ -71,15 +76,16 @@ const Category = () => {
               <div className="filter_widget">
                 <select onChange={handleFilter}>
                   <option>Filter By Category</option>
-                  <option value="sofa">Sofas</option>
-                  <option value="mobile">Mobile</option>
-                  <option value="chair">Chair</option>
-                  <option value="watch">Watches</option>
-                  <option value="wireless">Wireless</option>
+                  {
+                    categoryData.map((item) => (
+                      <option value={item.title} key={item._id}>{item.title}</option>
+                    ))
+                  }                 
+
                 </select>
               </div>
             </Col>
-            <Col lg='3' md='6'className='text-end'>
+            <Col lg='3' md='6' className='text-end'>
               <div className="filter_widget">
                 <select>
                   <option>Sort By</option>

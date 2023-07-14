@@ -5,6 +5,8 @@ const validateMongodbId = require('../utils/validateMongodbId');
 const createCategory = asyncHandler(async (req, res) => {
     try{
         const newCategory = await Category.create(req.body);
+        console.log(newCategory);
+
         res.json(newCategory);
 
     }catch(error){
@@ -14,7 +16,7 @@ const createCategory = asyncHandler(async (req, res) => {
 
 const updateCategory = asyncHandler(async (req, res) => {
     const {id} = req.params;
-    validateMongodbId(id);
+    // validateMongodbId(id);
     try{
         const updatedCategory = await Category.findByIdAndUpdate(id, req.body,{
             new: true,

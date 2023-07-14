@@ -4,6 +4,7 @@ import "./header.css";
 import { Container, Modal, ModalBody, ModalFooter, ModalHeader, Row } from "reactstrap";
 import { motion } from "framer-motion";
 import useAuth from "../../custom-hooks/useAuth"
+import api from '../../api/posts'
 
 import Logo from "../../assets/images/logo_bg.png";
 import userIcon from "../../assets/images/user-icon.png";
@@ -55,14 +56,18 @@ const Header = () => {
   }
   const profileActionRef = useRef(null);
 
-  const logout = () => {
-    signOut(auth).then(() => {
-      toast.success("Logout Successful")
-      window.location.reload();
+  const logout = async () => {   
+    try {
+      await api.get('/user/logout');
 
-    }).catch((err) => {
+      signOut(auth).then(() => {
+        toast.success("Logout Successful")
+        window.location.reload();
+
+      })
+    } catch (err) {
       toast.error(err.message);
-    })
+    }
   }
 
   useEffect(() => {
@@ -104,7 +109,8 @@ const Header = () => {
 
             <div className="nav__icons">
               <span className="fav__icon"><i className="ri-heart-line"></i><span className="badge">1</span></span>
-              <span className="cart__icon" onClick={navigateToCart}><i className="ri-shopping-cart-2-fill"></i><span className="badge">{totalQuantity}</span></span>
+              <motion.span whileTap={{ scale: 1.1 }} className="cart__icon" onClick={navigateToCart}><i className="ri-shopping-cart-2-fill"></i><span className="badge">{totalQuantity}</span></motion.span>
+              <motion.div whileTap={{ scale: 1.05 }} whileHover={{ opacity: 0.7 }} className="fav__icon account wallet"><i className="ri-wallet-fill"></i>Connect</motion.div>
 
               <div className="profile">
                 <motion.div whileTap={{ scale: 1.05 }} whileHover={{ opacity: 0.7 }} className="account" onClick={toggleProfileActions}>
@@ -117,9 +123,15 @@ const Header = () => {
                     currentUser ? (
                       <div>
                         <NavLink to="/profile" className="account_action">
+                          <i className="ri-user-fill" />
                           Profile
                         </NavLink>
-                        <span onClick={setModal}>
+                        <span className="account_action">
+                          <i className="ri-pencil-fill" />
+                          Sell
+                        </span>
+                        <span onClick={setModal} className="account_action">
+                          <i className="ri-shut-down-line" />
                           Logout
                         </span>
                       </div>

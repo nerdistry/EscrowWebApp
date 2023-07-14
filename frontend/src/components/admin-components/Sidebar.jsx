@@ -38,8 +38,7 @@ const Sidebar = () => {
                     {/* Sidebar Menu */}
                     <nav className="mt-2">
                         <ul className="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
-                            {/* Add icons to the links using the .nav-icon class
-            with font-awesome or any other icon font library */}
+                            
                             <li className="nav-item">
                                 <a href='/admin' className="nav-link active">
                                     <i className="nav-icon fas fa-tachometer-alt" />
@@ -156,7 +155,7 @@ const Sidebar = () => {
                                 </ul>
                             </li>
                             <li className="nav-item">
-                                <a href='/admin/view-stats' className="nav-link">
+                                <a href='#' className="nav-link">
                                     <i className="nav-icon fas fa-power-off" />
                                     <p>
                                         LogOut

@@ -8,11 +8,11 @@
     background-color: var(--info);
 }
 
-.nav-link:hover p{
+.nav-link:hover p {
     color: #fff;
 }
 
-.active p{
+.active p {
     color: #fff;
 }
 
@@ -29,7 +29,7 @@
     margin-right: 20px;
 }
 
-select{
+select {
     display: block;
     padding: 8px 20px;
     border: 1px solid var(--primary-color) !important;
@@ -38,6 +38,30 @@ select{
     background: #fff;
     color: var(--primary-color);
     width: 100%;
+}
+
+select.admin {
+    background-color: rgb(104, 1, 104);
+    border: 0 !important;
+    outline: none;
+    color: #fff;
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5);
+}
+
+select.vendor {
+    background-color: rgb(165, 107, 0);
+    border: 0 !important;
+    outline: none;
+    color: #fff;
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5);
+}
+
+select.user {
+    background-color: rgb(0, 68, 0);
+    border: 0 !important;
+    outline: none;
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5);
+    color: #fff;
 }
 
 input {
@@ -54,21 +78,25 @@ input {
 .action .info {
     background-color: var(--info);
     border-radius: 5px;
-    color: #fff;
+    color: #fff !important;
     /* width: 30%; */
     padding: 10px 20px !important;
-    box-shadow: 2px 2px 5px rgba(0, 0,0,0.5);
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5);
     cursor: pointer;
 }
 
 .action .danger {
     background-color: var(--danger);
     border-radius: 5px;
-    color: #fff;
+    color: #fff !important;
     /* width: 30%; */
     padding: 10px 20px;
-    box-shadow: 2px 2px 5px rgba(0, 0,0,0.5);
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5);
     cursor: pointer;
+}
+
+.form_group div {
+    width: 50%;
 }
 
 .modal-danger {

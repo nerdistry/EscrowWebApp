@@ -17,7 +17,7 @@ import {
 import { Link, useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
 import { toast } from "react-toastify";
-import axios from 'axios';
+import api from '../api/posts';
 
 //Auth
 import { auth } from "../firebase";
@@ -50,6 +50,10 @@ import { signInWithPhoneNumber, RecaptchaVerifier } from "firebase/auth";
             const user = userCredential.user;
 
             if (await user?.emailVerified) {
+                await api.post('/user/login',{
+                  email: user.email,
+                })
+
                 setLoading(false);
                 toast.success("Login Successful");
                 console.log(user);
@@ -75,9 +79,6 @@ import { signInWithPhoneNumber, RecaptchaVerifier } from "firebase/auth";
         }
     }
 
-
-
-
   /***************ADDED************/
   const navigateToPhoneSignIn = (e) => {
     e.preventDefault();
@@ -93,6 +94,10 @@ import { signInWithPhoneNumber, RecaptchaVerifier } from "firebase/auth";
         const result = await signInWithPopup(auth, fbprovider);
         const user = result.user;
         console.log(user)
+
+        await api.post('/user/login',{
+          email: user.email,
+        })
 
         toast.success("Login Successful");
         navigate("/home");
@@ -126,6 +131,10 @@ const signUpWithTwitter = async (e) => {
       const user = result.user;
       console.log(user);
 
+      await api.post('/user/login',{
+        email: user.email,
+      })
+
       toast.success("Login Successful");
       navigate("/home");
 
@@ -150,8 +159,12 @@ const signUpWithGoogle = async (e) => {
   try {
       const googleprovider = new GoogleAuthProvider();
       const userCredential = await signInWithPopup(auth, googleprovider);
-
+      const user = userCredential.user;
       console.log(userCredential);
+
+      await api.post('/user/login',{
+        email: user.email,
+      })
 
       setLoading(false);
       toast.success("Login Successful");
@@ -269,24 +282,6 @@ const signUpWithGoogle = async (e) => {
           </Row>
         </Container>
       </section>
-{/* 
-      <Modal
-        isOpen={modal}
-        toggle={() => setModal(false)}
-        backdrop="static"
-        keyboard={false}
-      >
-        <ModalHeader toggle={() => setModal(false)}>Verify Email</ModalHeader>
-        <ModalBody>
-          <p>Click the Link send to your Email to verify your account</p>
-          <button onClick={() => sendEmailVerification(user)}>
-            Resend Email
-          </button>
-        </ModalBody>
-        <ModalFooter>
-          <button onClick={() => setModal(false)}>Close</button>
-        </ModalFooter>
-      </Modal> */}
     </Helmet>
   )
 }

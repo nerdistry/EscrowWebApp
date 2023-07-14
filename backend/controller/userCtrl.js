@@ -92,12 +92,12 @@ const loginAdminCtrl = asyncHandler(async (req, res) => {
 
 // Updating a User.
 const updatedUser = asyncHandler(async (req, res) => {
-  const { id } = req.user;
-  console.log(id);
-  validateMongodbId(id);
+  const { _id } = req.user;
+  console.log(req.user);
+  // validateMongodbId(_id);
   try {
     const updatedUser = await User.findByIdAndUpdate(
-      id,
+      _id,
       {
         username: req?.body.username,
         email: req?.body.email,
@@ -345,10 +345,12 @@ const userCart = asyncHandler(async (req, res) => {
       cartToUpdate = new Cart({ orderby: user._id });
     }
 
+    let totalquantity = 0;
     for (let i = 0; i < cart.length; i++) {
       let object = {};
       object.product = cart[i]._id;
       object.count = cart[i].count;
+      totalquantity+=object.count;
       object.color = cart[i].color;
       let getPrice = await Product.findById(cart[i]._id).select("price").exec();
       object.price = getPrice.price;

@@ -16,7 +16,7 @@ const Profile = () => {
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [phoneNo, setPhoneNo] = useState("");
-  const [photoURL, setPhotoURL] = useState(null);
+  // const [photoURL, setPhotoURL] = useState(null);
 
   useEffect(() => {
     const getUser = async () => {
@@ -29,7 +29,7 @@ const Profile = () => {
         setUsername(userInfo.username);
         setEmail(userInfo.email);
         setPhoneNo(userInfo.mobile);
-        setPhotoURL(userInfo.imageURL);
+        // setPhotoURL(userInfo.imageURL);
       } catch (error) {
         if (error.response) {
           console.log(error.response.data);
@@ -49,7 +49,7 @@ const Profile = () => {
     //Not working yet
     try {
 
-      await api.patch("/user/edit-user/", {
+      await api.put("/user/edit-user/", {
         username: username,
         email: email,
         mobile: phoneNo,
@@ -156,7 +156,7 @@ const Profile = () => {
               </Col>
 
               <Col lg="4 d-flex align-items-center">
-                <img src={photoURL ? photoURL : userIcon} alt="" />
+                <img src={userIcon} alt="" />
               </Col>
             </Row>
           </Container>

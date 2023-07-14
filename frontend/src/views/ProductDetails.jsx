@@ -15,6 +15,7 @@ import NumberInput from 'semantic-ui-react-numberinput';
 import "../styles/product-details.css"
 import { useRef } from 'react'
 import { useEffect } from 'react'
+import api from '../api/posts'
 
 const ProductDetails = () => {
 
@@ -26,8 +27,25 @@ const ProductDetails = () => {
   const [rating, setRating] = useState(null);
 
   const { id } = useParams()
-  const product = products.find(item => item.id === id)
-  const { imgUrl, productName, price, avgRating, description, shortDesc, reviews, category } = product
+  const [products, setProducts] = useState([]);
+
+  useEffect(() => {
+    const getProducts = async () => {
+      try {
+        const response = await api.get('/product');
+        setProducts(response.data);
+        // console.log(response.data);
+      } catch (error) {
+        console.log(error.message);
+      }
+    }
+
+    getProducts();
+  },[]);
+  
+  const product = products.find(item => item._id === id)
+  const { image, title, price, description, brand, reviews, category } = product
+
   const [quantity, setQuantity] = useState(1);
 
   const someReviews = reviews.slice(0, 5);
@@ -52,8 +70,8 @@ const ProductDetails = () => {
   const addToCart = () => {
     dispatch(cartActions.addItem({
       id,
-      imgUrl: imgUrl,
-      productName,
+      imgUrl: image ? image : '',
+      title,
       price,
       quantity
     }))
@@ -67,19 +85,19 @@ const ProductDetails = () => {
 
 
   return (
-    <Helmet title={productName}>
+    <Helmet title={title}>
 
-      <CommonSection title={productName} />
+      <CommonSection title={title} />
 
       <section className='pt-0'>
         <Container>
           <Row>
             <Col lg="6">
-              <img src={imgUrl} alt='' />
+              <img src={image} alt='' />
             </Col>
             <Col lg="6">
               <div className="product_details">
-                <h2>{productName}</h2>
+                <h2>{title}</h2>
                 <div className="product_rating">
                   <div>
                     <span>
@@ -99,14 +117,14 @@ const ProductDetails = () => {
                     </span>
                   </div>
 
-                  <p>({avgRating} ratings)</p>
+                  {/* <p>({avgRating} ratings)</p> */}
                 </div>
 
                 <div className='d-flex align-items-center gap-5'>
                   <span className='product_price'>${price}</span>
                   <span>By: __owner__</span>
                 </div>
-                <p className='mt-3'>{shortDesc}</p>
+                <p className='mt-3'>{brand}</p>
 
                 <div className="d-flex align-items-baseline gap-5">
                   <motion.button whileTap={{ scale: 1.2 }} className='buy_button cart_btn' onClick={addToCart}
