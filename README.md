@@ -72,11 +72,28 @@ To clone and run this application, you'll need [Git](https://git-scm.com) and [N
 # Clone this repository
 $ git clone https://github.com/nerdistry/EscrowWebApp.git 
 
-# Go into the repository
+# Delete the node modules and package-lock files in both the front and back end folders.
+
+# Go into the front end folder
 $ cd frontend
 
-# Install dependencies
+# Install dependencies for the front end.
 $ npm install
+
+#Go back a directory
+$ cd ..
+
+# Go into the back end folder
+$ cd backend
+
+# Install dependencies for the backend end.
+$ npm install
+
+#Go back a directory
+$ cd ..
+
+# Go into the front end folder
+$ cd backend
 
 # Run the app
 $ npm start
