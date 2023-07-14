@@ -24,9 +24,10 @@ const UpdateProduct = () => {
     getProducts();
   }, []);
 
+  //Some issue
   const { id } = useParams();
   const product = products.find((item) => item._id === id);
-  const { title , price, description, brand, category } = product;
+  const { title , price , description, brand, category } = product;
 
   const [newtitle, setTitle] = useState("");
   const [newProdCategory, setProdCategory] = useState("");

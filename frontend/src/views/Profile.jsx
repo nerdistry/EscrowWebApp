@@ -10,38 +10,38 @@ import { updateProfile } from "firebase/auth";
 
 const Profile = () => {
   const [disable, setDisable] = useState(true);
-  const { currentUser } = useAuth();
+  const { currentUser , userInfo } = useAuth();
 
-  const [userInfo, setUserInfo] = useState([]);
-  const [username, setUsername] = useState("");
-  const [email, setEmail] = useState("");
-  const [phoneNo, setPhoneNo] = useState("");
+  // const [userInfo, setUserInfo] = useState([]);
+  const [username, setUsername] = useState(userInfo.username);
+  const [email, setEmail] = useState(userInfo.email);
+  const [phoneNo, setPhoneNo] = useState(userInfo.mobile);
   // const [photoURL, setPhotoURL] = useState(null);
 
-  useEffect(() => {
-    const getUser = async () => {
-      try {
-        const userId = currentUser?.uid;
-        const response = await api.get(`/user/${userId}`);
-        if(response.status === "200") {setUserInfo(response.data.getaUser);}
-        console.log(response.data.getaUser);
+  // useEffect(() => {
+  //   const getUser = async () => {
+  //     try {
+  //       const userId = currentUser?.uid;
+  //       const response = await api.get(`/user/${userId}`);
+  //       if(response.status === "200") {setUserInfo(response.data.getaUser);}
+  //       console.log(response.data.getaUser);
 
-        setUsername(userInfo.username);
-        setEmail(userInfo.email);
-        setPhoneNo(userInfo.mobile);
-        // setPhotoURL(userInfo.imageURL);
-      } catch (error) {
-        if (error.response) {
-          console.log(error.response.data);
-          console.log(error.response.status);
-        } else {
-          console.log(error.message);
-        }
-      }
-    };
+  //       setUsername(userInfo.username);
+  //       setEmail(userInfo.email);
+  //       setPhoneNo(userInfo.mobile);
+  //       // setPhotoURL(userInfo.imageURL);
+  //     } catch (error) {
+  //       if (error.response) {
+  //         console.log(error.response.data);
+  //         console.log(error.response.status);
+  //       } else {
+  //         console.log(error.message);
+  //       }
+  //     }
+  //   };
 
-    getUser();
-  }, []);
+  //   getUser();
+  // }, []);
 
   const updateUser = async (e) => {
     e.preventDefault();

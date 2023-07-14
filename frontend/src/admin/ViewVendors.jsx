@@ -1,6 +1,37 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
+import useAuth from '../custom-hooks/useAuth'
+import api from '../api/posts'
+import { motion } from 'framer-motion';
+import { Modal, ModalBody, ModalFooter, ModalHeader } from 'reactstrap';
+import { toast } from 'react-toastify';
 
 const ViewVendors = () => {
+
+    const [modal, setModal] = useState(false);
+    const [users, setUsers] = useState([]);
+    const [vendor, setVendor] = useState([]);
+
+    useEffect(() => {
+        const getUsers = async () => {
+            try{
+                const response = await api.get('/user/all-users');
+                setUsers(response.data);
+                // console.log(response.data);
+            } catch (error) {
+                console.log(error);
+            }
+        }
+
+        const filterUsers = users.filter(item => item.role === "vendor")
+        setVendor(filterUsers.map(item => item.applyAsVendor));
+        getUsers();
+    }, [])
+
+    const blockVendor = () => {
+
+        toast.success('Vendor blocked');
+    }
+
     return (
         <div>
             {/* Content Wrapper. Contains page content */}
@@ -40,191 +71,18 @@ const ViewVendors = () => {
                                                 </tr>
                                             </thead>
                                             <tbody>
-                                                <tr>
-                                                    <td>Paul</td>
-                                                    <td>KeepSafe Electronics</td>
-                                                    <td>39</td>
-                                                    <td>View Shop</td>
-                                                </tr>
-                                                <tr>
-                                                    <td>Paul</td>
-                                                    <td>KeepSafe Electronics</td>
-                                                    <td>39</td>
-                                                    <td>View Shop</td>
-                                                </tr>
-                                                <tr>
-                                                    <td>Paul</td>
-                                                    <td>KeepSafe Electronics</td>
-                                                    <td>39</td>
-                                                    <td>View Shop</td>
-                                                </tr>
-                                                <tr>
-                                                    <td>Paul</td>
-                                                    <td>KeepSafe Electronics</td>
-                                                    <td>39</td>
-                                                    <td>View Shop</td>
-                                                </tr>
-                                                <tr>
-                                                    <td>Paul</td>
-                                                    <td>KeepSafe Electronics</td>
-                                                    <td>39</td>
-                                                    <td>View Shop</td>
-                                                </tr>
-                                                <tr>
-                                                    <td>Paul</td>
-                                                    <td>KeepSafe Electronics</td>
-                                                    <td>39</td>
-                                                    <td>View Shop</td>
-                                                </tr>
-                                                <tr>
-                                                    <td>Paul</td>
-                                                    <td>KeepSafe Electronics</td>
-                                                    <td>39</td>
-                                                    <td>View Shop</td>
-                                                </tr>
-                                                <tr>
-                                                    <td>Paul</td>
-                                                    <td>Core Unit 7.2</td>
-                                                    <td>39</td>
-                                                    <td>View Shop</td>
-                                                </tr>
-                                                <tr>
-                                                    <td>Jane</td>
-                                                    <td>Core Unit 7.2</td>
-                                                    <td>39</td>
-                                                    <td>View Shop</td>
-                                                </tr><tr>
-                                                    <td>Jane</td>
-                                                    <td>Core Unit 7.2</td>
-                                                    <td>39</td>
-                                                    <td>View Shop</td>
-                                                </tr>
-                                                <tr>
-                                                    <td>Jane</td>
-                                                    <td>Core Unit 7.2</td>
-                                                    <td>39</td>
-                                                    <td>View Shop</td>
-                                                </tr>
-                                                <tr>
-                                                    <td>Jane</td>
-                                                    <td>Core Unit 7.2</td>
-                                                    <td>39</td>
-                                                    <td>View Shop</td>
-                                                </tr>
-                                                <tr>
-                                                    <td>Jane</td>
-                                                    <td>Core Unit 7.2</td>
-                                                    <td>39</td>
-                                                    <td>View Shop</td>
-                                                </tr>
-                                                <tr>
-                                                    <td>Jane</td>
-                                                    <td>Core Unit 7.2</td>
-                                                    <td>39</td>
-                                                    <td>View Shop</td>
-                                                </tr>
-                                                <tr>
-                                                    <td>Jane</td>
-                                                    <td>Core Unit 7.2</td>
-                                                    <td>39</td>
-                                                    <td>View Shop</td>
-                                                </tr>
-                                                <tr>
-                                                    <td>Jane</td>
-                                                    <td>Core Unit 7.2</td>
-                                                    <td>39</td>
-                                                    <td>View Shop</td>
-                                                </tr>
-                                                <tr>
-                                                    <td>Jane</td>
-                                                    <td>Core Unit 7.2</td>
-                                                    <td>39</td>
-                                                    <td>View Shop</td>
-                                                </tr>
-                                                <tr>
-                                                    <td>Jane</td>
-                                                    <td>Core Unit 7.2</td>
-                                                    <td>39</td>
-                                                    <td>View Shop</td>
-                                                </tr>
-                                                <tr>
-                                                    <td>Jane</td>
-                                                    <td>Core Unit 7.2</td>
-                                                    <td>39</td>
-                                                    <td>View Shop</td>
-                                                </tr>
-                                                <tr>
-                                                    <td>Jane</td>
-                                                    <td>Core Unit 7.2</td>
-                                                    <td>39</td>
-                                                    <td>View Shop</td>
-                                                </tr>
-                                                <tr>
-                                                    <td>Jane</td>
-                                                    <td>Core Unit 7.2</td>
-                                                    <td>39</td>
-                                                    <td>View Shop</td>
-                                                </tr>
-                                                <tr>
-                                                    <td>Jane</td>
-                                                    <td>Core Unit 7.2</td>
-                                                    <td>39</td>
-                                                    <td>View Shop</td>
-                                                </tr>
-                                                <tr>
-                                                    <td>Jane</td>
-                                                    <td>Core Unit 7.2</td>
-                                                    <td>39</td>
-                                                    <td>View Shop</td>
-                                                </tr>
-                                                <tr>
-                                                    <td>Jane</td>
-                                                    <td>Core Unit 7.2</td>
-                                                    <td>39</td>
-                                                    <td>View Shop</td>
-                                                </tr>
-                                                <tr>
-                                                    <td>Jane</td>
-                                                    <td>KeepSafe Electronics</td>
-                                                    <td>39</td>
-                                                    <td>View Shop</td>
-                                                </tr>
-                                                <tr>
-                                                    <td>Jane</td>
-                                                    <td>KeepSafe Electronics</td>
-                                                    <td>39</td>
-                                                    <td>View Shop</td>
-                                                </tr>
-                                                <tr>
-                                                    <td>Jane</td>
-                                                    <td>KeepSafe Electronics</td>
-                                                    <td>39</td>
-                                                    <td>View Shop</td>
-                                                </tr>
-                                                <tr>
-                                                    <td>Jane</td>
-                                                    <td>KeepSafe Electronics</td>
-                                                    <td>39</td>
-                                                    <td>View Shop</td>
-                                                </tr>
-                                                <tr>
-                                                    <td>Jane</td>
-                                                    <td>KeepSafe Electronics</td>
-                                                    <td>39</td>
-                                                    <td>View Shop</td>
-                                                </tr>
-                                                <tr>
-                                                    <td>Jane</td>
-                                                    <td>KeepSafe Electronics</td>
-                                                    <td>39</td>
-                                                    <td>View Shop</td>
-                                                </tr>
-                                                <tr>
-                                                    <td>Paul</td>
-                                                    <td>KeepSafe Electronics</td>
-                                                    <td>39</td>
-                                                    <td>View Shop</td>
-                                                </tr>
+                                                {
+                                                    vendor.map((item, index) => (
+                                                        <tr key={index}>
+                                                            <td>My shop</td>
+                                                            <td>Awesome</td>
+                                                            <td>4</td>
+                                                            <td><motion.span whileTap={{ scale: 1.2 }} className='danger' onClick={setModal}>
+                                                                <i className="fas fa-times-hexagon" />
+                                                            </motion.span></td>
+                                                        </tr>
+                                                    ))
+                                                }
                                             </tbody>
                                         </table>
                                     </div>
@@ -240,7 +98,41 @@ const ViewVendors = () => {
                 </section>
             </div>
             {/* /.content-wrapper */}
-
+            <Modal
+                isOpen={modal}
+                toggle={() => setModal(false)}
+                backdrop="static"
+                keyboard={false}
+                className="popup"
+            >
+                <ModalHeader toggle={() => setModal(false)} className="popup_header">
+                    Delete Product
+                </ModalHeader>
+                <ModalBody>
+                    Are you sure you want to delete this product
+                </ModalBody>
+                <ModalFooter>
+                    <motion.button
+                        whileTap={{ scale: 1.2 }}
+                        className="modal-danger"
+                        onClick={() => {
+                            setModal(false);
+                            blockVendor();
+                        }}
+                    >
+                        Delete
+                    </motion.button>
+                    <motion.button
+                        whileTap={{ scale: 1.2 }}
+                        className="modal-danger-bg"
+                        onClick={() => {
+                            setModal(false);
+                        }}
+                    >
+                        Cancel
+                    </motion.button>
+                </ModalFooter>
+            </Modal>
         </div>
     )
 }

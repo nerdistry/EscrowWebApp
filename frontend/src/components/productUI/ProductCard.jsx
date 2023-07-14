@@ -10,6 +10,13 @@ import { toast } from 'react-toastify';
 const ProductCard = ({ item }) => {
     const dispatch = useDispatch()
 
+    function truncateString(str, num) {
+        if (str.length <= num) {
+            return str
+        }
+        return str.slice(0, num) + '...'
+    }
+
     const addToCart = () => {
         dispatch(cartActions.addItem({
             id: item._id,
@@ -30,7 +37,7 @@ const ProductCard = ({ item }) => {
                         <img src={item.images} alt="" />
                     </div>
                     <div className='p-2 product_info'>
-                        <h3 className='product_name'>{item.title}</h3>
+                        <h3 className='product_name'>{truncateString(item.title, 30)}</h3>
                         <span className='text-center'>{item.category}</span>
                     </div>
                 </Link>
