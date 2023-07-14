@@ -8,7 +8,7 @@ import twitterImg from "../assets/images/twitter.svg";
 import phoneImg from "../assets/images/phone.png";
 
 import {
-  Container, 
+  Container,
   Row,
   Col,
   Form,
@@ -35,49 +35,56 @@ import { signInWithPhoneNumber, RecaptchaVerifier } from "firebase/auth";
 /**************DONE************/
 
 
-  const Login = () => {
-    const navigate = useNavigate();
-    const [email, setEmail] = useState("");
-    const [password, setPassword] = useState("");
-    const [loading, setLoading] = useState(false);
-    // set that a user cannot go back to login if they are already logged in / signed up
+const Login = () => {
+  const navigate = useNavigate();
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [loading, setLoading] = useState(false);
+  // set that a user cannot go back to login if they are already logged in / signed up
 
-    const login = async (e) => {
-        e.preventDefault();
-        setLoading(true);
-        try {
-            const userCredential = await signInWithEmailAndPassword(auth, email, password)
-            const user = userCredential.user;
+  const login = async (e) => {
+    e.preventDefault();
+    setLoading(true);
+    try {
+      const userCredential = await signInWithEmailAndPassword(auth, email, password)
+      const user = userCredential.user;
 
-            if (await user?.emailVerified) {
-                await api.post('/user/login',{
-                  email: user.email,
-                })
+      if (await user?.emailVerified) {
+        const response = await api.post('/user/login', {
+          email: user.email,
+        })
 
-                setLoading(false);
-                toast.success("Login Successful");
-                console.log(user);
-                navigate("/home")
-                window.location.reload();
-
-            } else {
-                setLoading(false);
-                setEmail(user.email);
-                setPassword(user.password);
-                sendEmailVerification(user);
-                toast.error("Verify your Email: Check your Email for verification link");                
-            }
-
-
-        } catch (error) {
+        console.log(response.data)
+          if (response.data.role === 'admin') {
             setLoading(false);
-            if (error.code === 'auth/user-not-found') {
-                toast.error('User not found');
-            } else {
-                toast.error(error.code);
-            }
-        }
+            toast.success("Login Successful");
+            navigate("/admin")
+          } else {
+            setLoading(false);
+            toast.success("Login Successful");
+            console.log(user);
+            navigate("/home")
+          }
+
+        // window.location.reload();
+
+      } else {
+        setLoading(false);
+
+        sendEmailVerification(user);
+        toast.error("Verify your Email: Check your Email for verification link");
+      }
+
+
+    } catch (error) {
+      setLoading(false);
+      if (error.code === 'auth/user-not-found') {
+        toast.error('User not found');
+      } else {
+        toast.error(error.code);
+      }
     }
+  }
 
   /***************ADDED************/
   const navigateToPhoneSignIn = (e) => {
@@ -90,79 +97,79 @@ import { signInWithPhoneNumber, RecaptchaVerifier } from "firebase/auth";
     setLoading(true);
 
     try {
-        const fbprovider = new FacebookAuthProvider();
-        const result = await signInWithPopup(auth, fbprovider);
-        const user = result.user;
-        console.log(user)
-
-        await api.post('/user/login',{
-          email: user.email,
-        })
-
-        toast.success("Login Successful");
-        navigate("/home");
-
-    } catch (error) {
-        setLoading(false);
-        console.log(error);
-
-        if (error.code === 'auth/popup-closed-by-user') {
-            console.log(error.message);
-        } else if (error.code === 'auth/internal-error') {
-            toast.error("Something went wrong. Try Again");
-        } else if (error.code === 'auth/account-exists-with-different-credential') {
-            toast.error("User already exists");
-        } else {
-            console.log(error.message);
-            toast.error("Something went wrong. Try Again");
-        }
-
-    }
-
-}
-
-const signUpWithTwitter = async (e) => {
-  e.preventDefault();
-  setLoading(true);
-
-  try {
-      const twprovider = new TwitterAuthProvider();
-      const result = await signInWithPopup(auth, twprovider);
+      const fbprovider = new FacebookAuthProvider();
+      const result = await signInWithPopup(auth, fbprovider);
       const user = result.user;
-      console.log(user);
+      console.log(user)
 
-      await api.post('/user/login',{
+      await api.post('/user/login', {
         email: user.email,
       })
 
       toast.success("Login Successful");
       navigate("/home");
 
-  } catch (error) {
+    } catch (error) {
       setLoading(false);
       console.log(error);
 
       if (error.code === 'auth/popup-closed-by-user') {
-          console.log(error.message)
+        console.log(error.message);
+      } else if (error.code === 'auth/internal-error') {
+        toast.error("Something went wrong. Try Again");
       } else if (error.code === 'auth/account-exists-with-different-credential') {
-          toast.error("Account already exists");
+        toast.error("User already exists");
       } else {
-          toast.error("Something went wrong. Try Again.");
+        console.log(error.message);
+        toast.error("Something went wrong. Try Again");
       }
+
+    }
+
   }
-}
 
-const signUpWithGoogle = async (e) => {
-  e.preventDefault();
-  setLoading(true);
+  const signUpWithTwitter = async (e) => {
+    e.preventDefault();
+    setLoading(true);
 
-  try {
+    try {
+      const twprovider = new TwitterAuthProvider();
+      const result = await signInWithPopup(auth, twprovider);
+      const user = result.user;
+      console.log(user);
+
+      await api.post('/user/login', {
+        email: user.email,
+      })
+
+      toast.success("Login Successful");
+      navigate("/home");
+
+    } catch (error) {
+      setLoading(false);
+      console.log(error);
+
+      if (error.code === 'auth/popup-closed-by-user') {
+        console.log(error.message)
+      } else if (error.code === 'auth/account-exists-with-different-credential') {
+        toast.error("Account already exists");
+      } else {
+        toast.error("Something went wrong. Try Again.");
+      }
+    }
+  }
+
+  const signUpWithGoogle = async (e) => {
+    e.preventDefault();
+    setLoading(true);
+
+    try {
       const googleprovider = new GoogleAuthProvider();
       const userCredential = await signInWithPopup(auth, googleprovider);
       const user = userCredential.user;
       console.log(userCredential);
 
-      await api.post('/user/login',{
+      await api.post('/user/login', {
         email: user.email,
       })
 
@@ -171,16 +178,16 @@ const signUpWithGoogle = async (e) => {
       navigate('/home');
       window.location.reload();
 
-  } catch (error) {
+    } catch (error) {
       setLoading(false);
       if (error.code === 'auth/popup-closed-by-user') {
-          console.log(error.message)
+        console.log(error.message)
       } else {
-          console.log(error.message);
-          toast.error(error.code);
+        console.log(error.message);
+        toast.error(error.code);
       }
-  };
-}
+    };
+  }
 
   return (
     <Helmet title="Login">
@@ -239,45 +246,45 @@ const signUpWithGoogle = async (e) => {
                       </p>
                     </motion.div>
 
-                      <motion.div
-                        whileTap={{ scale: 1.05 }}
-                        whileHover={{ opacity: 0.5 }}
-                        className="social_item"
-                        onClick={signUpWithFacebook}
-                      >
-                        <img src={facebookImg} alt="" />
-                        <p>
-                          <span>Continue with Facebook</span>
-                        </p>
-                      </motion.div>
+                    <motion.div
+                      whileTap={{ scale: 1.05 }}
+                      whileHover={{ opacity: 0.5 }}
+                      className="social_item"
+                      onClick={signUpWithFacebook}
+                    >
+                      <img src={facebookImg} alt="" />
+                      <p>
+                        <span>Continue with Facebook</span>
+                      </p>
+                    </motion.div>
 
-                      <motion.div
-                        whileTap={{ scale: 1.05 }}
-                        whileHover={{ opacity: 0.5 }}
-                        className="social_item"
-                        onClick={signUpWithTwitter}
-                      >
-                        <img src={twitterImg} alt="" />
-                        <p>
-                          <span>Continue with Twitter</span>
-                        </p>
-                      </motion.div>
-                      <motion.div
-                        whileTap={{ scale: 1.05 }}
-                        whileHover={{ opacity: 0.5 }}
-                        className="social_item"
-                        onClick={navigateToPhoneSignIn}
-                      >
-                        <img src={phoneImg} alt="" />
-                        <p>
-                          <span>Continue with Phone</span>
-                        </p>
-                      </motion.div>
-                    </div>
-                    <p>Don't have an account? <Link to="/signup">Sign Up</Link></p>
-                  </Form>
-                </Col>
-              )
+                    <motion.div
+                      whileTap={{ scale: 1.05 }}
+                      whileHover={{ opacity: 0.5 }}
+                      className="social_item"
+                      onClick={signUpWithTwitter}
+                    >
+                      <img src={twitterImg} alt="" />
+                      <p>
+                        <span>Continue with Twitter</span>
+                      </p>
+                    </motion.div>
+                    <motion.div
+                      whileTap={{ scale: 1.05 }}
+                      whileHover={{ opacity: 0.5 }}
+                      className="social_item"
+                      onClick={navigateToPhoneSignIn}
+                    >
+                      <img src={phoneImg} alt="" />
+                      <p>
+                        <span>Continue with Phone</span>
+                      </p>
+                    </motion.div>
+                  </div>
+                  <p>Don't have an account? <Link to="/signup">Sign Up</Link></p>
+                </Form>
+              </Col>
+            )
             }
           </Row>
         </Container>

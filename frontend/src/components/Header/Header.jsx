@@ -58,7 +58,7 @@ const Header = () => {
 
   const logout = async () => {   
     try {
-      await api.get('/user/logout');
+      // await api.get('/user/logout');
 
       signOut(auth).then(() => {
         toast.success("Logout Successful")
