@@ -1,50 +1,50 @@
-import React, { useEffect, useState } from 'react'
-import { toast } from 'react-toastify'
-import { Form, FormGroup, Label } from 'reactstrap'
-import '../styles/admin.css'
-import api from '../api/posts'
+import React, { useEffect, useState } from "react";
+import { toast } from "react-toastify";
+import { Form, FormGroup, Label } from "reactstrap";
+import "../styles/admin.css";
+import api from "../api/posts";
 
 const AddCategory = () => {
-
-  const [category, setNewCategory] = useState('');
+  const [category, setNewCategory] = useState("");
   const [allCategories, setAllCategories] = useState([]);
 
   useEffect(() => {
     const getCategories = async () => {
       try {
-        const response = await api.get('/category');
+        const response = await api.get("/category/");
         setAllCategories(response.data);
         console.log(response.data);
-
       } catch (error) {
         toast.error(error.message);
         console.log(error.message);
       }
-    }
+    };
 
     getCategories();
-
-  }, [])
-
+  }, []);
 
   const addCategory = async (e) => {
     e.preventDefault();
-
+  
     try {
-      console.log(category);
-      await api.post('/category', {
-        title: category,
-      });
-
-      toast.success("Category added successfully");
-
+      const categoryValue = category;
+      console.log('Category:', categoryValue);
+  
+      const requestData = {
+        title: categoryValue,
+      };
+      console.log('Request data:', requestData);
+  
+      const response = await api.post('/category/create-category', requestData);
+  
+      console.log('Response data:', response.data);
+  
+      toast.success('Category added successfully');
     } catch (error) {
       toast.error(error.message);
       console.log(error.message);
     }
-
-  }
-
+  };
   return (
     <div>
       {/* Content Wrapper. Contains page content */}
@@ -55,15 +55,21 @@ const AddCategory = () => {
             <div className="row mb-2">
               <div className="col-sm-6">
                 <h1 className="m-0">Add Category</h1>
-              </div>{/* /.col */}
+              </div>
+              {/* /.col */}
               <div className="col-sm-6">
                 <ol className="breadcrumb float-sm-right">
-                  <li className="breadcrumb-item"><a href="#">Home</a></li>
+                  <li className="breadcrumb-item">
+                    <a href="#">Home</a>
+                  </li>
                   <li className="breadcrumb-item active">Add Category</li>
                 </ol>
-              </div>{/* /.col */}
-            </div>{/* /.row */}
-          </div>{/* /.container-fluid */}
+              </div>
+              {/* /.col */}
+            </div>
+            {/* /.row */}
+          </div>
+          {/* /.container-fluid */}
         </div>
         {/* /.content-header */}
         {/* Main content */}
@@ -74,16 +80,25 @@ const AddCategory = () => {
                 <div className="card">
                   {/* /.card-header */}
                   <div className="card-body">
-
-                    <Form className='billing_form' onSubmit={addCategory}>
-                      <FormGroup className='form_group'>
-                        <Label for='cat'>Category Name</Label>
-                        <input type='text' id="cat" placeholder='Shoes / mobile / furniture...' required onChange={(text) => setNewCategory(text.target.value)} />
+                    <Form className="billing_form" onSubmit={addCategory}>
+                      <FormGroup className="form_group">
+                        <Label for="cat">Category Name</Label>
+                        <input
+                          type="text"
+                          id="cat"
+                          placeholder="Shoes / mobile / furniture..."
+                          required
+                          value={category}
+                          onChange={(event) =>
+                            setNewCategory(event.target.value)
+                          }
+                        />
                       </FormGroup>
 
-                      <button type="submit" className='buy_button'>Add</button>
+                      <button type="submit" className="buy_button">
+                        Add
+                      </button>
                     </Form>
-
                   </div>
                 </div>
               </div>
@@ -98,7 +113,7 @@ const AddCategory = () => {
                   <div className="card-body">
                     <h3>Categories</h3>
                     <br />
-                    <table className='table'>
+                    <table className="table">
                       <thead>
                         <tr>
                           <th>No.</th>
@@ -106,18 +121,14 @@ const AddCategory = () => {
                         </tr>
                       </thead>
                       <tbody>
-                        {
-                          allCategories.map((item,index) => (
-                            <tr key={item._id}>
-                              <td>{item._id}</td>
-                              <td>{item.title}</td>
-                            </tr>
-                          ))
-                        }
-
+                        {allCategories.map((item, index) => (
+                          <tr key={item._id}>
+                            <td>{item._id}</td>
+                            <td>{item.title}</td>
+                          </tr>
+                        ))}
                       </tbody>
                     </table>
-
                   </div>
                 </div>
               </div>
@@ -126,7 +137,7 @@ const AddCategory = () => {
         </section>
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default AddCategory
+export default AddCategory;

@@ -10,7 +10,7 @@ const {
   uploadImages,
 } = require("../controller/productCtrl");
 
-const { isAdmin, authMiddleware } = require("../middlewares/authMiddleware");
+const { isAdmin } = require("../middlewares/authMiddleware");
 const {
   uploadPhoto,
   productImgResize,
@@ -21,8 +21,7 @@ const router = express.Router();
 router.post("/", isAdmin, createProduct);
 router.put(
   "/upload/:id",
-  authMiddleware,
-  isAdmin,
+    isAdmin,
   uploadPhoto.array("images", 10),
   productImgResize,
   uploadImages
