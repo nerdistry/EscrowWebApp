@@ -40,7 +40,11 @@
     text-align: right;
 }
 
-.auth_form input, .auth_form .PhoneInput {
+.PhoneInput {
+    margin-left: 10%;
+}
+
+.auth_form input {
     width: 80%;
     height: 45px;
     background-color: white;

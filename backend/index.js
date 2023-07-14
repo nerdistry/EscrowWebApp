@@ -13,8 +13,15 @@ const brandRouter = require('./routes/brandRoute');
 const cookieParser = require('cookie-parser');	
 
 const morgan = require('morgan');
+const cors = require('cors');
 
 dbConnect();
+
+app.use(
+    cors({
+        origin: '*',
+    })
+);
 
 app.use(morgan('dev'));
 app.use(bodyParser.json());

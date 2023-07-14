@@ -1,22 +1,49 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { toast } from 'react-toastify'
 import { Form, FormGroup, Label } from 'reactstrap'
 import '../styles/admin.css'
+import api from '../api/posts'
 
 const AddCategory = () => {
 
-    const[newCategory,setNewCategory] = useState('')
+  const [category, setNewCategory] = useState('');
+  const [allCategories, setAllCategories] = useState([]);
 
-    const addCategory = (e) => {
-      e.preventDefault();
-      
-      const categoryObj = {
-        category: newCategory,
+  useEffect(() => {
+    const getCategories = async () => {
+      try {
+        const response = await api.get('/category');
+        setAllCategories(response.data);
+        console.log(response.data);
+
+      } catch (error) {
+        toast.error(error.message);
+        console.log(error.message);
       }
-
-      console.log(categoryObj);
-      toast.success("Category added successfully");
     }
+
+    getCategories();
+
+  }, [])
+
+
+  const addCategory = async (e) => {
+    e.preventDefault();
+
+    try {
+      console.log(category);
+      await api.post('/category', {
+        title: category,
+      });
+
+      toast.success("Category added successfully");
+
+    } catch (error) {
+      toast.error(error.message);
+      console.log(error.message);
+    }
+
+  }
 
   return (
     <div>
@@ -50,12 +77,46 @@ const AddCategory = () => {
 
                     <Form className='billing_form' onSubmit={addCategory}>
                       <FormGroup className='form_group'>
-                        <Label>Category Name</Label>
-                        <input type='text' placeholder='Shoes / mobile / furniture...' required onChange={(text) => setNewCategory(text.target.value)}/>
+                        <Label for='cat'>Category Name</Label>
+                        <input type='text' id="cat" placeholder='Shoes / mobile / furniture...' required onChange={(text) => setNewCategory(text.target.value)} />
                       </FormGroup>
-                      
+
                       <button type="submit" className='buy_button'>Add</button>
                     </Form>
+
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div className="container-fluid">
+            <div className="row">
+              <div className="col-12">
+                <div className="card">
+                  {/* /.card-header */}
+                  <div className="card-body">
+                    <h3>Categories</h3>
+                    <br />
+                    <table className='table'>
+                      <thead>
+                        <tr>
+                          <th>No.</th>
+                          <th>Category Name</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        {
+                          allCategories.map((item,index) => (
+                            <tr key={item._id}>
+                              <td>{item._id}</td>
+                              <td>{item.title}</td>
+                            </tr>
+                          ))
+                        }
+
+                      </tbody>
+                    </table>
 
                   </div>
                 </div>

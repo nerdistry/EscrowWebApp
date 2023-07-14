@@ -11,21 +11,35 @@ import { Container, Row, Col } from 'reactstrap'
 import { Link } from 'react-router-dom'
 import { motion } from 'framer-motion'
 import Footer from '../components/Footer/Footer'
+import api from '../api/posts'
 
 const Home = () => {
+
 
   const [trendingProducts, setTrendingProducts] = useState([]);
   const [newArrivals, setNewArrivals] = useState([]);
 
   const year = new Date().getFullYear();
+  const [products, setProducts] = useState([]);
 
   useEffect(() => {
+    const getProducts = async () => {
+      try {
+        const response = await api.get('/product');
+        setProducts(response.data);
+        // console.log(response.data);
+      } catch (error) {
+        console.log(error.message);
+      }
+    }
+
+    getProducts();
     const filteredTrendingProducts = products.filter(
-      (item) => item.category === 'mobile'
+      (item) => item.category === 'wireless'
     );
 
     const filteredNewArrivalProducts = products.filter(
-      (item) => item.category === 'sofa'
+      (item) => item.category === 'Sofas'
     );
 
     setNewArrivals(filteredNewArrivalProducts);

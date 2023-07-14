@@ -15,14 +15,17 @@
     align-items: center;
     column-gap: 8px;
 }
-.logo img{
+
+.logo img {
     width: 5rem;
 }
+
 .logo h1 {
     font-size: 1.2rem;
     font-weight: 700;
     color: var(--primary-color)
 }
+
 .menu {
     display: flex;
     align-items: center;
@@ -67,7 +70,7 @@
     line-height: 0;
     font-size: 1rem;
     background-color: var(--main-bg-color);
-    cursor: pointer; 
+    cursor: pointer;
     margin-top: 0;
     margin-bottom: 0;
 }
@@ -104,20 +107,26 @@
     width: 100%;
 }
 
-.nav__icons .profile .account_actions div a, .nav__icons .profile .account_actions div span {
+.nav__icons .profile .account_actions div a,
+.nav__icons .profile .account_actions div span {
     transition: .3s ease-in-out;
     border-radius: 10px;
     padding: 5px 10px;
     margin: 2px 0px;
     font-weight: 500;
+    display: flex;
+    align-items: center;
+    gap: 5px;
 }
 
-.nav__icons .profile .account_actions div a:hover, .nav__icons .profile .account_actions div span:hover {
+.nav__icons .profile .account_actions div a:hover,
+.nav__icons .profile .account_actions div span:hover {
     color: inherit;
     background-color: rgba(255, 255, 255, 0.53);
 }
 
-.fav__icon, .cart__icon {
+.fav__icon,
+.cart__icon {
     position: relative;
 }
 
@@ -139,21 +148,32 @@
     z-index: 10;
 }
 
+.wallet {
+    font-size: 1.1rem !important;
+    padding: 10px 20px !important;
+    line-height: 25px !important;
+    display: flex;
+    align-items: center;
+    gap: 7px;
+}
+
 .mobile__menu {
     font-size: 1.3rem;
     color: var(--primary-color);
     display: none;
 }
 
-.nav__item a:hover ,.nav__item .nav__active {
+.nav__item a:hover,
+.nav__item .nav__active {
     color: var(--button-color);
     font-weight: 700 !important;
 }
 
-.nav__item .nav__active::after, .nav__item a:hover::after {
+.nav__item .nav__active::after,
+.nav__item a:hover::after {
     content: "";
     width: 50%;
-    height: 2px;    
+    height: 2px;
     background-color: var(--button-color);
     position: absolute;
     bottom: -4px;
@@ -186,11 +206,11 @@
         left: 0;
         width: 100%;
         height: 100%;
-        background: rgba(0,0,0,0.53);
-        z-index: 999; 
+        background: rgba(0, 0, 0, 0.53);
+        z-index: 999;
         display: none;
     }
-    
+
     .menu {
         position: absolute;
         top: 0;
@@ -221,11 +241,12 @@
         height: 1rem;
     }
 
-    .logo h1{
+    .logo h1 {
         width: 1rem;
     }
 
-    .fav__icon i, .cart__icon i {
+    .fav__icon i,
+    .cart__icon i {
         font-size: 1.2rem !important;
     }
 

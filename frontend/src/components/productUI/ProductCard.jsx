@@ -12,10 +12,10 @@ const ProductCard = ({ item }) => {
 
     const addToCart = () => {
         dispatch(cartActions.addItem({
-            id: item.id,
-            productName: item.productName,
+            id: item._id,
+            productName: item.title,
             price: item.price,
-            imgUrl: item.imgUrl,
+            imgUrl: item.images[0].url,
         })
         );
 
@@ -25,12 +25,12 @@ const ProductCard = ({ item }) => {
     return (
         <Col lg="3" md="4">
             <motion.div whileHover={{ scale: 0.95 }} className="product_item">
-                <Link to={`/product/${item.id}`}>
+                <Link to={`/product/${item._id}`}>
                     <div className="product_img">
-                        <img src={item.imgUrl} alt="" />
+                        <img src={item.images} alt="" />
                     </div>
                     <div className='p-2 product_info'>
-                        <h3 className='product_name'>{item.productName}</h3>
+                        <h3 className='product_name'>{item.title}</h3>
                         <span className='text-center'>{item.category}</span>
                     </div>
                 </Link>
