@@ -51,6 +51,6 @@ td,th {
 }
 
 tr td i {
-    color: #E80000;
+    /* color: #E80000; */
     font-size: large;
 }

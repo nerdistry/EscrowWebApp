@@ -1,16 +1,41 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Modal, ModalBody, ModalFooter, ModalHeader } from 'reactstrap'
 import { motion } from 'framer-motion'
-import products from '../assets/data/products'
+// import products from '../assets/data/products'
 import '../styles/admin.css'
 import { toast } from 'react-toastify'
+import api from '../api/posts'
 
 const ViewProducts = () => {
+
+    function truncateString(str, num) {
+    if (str.length <= num) {
+        return str
+    }
+    return str.slice(0, num) + '...'
+}
+
+
     const [modal, setModal] = useState(false);
-    
+    const [products, setProducts] = useState([]);
+
     const deleteProduct = () => {
         toast.success("Product deleted");
     }
+
+    useEffect(() => {
+        const getProducts = async () => {
+            try {
+                const response = await api.get('/product');
+                setProducts(response.data);
+
+            } catch (error) {
+
+            }
+        }
+
+        getProducts();
+    }, []);
 
     return (
         <div>
@@ -44,9 +69,10 @@ const ViewProducts = () => {
                                         <table id="example1" className="table table-bordered table-striped">
                                             <thead>
                                                 <tr>
-                                                    <th />
+                                                    <th></th>
                                                     <th>Product Name</th>
-                                                    <th>Short Description</th>
+                                                    <th>Brand</th>
+                                                    <th>Description</th>
                                                     <th>Price</th>
                                                     <th>Category</th>
                                                     <th>No in Stock</th>
@@ -57,14 +83,15 @@ const ViewProducts = () => {
                                                 {
                                                     products.map((item, index) => (
                                                         <tr key={index}>
-                                                            <td><img src={item.imgUrl} alt="" /></td>
-                                                            <td>{item.productName}</td>
-                                                            <td>{item.shortDesc}</td>
+                                                            <td><img src={item.image?.url} alt="" /></td>
+                                                            <td>{item.title}</td>
+                                                            <td>{item.brand}</td>
+                                                            <td>{truncateString(item.description, 50)}</td>
                                                             <td>${item.price}</td>
                                                             <td>{item.category}</td>
                                                             <td>20</td>
                                                             <td className='action'>
-                                                                <motion.a whileTap={{ scale: 1.2 }} href={`/admin/update-product/${item.id}`} className='info' >
+                                                                <motion.a whileTap={{ scale: 1.2 }} href={`/admin/update-product/${item._id}`} className='info' >
                                                                     <i className="fas fa-edit" />
                                                                 </motion.a>
                                                                 <motion.span whileTap={{ scale: 1.2 }} className='danger' onClick={setModal}>
