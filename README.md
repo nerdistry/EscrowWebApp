@@ -89,18 +89,22 @@ $ cd backend
 # Install dependencies for the backend end.
 $ npm install
 
+#Install hardhat
+$ npx hardhat
+
 #Go back a directory
 $ cd ..
 
 # Go into the front end folder
-$ cd backend
+$ cd frontend
 
 # Run the app
 $ npm start
+
 ```
 
 > **Note**
->
+> Remember for Windows you have to have XAMPP installed. And the database we are using is MongoDB.
 > ⚠️⚠️ We're using testnets for this web application and for security reasons, it is highly recommended you follow suit. 
 >
 <!-- > If you're stuck breathe in-out then check the above gif. -->
