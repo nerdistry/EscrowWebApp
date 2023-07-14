@@ -22,3 +22,11 @@ What I haven't done cause it's Blockchain related:
 - Didn't use code grepper, might come to regret?
 - Haven't done blog, no need for it.?
 - Multer Sharp Cloudinary
+
+For the front end
+__________________
+npm i axios yup formik
+npm install @reduxjs/toolkit react-redux
+In the src -> app folder -> store.js
+In the src -> features folder -> auth -> authslice.js & authservice.js 
+In the src -> utils-> 

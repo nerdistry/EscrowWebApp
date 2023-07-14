@@ -1,70 +1,163 @@
-# Getting Started with Create React App
+<h1 align="center">
+  <br>
+  <a href="http://localhost"><img src="./frontend/public/logo192.png" alt="EasyBuy" width="200"></a>
+  <br>
+  EasyBuy
+  <br>
+</h1>
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+<h4 align="center">An ecommerce application on the <a href="https://www.euromoney.com/learning/blockchain-explained/what-is-blockchain" target="_blank">Blockchain</a>.</h4>
 
-## Available Scripts
+<p align="center">
+  <a href="https://www.mongodb.com/">
+    <img src="https://img.shields.io/badge/MongoDB-%234ea94b.svg?style=for-the-badge&logo=mongodb&logoColor=white"
+         alt="MongoDB">
+  </a>    
+  <a href="https://soliditylang.org/">
+      <img src="https://img.shields.io/badge/Solidity-%23363636.svg?style=for-the-badge&logo=solidity&logoColor=white" alt="Solidity">
+  </a>
+  
+  <a href="https://nodejs.org/en">
+      <img src="https://img.shields.io/badge/node.js-6DA55F?style=for-the-badge&logo=node.js&logoColor=white" alt="NodeJS">
+  </a>
 
-In the project directory, you can run:
+</p>
 
-### `npm start`
+<p align="center">
+  <a href="#key-features">Key Features</a> •
+  <a href="#how-to-use">How To Use</a> •
+  <a href="#download">Download</a> •
+  <a href="#credits">Credits</a> •
+  <a href="#related">Related</a> •
+  <a href="#license">License</a>
+</p>
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+![screenshot](https://raw.githubusercontent.com/amitmerchant1990/electron-markdownify/master/app/img/markdownify.gif)
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+## Introduction
 
-### `npm test`
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
 
-### `npm run build`
+## Key Features
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+- Connect to MetaMask Wallet.
+- Instant read of Ethereum Balance.
+- Transact securely using Ethereum.
+- Windows and Linux ready.
+    - Not tested on other platforms.
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+## How To Use
 
-### `npm run eject`
+To clone and run this application, you'll need [Git](https://git-scm.com) and [Node.js](https://nodejs.org/en/download/) (which comes with [npm](http://npmjs.com)) installed on your computer. From your command line:
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+```bash
+# Clone this repository
+$ git clone https://github.com/nerdistry/EscrowWebApp.git 
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+# Go into the repository
+$ cd frontend
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+# Install dependencies
+$ npm install
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+# Run the app
+$ npm start
+```
 
-## Learn More
+> **Note**
+>
+> ⚠️⚠️ We're using testnets for this web application and for security reasons, it is highly recommended you follow suit. 
+>
+> If you're stuck breathe in-out then check the above gif.
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+## Credits
 
-### Code Splitting
+This web app uses the following important packages for the:
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+**(a) Normal Backend**
+- [Cloudinary](https://cloudinary.com/)
+- [Ethers](https://www.npmjs.com/package/ethers)
+- [Express](https://www.npmjs.com/package/express)
+- [Formik](https://formik.org/docs/overview)
+- [Mongoose](https://www.npmjs.com/package/mongoose)
+- [Slugify](https://www.npmjs.com/package/slugify)
 
-### Analyzing the Bundle Size
+There were just worth mentioning, you can check out the rest in the package-lock.json file in the backend folder.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+**(a) Solidity Backend**
+- [Hardhat](https://hardhat.org/hardhat-runner/docs/getting-started)
+- [Ethereum-Waffle](https://ethereum-waffle.readthedocs.io/en/latest/)
+- [Chai](https://ethereum-waffle.readthedocs.io/en/latest/)
 
-### Making a Progressive Web App
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+**(b) Frontend**
+- [Redux Toolkit](https://redux-toolkit.js.org/)
+- [Testing Library](https://www.npmjs.com/package/@testing-library/react)
+- [Template](https://adminlte.io/)
+- [Bootstrap](https://getbootstrap.com/)
+- [Firebase](https://firebase.google.com/)
+- [React](https://reactnative.dev/)
 
-### Advanced Configuration
+The packages are more than we can mention!
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+#### Output Structure
+---
 
-### Deployment
+```shell
+Escrow_Web_App/
+├── backend/
+│   ├── config/
+│   │   └── dbConnect.js
+│   │   └── jwtToken.js
+│   │   └── refreshtoken.js
+│   ├── contracts/
+│   │   └── escrow.sol
+│   ├── controller/
+│   │   └── brandCtrl.js
+│   │   └── categoryCtrl.js
+│   │   └── emailCtrl.js
+│   │   └── productCtrl.js
+│   │   └── userCtrl.js
+│   ├── middlewares/
+│   │   └── authMiddleware.js
+│   │   └── errprHandler.js
+│   │   └── uploadImages.js
+│   ├── models/
+│   │   └── brandModel.js
+│   │   └── cartModel.js
+│   │   └── categoryModel.js
+│   │   └── orderModel.js
+│   │   └── productModel.js
+│   │   └── userModel.js
+│   ├── routes/
+│   │   └── authRoute.js
+│   │   └── brandRoute.js
+│   │   └── categoryRoute.js
+│   │   └── productRoute.js
+│   ├── scripts/
+│   │   └── deploy.js
+│   ├── index.js
+│   └── package.json
+├── frontend/
+│   ├── public/
+│   │   └── index.html
+│   ├── src/
+│   │   ├── components/
+│   │   ├── App.js
+│   │   └── index.js
+│   ├── package.json
+│   └── ...
+└── README.md
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+```
 
-### `npm run build` fails to minify
+## License
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+MIT
+
+---
+
+> GitHub [@bryanlwaya](https://github.com/BryanLwaya) &nbsp;&middot;&nbsp;
+> GitHub [@fanisheba](https://github.com/nerdistry) &nbsp;&middot;&nbsp;
