@@ -44,16 +44,7 @@ ultimately enhances user confidence and mitigates potential risks. The methodolo
 designing an intuitive application that integrates escrow services, securely holding the buyer's 
 payment until both parties reach an agreement. Smart contracts powered by blockchain which 
 define the conditions for releasing the funds from escrow to the seller upon successful delivery 
-and buyer approval; will also be developed. The anticipated findings of this research suggest that 
-the combination of escrow services and blockchain technology will enhance the credibility of 
-online marketplaces. Users will have the assurance that their funds are safeguarded until the 
-product’s condition is verified and the transaction deemed satisfactory. By addressing the 
-challenge of trust, this application aims to revolutionize ecommerce platforms, enabling the 
-market to engage in transactions with confidence. Ultimately, this solution aims to foster a 
-thriving ecommerce ecosystem that benefits both buyers and sellers alike, leading to increased 
-user satisfaction and improved transactional experiences.
-
-
+and buyer approval; will also be developed.
 
 ## Key Features
 
