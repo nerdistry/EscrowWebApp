@@ -37,9 +37,9 @@ const Footer = () => {
           <div className="col-4">
             <h4 className='text-white mb-4'>Contact Us</h4>
             <div>
-              <address className='text-white fs-5'>#No: 7 Musa Street Upper Allen Town</address>
-              <a href='tel: +23278837468' className='mt-3 d-block mb-1 text-white'>+23278837468</a>
-              <a href='mailto: hassanmusa3971@gmail.com' className='mt-2 d-block mb-0 text-white'>hassanmusa3971@gmail.com</a>
+              <address className='text-white fs-5'>#No: 7 DURHAN Town</address>
+              <a href='tel: +23278837468' className='mt-3 d-block mb-1 text-white'>+243tfg278837468</a>
+              <a href='mailto: hassanmusa3971@gmail.com' className='mt-2 d-block mb-0 text-white'>strathmore</a>
               <div className="social_icons d-flex align-items-center gap-30 mt-4">
                 <a href="#" className='text-white'>
                   <BsLinkedin className='fs-5' />
@@ -91,7 +91,7 @@ const Footer = () => {
       <div className="container-xxl">
         <div className="row">
           <div className="col-12">
-            <p className='text-center mb-0 text-white'>&copy; { new Date().getFullYear() }; Power by Developer's Corner</p>
+            <p className='text-center mb-0 text-white'>&copy; { new Date().getFullYear() }; Power by EasyBuy</p>
           </div>
         </div>
       </div>

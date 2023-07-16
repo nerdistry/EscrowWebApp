@@ -16,9 +16,11 @@ const Cart = () => {
   const [productDetail, setProductDetail] = useState(null);
   const [totalAmount, setTotalAmount] = useState(null);
   const dispatch = useDispatch();
+
   useEffect(() => {
     dispatch(getUserCart());
   }, [dispatch]);
+
   useEffect(() => {
     if (productDetail !== null) {
       dispatch(
@@ -31,8 +33,10 @@ const Cart = () => {
         dispatch(getUserCart());
       }, 200);
     }
-  }, [productDetail]);
-  const cartState = useSelector((state) => state?.auth?.cart);
+  }, [productDetail, dispatch]);
+
+  const cartState = useSelector((state) => state?.user?.cart);
+
   const deleteACartProduct = (id) => {
     dispatch(deleteCartProduct(id));
     setTimeout(() => {
@@ -43,9 +47,9 @@ const Cart = () => {
   useEffect(() => {
     let sum = 0;
     for (let index = 0; index < cartState?.length; index++) {
-      sum = sum + Number(cartState[index]?.quantity) * cartState[index]?.price;
-      setTotalAmount(sum);
+      sum += Number(cartState[index]?.quantity) * cartState[index]?.productId?.price;
     }
+    setTotalAmount(sum);
   }, [cartState]);
 
   return (
@@ -83,21 +87,20 @@ const Cart = () => {
                     </div>
                   </div>
                   <div className="cart-col-2">
-                    <h5 className="price">${cartproduct?.price}</h5>
+                    <h5 className="price">${cartproduct?.productId?.price}</h5>
                   </div>
                   <div className="cart-col-3 d-flex align-items-center gap-15">
                     <div>
                       <input
                         type="number"
                         value={cartproduct?.quantity}
-                        onChange={(e) =>{
+                        onChange={(e) => {
                           setProductDetail({
                             cartItemId: cartproduct?._id,
                             quantity: e.target.value,
                           });
                           e.stopPropagation();
-                        }
-                        }
+                        }}
                         className="form-control w-70 py-1"
                         min={1}
                         max={10}
@@ -117,7 +120,7 @@ const Cart = () => {
                   </div>
                   <div className="cart-col-4">
                     <h5 className="price">
-                      {cartproduct?.price * cartproduct?.quantity}
+                      ${cartproduct?.productId?.price * cartproduct?.quantity}
                     </h5>
                   </div>
                 </div>

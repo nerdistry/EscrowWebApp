@@ -43,7 +43,8 @@ const SingleProduct = () => {
         setAlreadyAdded(true);
       }
     }
-  }, []);
+  }, [cartState, getProductId]);
+  
 
 const addRatingToProduct = (e) => {
   e.preventDefault();
@@ -82,10 +83,10 @@ const addRatingToProduct = (e) => {
   };
 
   const uploadCart = () => {
-    if (color === null) {
-      toast.error("Please choose color");
-      return;
-    } else {
+    // if (color === null) {
+    //   toast.error("Please choose color");
+    //   return;
+    // } else {
       const product = {
         productId: singleProduct?._id,
         quantity: quantity,
@@ -94,7 +95,7 @@ const addRatingToProduct = (e) => {
       };
       dispatch(addToCart(product));
       navigate("/cart");
-    }
+    // }
   };
   return (
     <>

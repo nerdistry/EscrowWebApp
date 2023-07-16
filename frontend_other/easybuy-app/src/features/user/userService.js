@@ -28,7 +28,7 @@ const login = async (user) => {
 };
 
 const getUserWishlist = async () => {
-  const response = await axios.get(`${base_url}user/getwishlist`, configHeader);
+  const response = await axios.get(`${base_url}user/wishlist`, configHeader);
   if (response.data) {
     return response.data;
   }
@@ -46,7 +46,7 @@ const addProductToCart = async (product) => {
 };
 
 const getAUserCart = async () => {
-  const response = await axios.get(`${base_url}user/getcart`, configHeader);
+  const response = await axios.get(`${base_url}user/cart`, configHeader);
   if (response.data) {
     return response.data;
   }
@@ -54,7 +54,7 @@ const getAUserCart = async () => {
 
 const removeCartItem = async (cartItemId) => {
   const response = await axios.delete(
-    `${base_url}user/delete-cart-product/${cartItemId}`,
+    `${base_url}user/empty-cart/${cartItemId}`,
     configHeader
   );
   if (response.data) {
@@ -62,33 +62,33 @@ const removeCartItem = async (cartItemId) => {
   }
 };
 
-const updateCartQuantity = async (cartDetail) => {
-  //console.log(cartDetail);
-  const response = await axios.put(
-    `${base_url}user/update-quantity/${cartDetail.cartItemId}/${cartDetail.quantity}`, "",
-    configHeader
-  );
-  if (response.data) {
-    return response.data;
-  }
-};
+// const updateCartQuantity = async (cartDetail) => {
+//   //console.log(cartDetail);
+//   const response = await axios.put(
+//     `${base_url}user/update-quantity/${cartDetail.cartItemId}/${cartDetail.quantity}`, "",
+//     configHeader
+//   );
+//   if (response.data) {
+//     return response.data;
+//   }
+// };
 
 const createOrder = async(orderDetail) => {
-  const response = await axios.post(`${base_url}user/cart/cash-order`, orderDetail, configHeader)
+  const response = await axios.post(`${base_url}user/cart/currency-order`, orderDetail, configHeader)
   if (response.data) {
     return response.data;
   }
 }
 
 const userOrders = async() => {
-  const response = await axios.get(`${base_url}user/getmyorders`, configHeader)
+  const response = await axios.get(`${base_url}user/get-orders`, configHeader)
   if(response.data){
     return response.data;
   }
 }
 
 const updateAUser = async(userData) => {
-  const response = await axios.put(`${base_url}user/update-user`, userData, configHeader)
+  const response = await axios.put(`${base_url}user/edit-user`, userData, configHeader)
   if(response.data){
     return response.data;
   }
@@ -115,7 +115,7 @@ const authService = {
   addProductToCart,
   getAUserCart,
   removeCartItem,
-  updateCartQuantity,
+  // updateCartQuantity,
   createOrder,
   userOrders,
   updateAUser,
