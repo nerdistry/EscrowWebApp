@@ -57,22 +57,19 @@ const loginUserCtrl = asyncHandler(async (req, res) => {
   }
 });
 
-// Admin login
 const loginAdminCtrl = asyncHandler(async (req, res) => {
   const { email, password } = req.body;
-  //check if user exists.
+  // check if user exists or not
   const findAdmin = await User.findOne({ email });
-  if(findAdmin.role !== 'admin') throw new Error("NOT AUTHORIZED.");
+  if (findAdmin.role !== "admin") throw new Error("Not Authorised");
   if (findAdmin && (await findAdmin.isPasswordMatched(password))) {
     const refreshToken = await generateRefreshToken(findAdmin?._id);
     const updateuser = await User.findByIdAndUpdate(
-      findAdmin._id,
+      findAdmin.id,
       {
         refreshToken: refreshToken,
       },
-      {
-        new: true,
-      }
+      { new: true }
     );
     res.cookie("refreshToken", refreshToken, {
       httpOnly: true,
@@ -87,10 +84,9 @@ const loginAdminCtrl = asyncHandler(async (req, res) => {
       token: generateToken(findAdmin?._id),
     });
   } else {
-    throw new Error("Invalid credentials, try again.");
+    throw new Error("Invalid Credentials");
   }
 });
-
 // Updating a User.
 const updatedUser = asyncHandler(async (req, res) => {
   const { _id } = req.user;
@@ -352,7 +348,7 @@ const userCart = asyncHandler(async (req, res) => {
       object.product = cart[i]._id;
       object.count = cart[i].count;
       totalquantity+=object.count;
-      object.color = cart[i].color;
+      /* object.color = cart[i].color; */
       let getPrice = await Product.findById(cart[i]._id).select("price").exec();
       object.price = getPrice.price;
       cartToUpdate.products.push(object);
@@ -448,6 +444,30 @@ const getOrders = asyncHandler(async (req, res) => {
     throw new Error(error);
   }
 });
+const getAllOrders = asyncHandler(async (req, res) => {
+  try {
+    const alluserorders = await Order.find()
+      .populate("products.product")
+      .populate("orderby")
+      .exec();
+    res.json(alluserorders);
+  } catch (error) {
+    throw new Error(error);
+  }
+});
+const getOrderByUserId = asyncHandler(async (req, res) => {
+  const { id } = req.params;
+  validateMongodbId(id);
+  try {
+    const userorders = await Order.findOne({ orderby: id })
+      .populate("products.product")
+      .populate("orderby")
+      .exec();
+    res.json(userorders);
+  } catch (error) {
+    throw new Error(error);
+  }
+});
 
 const updateOrderStatus = asyncHandler(async (req, res) => {
   const { status } = req.body;
@@ -495,4 +515,6 @@ module.exports = {
   createOrder,
   getOrders,
   updateOrderStatus,
+  getAllOrders,
+  getOrderByUserId,
 };

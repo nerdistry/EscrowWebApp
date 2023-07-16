@@ -23,46 +23,49 @@ const {
   createOrder,
   getOrders,
   updateOrderStatus,
+  getAllOrders,
 } = require("../controller/userCtrl");
-const { isAdmin} = require("../middlewares/authMiddleware");
+const { authMiddleware, isAdmin} = require("../middlewares/authMiddleware");
 const router = express.Router();
 
 //Post Requests
 router.post("/register", createUser);
 router.post("/forgot-password-token", forgotPasswordToken)
 router.put("/reset-password/:token", resetPassword)
-router.put("/order/update-order/:id", isAdmin, updateOrderStatus)
+router.put("/order/update-order/:id",authMiddleware, isAdmin, updateOrderStatus)
 
 
-router.put("/password", updatePassword);
+router.put("/password",authMiddleware, updatePassword);
 router.post("/login", loginUserCtrl);
-router.post("/admin-login", loginAdminCtrl);
-router.post("/cart", userCart);
-router.post("/cart/currency-order", createOrder);
+router.post("/loginadmin", loginAdminCtrl);
+router.post("/cart", authMiddleware,userCart);
+router.post("/cart/currency-order", authMiddleware,createOrder);
 
 //Get Requests
 router.get("/all-users", getallUser);
-router.get("/get-orders", getOrders);
+router.get("/get-orders", authMiddleware, getOrders);
+router.get("/getallorders", authMiddleware, isAdmin, getAllOrders);
+router.post("/getorderbyuser/:id", authMiddleware, isAdmin, getAllOrders);
 router.get("/refresh", handleRefreshToken);
 
 router.get("/logout", logout);
-router.get("/wishlist", getWishlist);
-router.get("/cart", getUserCart);
+router.get("/wishlist", authMiddleware,getWishlist);
+router.get("/cart", authMiddleware, getUserCart);
 
-router.get("/:id", getaUser);
+router.get("/:id", authMiddleware,isAdmin, getaUser);
 
 
 
 //Delete Requests
-router.delete("/empty-cart", emptyCart);
+router.delete("/empty-cart", authMiddleware, emptyCart);
 router.delete("/:id", deleteaUser);
 
 // Update Requests
-router.put("/edit-user", updatedUser);
-router.put("/save-address", saveAddress);
+router.put("/edit-user", authMiddleware, updatedUser);
+router.put("/save-address", authMiddleware, saveAddress);
 
-router.put("/block-user/:id", isAdmin, blockUser);
-router.put("/unblock-user/:id", isAdmin,unblockUser);
+router.put("/block-user/:id", authMiddleware, isAdmin, blockUser);
+router.put("/unblock-user/:id", authMiddleware, isAdmin,unblockUser);
 
 
 module.exports = router;

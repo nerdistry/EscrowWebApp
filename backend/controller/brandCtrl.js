@@ -50,7 +50,7 @@ const getBrand = asyncHandler(async (req, res) => {
     }
 });
 
-const getallCategories = asyncHandler(async (req, res) => {
+const getallBrands = asyncHandler(async (req, res) => {
  
     try{
         const getallBrand = await Brand.find();
@@ -61,4 +61,4 @@ const getallCategories = asyncHandler(async (req, res) => {
     }
 });
 
-module.exports = { createBrand, updateBrand, deleteBrand, getBrand, getallCategories}
+module.exports = { createBrand, updateBrand, deleteBrand, getBrand, getallBrands}

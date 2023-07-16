@@ -2,17 +2,17 @@ const hre = require("hardhat");
 
 async function main() {
 
-  const Greeter = await hre.ethers.getContractFactory("Greeter");
-  const greeter = await Greeter.deploy("Hello, Hardhat!");
+  const Escrow = await hre.ethers.getContractFactory("escrow");
+  const escrow = await Escrow.deploy("Hello, Hardhat!");
 
-  await greeter.deployed();
+  await escrow.deployed();
 
-  console.log("Greeter deployed to:", greeter.address);
+  console.log("Escrow deployed to:", escrow.address);
 
   // Uncomment if you want to sync with Laika (your plugin)
   // await hre.run("laika-sync", {
-  //   contract: "Greeter",
-  //   address: greeter.address,
+  //   contract: "Escrow",
+  //   address: escrow.address,
   // })
 }
 

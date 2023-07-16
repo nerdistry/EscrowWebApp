@@ -20,7 +20,7 @@ const router = express.Router();
 
 //Post Requests
 router.post("/", authMiddleware, isAdmin, createProduct);
-router.put(
+router.post(
   "/upload/",
   authMiddleware,
   isAdmin,
