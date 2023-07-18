@@ -214,16 +214,16 @@ function CeloPayment() {
     <LayoutCeloP>
       <button
         onClick={handleDeposit}
-        className="p-3 px-5 my-12 text-white bg-green-500 rounded-full"
+        className="btn"
       >
         Deposit Payment
       </button>
 
-      {balance && <h1 className="text-xl font-bold">Escrow bal: {balance}</h1>}
+      {balance && <h1 className="bal">Escrow bal: {balance}</h1>}
 
       <h2>
         Admin:{' '}
-        <span className="ml-2 text-blue-600 cursor-pointer">
+        <span className="address">
           {`${adminAddress.substring(0, 4)}....${adminAddress.substring(
             adminAddress.length - 4
           )}`}
@@ -232,7 +232,7 @@ function CeloPayment() {
       <h2>
         Buyer:
         {buyer && (
-          <span className="ml-2 text-blue-600 cursor-pointer">
+          <span className="address">
             {`${buyer.substring(0, 4)}....${buyer.substring(
               adminAddress.length - 4
             )}`}
@@ -242,7 +242,7 @@ function CeloPayment() {
       <h2>
         Seller:
         {seller && (
-          <span className="ml-2 text-blue-600 cursor-pointer">
+          <span className="address">
             {`${seller.substring(0, 4)}....${seller.substring(
               adminAddress.length - 4
             )}`}
@@ -257,7 +257,7 @@ function CeloPayment() {
           !buyerConfirmed && (
             <button
               onClick={confirmDelivery}
-              className="timeline h-10 px-4 text-blue-600 bg-blue-300 border-2 border-blue-600 rounded-full"
+              className="confirm"
             >
               Confirm Delivery
             </button>
@@ -267,7 +267,7 @@ function CeloPayment() {
           !sellerConfirmed && (
             <button
               onClick={confirmReceipt}
-              className="timeline h-10 px-4 text-orange-600 bg-orange-300 border-2 border-orange-600 rounded-full"
+              className="confirm"
             >
               Confirm Receipt
             </button>

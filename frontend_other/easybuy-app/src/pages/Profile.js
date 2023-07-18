@@ -11,16 +11,21 @@ import { FiEdit } from "react-icons/fi";
 
 
 const Profile = () => {
+
     const[edit, setEdit] = useState(true)
     const dispatch = useDispatch()
     const userState = useSelector((state) => state?.auth?.user)
+    console.log(userState)
     const formik = useFormik({
+      
         enableReinitialize: true,
         initialValues: {
+          
           firstname: userState && userState?.firstname,
           lastname: userState && userState?.lastname,
           email: userState && userState?.email,
           mobile: userState && userState?.mobile,
+
         },
         validationSchema: Yup.object({
           firstname: Yup.string().required("First Name is Required"),
@@ -35,7 +40,9 @@ const Profile = () => {
         dispatch(updateUser(values))
         setEdit(true)
         },
+        
       });
+
   return (
     <>
       <Meta title="Profile" />
@@ -50,7 +57,7 @@ const Profile = () => {
             </div>
           <div className="col-12">
             <form action="" onSubmit={formik.handleSubmit}>
-              <div className="mb-3">
+              {/* <div className="mb-3">
                 <label className="form-label">Firstname</label>
                 <CustomInput
                   type="text"
@@ -85,7 +92,7 @@ const Profile = () => {
                     <div>{formik.errors.lastname}</div>
                   ) : null}
                 </div>
-              </div>
+              </div> */}
               <div className="mb-3">
                 <label className="form-label">Email Address</label>
                 <CustomInput

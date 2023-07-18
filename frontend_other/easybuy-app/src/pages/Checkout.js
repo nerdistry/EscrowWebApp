@@ -9,33 +9,30 @@ import Container from "../components/Container";
 import axios from "axios";
 import { createUserOrder } from "../features/user/userSlice";
 
-
 const Checkout = () => {
   const dispatch = useDispatch();
-  const [totalAmount, setTotalAmount] = useState(null);
-  const[shoppingInfo, setShoppingInfo] = useState(null);
-  const[paymentInfo, setPaymentInfo] = useState({razorpayPaymentId: "", razorpayOrderId: ""})
-  const[cartProductState, setCartProductState] = useState([])
+  const [shoppingInfo, setShoppingInfo] = useState(null);
+  const [paymentInfo, setPaymentInfo] = useState({
+    razorpayPaymentId: "",
+    razorpayOrderId: "",
+  });
+  const [cartProductState, setCartProductState] = useState([]);
 
   const cartState = useSelector((state) => state?.auth?.cart);
-
-  const [country, setCountry] = useState('');
-  const [firstname, setFirstName] = useState('');
-  const [lastname, setLastName] = useState('');
-  const [address, setAddress] = useState('');
-  const [apartment, setApartment] = useState('');
-  const [city, setCity] = useState('');
-  const [state, setState] = useState('');
-  const [pincode, setPincode] = useState('');
+  const [totalAmount, setTotalAmount] = useState(null);
 
   useEffect(() => {
     let sum = 0;
-    for (let index = 0; index < cartState?.length; index++) {
-      sum = sum + Number(cartState[index]?.quantity) * cartState[index]?.price;
-      setTotalAmount(sum);
+    if (cartState && cartState.length > 0) {
+      for (let index = 0; index < cartState.length; index++) {
+        sum +=
+          Number(cartState[index]?.quantity) *
+          cartState[index]?.productId?.price;
+      }
     }
+    setTotalAmount(sum);
   }, [cartState]);
-  
+
   const formik = useFormik({
     initialValues: {
       country: "",
@@ -58,48 +55,27 @@ const Checkout = () => {
       pincode: Yup.string().required("Pincode is Required"),
     }),
     onSubmit: (values) => {
-     // alert(JSON.stringify(values, null, 2));
-    setShoppingInfo(values)
-    // setTimeout(() => {
-    //   checkoutHandler()
-    // }, 300)
+      // alert(JSON.stringify(values, null, 2));
+      setShoppingInfo(values);
+      // setTimeout(() => {
+      //   checkoutHandler()
+      // }, 300)
     },
   });
-// console.log(shoppingInfo)
-
+  // console.log(shoppingInfo)
 
   useEffect(() => {
-    let items = []
+    let items = [];
     for (let index = 0; index < cartState?.length; index++) {
       items.push({
         product: cartState[index]?.productId?._id,
         quantity: cartState[index]?.quantity,
-        price: cartState[index]?.price      })
+        price: cartState[index]?.price,
+      });
     }
-    setCartProductState(items)
-  },[])
+    setCartProductState(items);
+  }, []);
 
-  const postOrder = async () => {
-    try{
-      const response = await axios.post("http://localhost:5000/api/user/cart/create-order", {
-        country,
-        firstname, 
-        lastname,
-        address,
-        apartment,
-        city,
-        state,
-        pincode,
-    });
-    console.log(response)
-    }catch(error){
-      console.log(error)
-    }
-  }
- 
-  // console.log(cartProductState)
-
-  
   return (
     <>
       <Meta title="Checkout" />
@@ -126,7 +102,9 @@ const Checkout = () => {
                 </ol>
               </nav>
               <h4 className="title total">Contact Information</h4>
-              <p className="user-details total"><b>Email us at:</b> inquiries@easybuy.co.ke</p>
+              <p className="user-details total">
+                <b>Email us at:</b> inquiries@easybuy.co.ke
+              </p>
               <h4 className="mb-3">Shipping Address</h4>
               <form
                 action=""
@@ -148,10 +126,10 @@ const Checkout = () => {
                     <option value="India">India</option>
                   </select>
                   <div className="error text-danger ms-2 my-2">
-                  {formik.touched.country && formik.errors.country ? (
-                    <div>{formik.errors.country}</div>
-                  ) : null}
-                </div>
+                    {formik.touched.country && formik.errors.country ? (
+                      <div>{formik.errors.country}</div>
+                    ) : null}
+                  </div>
                 </div>
                 <div className="flex-grow-1">
                   <input
@@ -195,13 +173,13 @@ const Checkout = () => {
                     onBlur={formik.handleBlur}
                     value={formik.values.address}
                   />
-                    <div className="error text-danger ms-2 my-2">
-                  {formik.touched.address && formik.errors.address ? (
-                    <div>{formik.errors.address}</div>
-                  ) : null}
+                  <div className="error text-danger ms-2 my-2">
+                    {formik.touched.address && formik.errors.address ? (
+                      <div>{formik.errors.address}</div>
+                    ) : null}
+                  </div>
                 </div>
-                </div>
-              
+
                 <div className="w-100">
                   <input
                     type="text"
@@ -212,13 +190,13 @@ const Checkout = () => {
                     onBlur={formik.handleBlur}
                     value={formik.values.apartment}
                   />
-                   <div className="error text-danger ms-2 my-2">
-                  {formik.touched.apartment && formik.errors.apartment ? (
-                    <div>{formik.errors.apartment}</div>
-                  ) : null}
+                  <div className="error text-danger ms-2 my-2">
+                    {formik.touched.apartment && formik.errors.apartment ? (
+                      <div>{formik.errors.apartment}</div>
+                    ) : null}
+                  </div>
                 </div>
-                </div>
-               
+
                 <div className="flex-grow-1">
                   <input
                     type="text"
@@ -230,10 +208,10 @@ const Checkout = () => {
                     value={formik.values.city}
                   />
                   <div className="error text-danger ms-2 my-2">
-                  {formik.touched.city && formik.errors.city ? (
-                    <div>{formik.errors.city}</div>
-                  ) : null}
-                </div>
+                    {formik.touched.city && formik.errors.city ? (
+                      <div>{formik.errors.city}</div>
+                    ) : null}
+                  </div>
                 </div>
                 <div className="flex-grow-1">
                   <select
@@ -246,26 +224,18 @@ const Checkout = () => {
                     <option value="" selected disabled>
                       Select State
                     </option>
-                    <option value="Freetown">
-                      Freetown
-                    </option>
-                    <option value="Bo">
-                      Bo
-                    </option>
-                    <option value="Makeni">
-                      Makeni
-                    </option>
-                    <option value="Kenema">
-                      Kenema
-                    </option>
+                    <option value="Freetown">Freetown</option>
+                    <option value="Bo">Bo</option>
+                    <option value="Makeni">Makeni</option>
+                    <option value="Kenema">Kenema</option>
                   </select>
                   <div className="error text-danger ms-2 my-2">
-                  {formik.touched.state && formik.errors.state ? (
-                    <div>{formik.errors.state}</div>
-                  ) : null}
+                    {formik.touched.state && formik.errors.state ? (
+                      <div>{formik.errors.state}</div>
+                    ) : null}
+                  </div>
                 </div>
-                </div>
-              
+
                 <div className="flex-grow-1">
                   <input
                     type="text"
@@ -290,9 +260,12 @@ const Checkout = () => {
                     <Link to="/cart" className="button">
                       Continue to Shipping
                     </Link>
-                    <button className="button"  type="submit" onClick={postOrder}>
+                    <Link
+                      to={`/celo-payment?amount=${totalAmount ? totalAmount + 3 : 0}`}
+                      className="button"
+                    >
                       Place Order
-                    </button>
+                    </Link>
                   </div>
                 </div>
               </form>
@@ -326,7 +299,9 @@ const Checkout = () => {
                         <h5 className="total-price">
                           {cartItem?.productId?.title}
                         </h5>
-                        <p className="total-price">{cartItem?.productId?.description}</p>
+                        <p className="total-price">
+                          {cartItem?.productId?.description}
+                        </p>
                       </div>
                     </div>
                     <div className="flex-grow-1">

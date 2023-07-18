@@ -1,3 +1,4 @@
+
 import React, { useEffect } from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Layout from "./components/Layout";
@@ -51,8 +52,9 @@ function App() {
             <Route path="my-orders" element={<PrivateRoutes><Order /></PrivateRoutes>} />
             <Route path="my-profile" element={<PrivateRoutes><Profile /></PrivateRoutes>} />
             <Route path="checkout" element={<PrivateRoutes><Checkout /></PrivateRoutes>} />
+            <Route path="celo-payment" element={<PrivateRoutes><CeloPayment /></PrivateRoutes>} />
           </Route>
-          <Route path="celo-payment" element={<PrivateRoutes><CeloPayment /></PrivateRoutes>} />
+
 
         </Routes>
       </BrowserRouter>

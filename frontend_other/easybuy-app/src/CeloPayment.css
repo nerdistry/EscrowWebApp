@@ -1,51 +1,143 @@
-/* #root {
-    max-width: 1280px;
-    margin: 0 auto;
-    padding: 2rem;
-    text-align: center;
-} */
-  
+CeloPayment.css :
+
   .logo {
     height: 6em;
     padding: 1.5em;
     will-change: filter;
     transition: filter 300ms;
   }
+
   .logo:hover {
     filter: drop-shadow(0 0 2em #646cffaa);
   }
+
   .logo.react:hover {
     filter: drop-shadow(0 0 2em #61dafbaa);
   }
-  
+
   @keyframes logo-spin {
     from {
       transform: rotate(0deg);
     }
+
     to {
       transform: rotate(360deg);
     }
   }
-  
+
   @media (prefers-reduced-motion: no-preference) {
     a:nth-of-type(2) .logo {
       animation: logo-spin infinite 20s linear;
     }
   }
-  
+
   .card {
     padding: 2em;
   }
-  
+
   .read-the-docs {
     color: #888;
   }
- 
-.timeline {
-  height:10px;
-  padding: 0px 4px;
-  color: blue-600;
-  background: blue-300;
-  border: 2 solid blue-600;
-  border-radius: 500px;
-}
+
+  .layout-celo {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    align-items: center;
+    justify-content: center;
+    height: 70vh;
+  }
+
+  .celo-wrap {
+    padding: 4px;
+  }
+
+  .btn {
+    padding: 10px 20px;
+    margin: 12px 0px;
+    color: #fff;
+    background: rgb(6, 185, 0);
+    border-radius: 50px;
+    outline: none;
+  }
+
+  .btn:hover {
+    background: rgb(7, 173, 1);
+  }
+
+  .btn:active {
+    background: rgb(4, 131, 0);
+  }
+
+  .bal {
+    font-size: x-large;
+    font-weight: bold;
+  }
+
+  .address {
+    margin-left: 2px;
+    color: rgb(0, 174, 255);
+    cursor: pointer;
+    font-weight: 500;
+  }
+
+  .confirm {
+    padding: 10px 20px;
+    margin: 12px 0px;
+    color: #fff;
+    background: rgb(0, 182, 228);
+    border-radius: 50px;
+    outline: none;
+  }
+
+  .confirm:hover {
+    background: rgb(0, 156, 196);
+  }
+
+  .confirm:active {
+    background: rgb(0, 128, 160);
+  }
+
+  .timeline-wrapper {
+    display: flex;
+    padding: 0px 14px;
+    flex: 1;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+  }
+
+  .timeline {
+    display: flex;
+    flex: 1;
+    width: 100%;
+    align-items: center;
+    position: relative;
+  }
+
+  .timeline-circle {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+  }
+
+  .timeline-text {
+    position: absolute;
+    bottom: 5;
+    left: 10;
+    font-size: small;
+  }
+
+  .timeline-line {
+    width: 100%;
+    margin: 0px 1px;
+    height: 2px;
+  }
+
+  .green {
+    background: rgb(6, 185, 0);
+  }
+
+  .neutral {
+    background: rgb(167, 167, 167);
+  }

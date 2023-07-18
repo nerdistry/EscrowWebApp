@@ -26,6 +26,7 @@ const SingleProduct = () => {
   const location = useLocation();
   const navigate = useNavigate();
   const getProductId = location.pathname.split("/")[2];
+  
   useEffect(() => {
     dispatch(getProduct(getProductId));
     dispatch(getUserCart());
@@ -147,7 +148,8 @@ const addRatingToProduct = (e) => {
               </div>
               <div className="border-bottom py-3">
                 <p className="price">${singleProduct?.price}</p>
-                <div className="d-flex align-items-center gap-10">
+                <p><b>Description: </b>{singleProduct?.description}</p>
+                {/* <div className="d-flex align-items-center gap-10">
                   <ReactStars
                     count={5}
                     value={Number(singleProduct?.totalRating)}
@@ -156,10 +158,10 @@ const addRatingToProduct = (e) => {
                     activeColor="#ffd700"
                   />
                   <p className="mb-0 t-review">(2 reviews)</p>
-                </div>
-                <a className="review-btn" href="#review">
+                </div> */}
+                {/* <a className="review-btn" href="#review">
                   Write a Review
-                </a>
+                </a> */}
               </div>
               <div className="border-bottom py-3">
                 <div className="d-flex align-items-center gap-10 my-2">

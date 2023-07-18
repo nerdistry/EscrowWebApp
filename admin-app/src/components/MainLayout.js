@@ -110,9 +110,12 @@ const MainLayout = () => {
               ],
             },
             {
-              key: "orders",
+              // key: "orders",
               icon: <AiOutlineOrderedList className="fs-5" />,
               label: "Orders",
+              onClick: () => {
+                window.location.href = "http://localhost:3000/celo-payment";
+              },
             },
             {
               key: "enquiries",
@@ -164,7 +167,7 @@ const MainLayout = () => {
                 aria-expanded="false"
               >
                 <h5 className="mb-0">Arabella</h5>
-                <p className="mb-0">arabella@gmail.com</p>
+                <p className="mb-0">arabella.mutende@strathmore.edu</p>
               </div>
               <ul
                 className="dropdown-menu"
