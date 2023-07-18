@@ -27,13 +27,17 @@ export const getUserProductWishlist = createAsyncThunk("auth/getuserwishlist", a
     }
 })
 
-export const addToCart = createAsyncThunk("auth/addcart",  async (product, thunkAPI) => {
-    try {
-        return await authService.addProductToCart(product)
-    } catch (error) {
-        return thunkAPI.rejectWithValue(error)
+export const addToCart = createAsyncThunk(
+    "auth/addcart",
+    async (product, thunkAPI) => {
+      try {
+        const data = await authService.addProductToCart(product);
+        return data;
+      } catch (error) {
+        return thunkAPI.rejectWithValue(error.response.data);
+      }
     }
-})
+  );
 
 export const getUserCart = createAsyncThunk("auth/getcart",  async (thunkAPI) => {
     try {

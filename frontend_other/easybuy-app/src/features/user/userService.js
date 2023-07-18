@@ -35,13 +35,17 @@ const getUserWishlist = async () => {
 };
 
 const addProductToCart = async (product) => {
-  const response = await axios.post(
-    `${base_url}user/cart`,
-    product,
-    configHeader
-  );
-  if (response.data) {
+  try {
+    const response = await axios.post(
+      `${base_url}user/cart`,
+      product,
+      configHeader
+    );
     return response.data;
+  } catch (error) {
+    // Handle the error here
+    console.error("Error adding product to cart:", error);
+    throw error; // Optionally, rethrow the error to propagate it further
   }
 };
 
@@ -53,8 +57,9 @@ const getAUserCart = async () => {
 };
 
 const removeCartItem = async (cartItemId) => {
+
   const response = await axios.delete(
-    `${base_url}user/empty-cart/${cartItemId}`,
+    `${base_url}user/delete-product-cart/${cartItemId}`,
     configHeader
   );
   if (response.data) {
@@ -62,19 +67,19 @@ const removeCartItem = async (cartItemId) => {
   }
 };
 
-// const updateCartQuantity = async (cartDetail) => {
-//   //console.log(cartDetail);
-//   const response = await axios.put(
-//     `${base_url}user/update-quantity/${cartDetail.cartItemId}/${cartDetail.quantity}`, "",
-//     configHeader
-//   );
-//   if (response.data) {
-//     return response.data;
-//   }
-// };
+const updateCartQuantity = async (cartDetail) => {
+  //console.log(cartDetail);
+  const response = await axios.put(
+    `${base_url}user/update-quantity/${cartDetail.cartItemId}/${cartDetail.quantity}`, "",
+    configHeader
+  );
+  if (response.data) {
+    return response.data;
+  }
+};
 
 const createOrder = async(orderDetail) => {
-  const response = await axios.post(`${base_url}user/cart/currency-order`, orderDetail, configHeader)
+  const response = await axios.post(`${base_url}user/cart/create-order`, orderDetail, configHeader)
   if (response.data) {
     return response.data;
   }
@@ -115,7 +120,7 @@ const authService = {
   addProductToCart,
   getAUserCart,
   removeCartItem,
-  // updateCartQuantity,
+  updateCartQuantity,
   createOrder,
   userOrders,
   updateAUser,

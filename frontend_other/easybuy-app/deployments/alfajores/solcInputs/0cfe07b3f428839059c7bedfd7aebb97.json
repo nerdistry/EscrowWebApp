@@ -1,0 +1,35 @@
+{
+  "language": "Solidity",
+  "sources": {
+    "contracts/Escrow.sol": {
+      "content": "// SPDX-License-Identifier: UNLICENSED\npragma solidity ^0.8.9;\n\n// @title A contract for Trustworthy product delivery service powered by a Escrow Smart Contract\n// @author Jovan Mwesigwa Balambirwa\n\nerror Escrow__NotAdminRequestDenied();\nerror Escrow__OnyBuyerDepositAllowed();\nerror Escrow__OnlyBuyerDepositAllowed();\nerror Escrow__InsufficientAmountDeposited();\nerror Escrow__OnlyBuyerConfirmDeposit();\nerror Escrow__ContractAlreadyInProgress();\nerror Escrow__BothPartiesMustConfirmFirst();\n\ncontract Escrow {\n    address private i_admin;\n    address payable private s_buyer;\n    address payable private s_seller;\n\n    uint256 private s_balance;\n\n    bool public buyerConfirmation;\n    bool public sellerConfirmation;\n\n    // Events\n    event Deposit(address indexed buyerAddress, uint256 indexed amount);\n    event DeliveryConfirmed(address indexed buyerAddress);\n    event ReceiptDone(address indexed sellerAddress);\n    event PaymentReleased(\n        address indexed buyerAddress,\n        address indexed sellerAddress,\n        uint256 amount\n    );\n\n    constructor() {\n        i_admin = payable(msg.sender);\n        s_balance = 0;\n    }\n\n    function confirmSellerDelivery() public payable {\n        // Verify that only the buyer confirms the delivery\n        if (msg.sender != s_buyer) {\n            revert Escrow__OnlyBuyerConfirmDeposit();\n        }\n\n        buyerConfirmation = true;\n\n        // Emit a delivery condirmation event\n        emit DeliveryConfirmed(msg.sender);\n\n        // Call the release payment here...\n        if (buyerConfirmation && sellerConfirmation) {\n            s_seller.transfer(address(this).balance);\n            buyerConfirmation = false;\n            sellerConfirmation = false;\n        }\n    }\n\n    function confirmBuyerReceipt() public payable {\n        // Verify that only the seller confirms the issuing the recipt\n        if (msg.sender != s_seller) {\n            revert Escrow__OnlyBuyerConfirmDeposit();\n        }\n\n        sellerConfirmation = true;\n\n        // Emit a recepit done event\n        emit ReceiptDone(msg.sender);\n\n        // Call the release payment here...\n        if (buyerConfirmation && sellerConfirmation) {\n            s_seller.transfer(address(this).balance);\n            buyerConfirmation = false;\n            sellerConfirmation = false;\n        }\n    }\n\n    function deposit() public payable {\n        // Verify that the buyer is only depositing\n        if (msg.sender != s_buyer) {\n            revert Escrow__OnlyBuyerDepositAllowed();\n        }\n\n        // Verify that the amount of money deposited is not 0\n        if (msg.value <= 0) {\n            revert Escrow__InsufficientAmountDeposited();\n        }\n\n        // Update the contract's balance\n        s_balance += msg.value;\n\n        // Emit a deposit event\n        emit Deposit(msg.sender, msg.value);\n    }\n\n    function addParties(address payable buyer, address payable seller) public {\n        if (msg.sender != i_admin) {\n            revert Escrow__NotAdminRequestDenied();\n        }\n\n        s_buyer = buyer;\n        s_seller = seller;\n    }\n\n    function getBalance() public view returns (uint256) {\n        return s_balance;\n    }\n\n    function getAdmin() public view returns (address) {\n        return i_admin;\n    }\n\n    function getBuyer() public view returns (address) {\n        return s_buyer;\n    }\n\n    function getSeller() public view returns (address) {\n        return s_seller;\n    }\n}\n"
+    }
+  },
+  "settings": {
+    "optimizer": {
+      "enabled": false,
+      "runs": 200
+    },
+    "outputSelection": {
+      "*": {
+        "*": [
+          "abi",
+          "evm.bytecode",
+          "evm.deployedBytecode",
+          "evm.methodIdentifiers",
+          "metadata",
+          "devdoc",
+          "userdoc",
+          "storageLayout",
+          "evm.gasEstimates"
+        ],
+        "": [
+          "ast"
+        ]
+      }
+    },
+    "metadata": {
+      "useLiteralContent": true
+    }
+  }
+}

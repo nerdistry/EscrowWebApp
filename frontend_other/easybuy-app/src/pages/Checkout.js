@@ -6,9 +6,9 @@ import Meta from "../components/Meta";
 import { Link } from "react-router-dom";
 import { BiArrowBack } from "react-icons/bi";
 import Container from "../components/Container";
-import { GetColorName } from "hex-color-to-color-name";
 import axios from "axios";
 import { createUserOrder } from "../features/user/userSlice";
+
 
 const Checkout = () => {
   const dispatch = useDispatch();
@@ -16,7 +16,18 @@ const Checkout = () => {
   const[shoppingInfo, setShoppingInfo] = useState(null);
   const[paymentInfo, setPaymentInfo] = useState({razorpayPaymentId: "", razorpayOrderId: ""})
   const[cartProductState, setCartProductState] = useState([])
+
   const cartState = useSelector((state) => state?.auth?.cart);
+
+  const [country, setCountry] = useState('');
+  const [firstname, setFirstName] = useState('');
+  const [lastname, setLastName] = useState('');
+  const [address, setAddress] = useState('');
+  const [apartment, setApartment] = useState('');
+  const [city, setCity] = useState('');
+  const [state, setState] = useState('');
+  const [pincode, setPincode] = useState('');
+
   useEffect(() => {
     let sum = 0;
     for (let index = 0; index < cartState?.length; index++) {
@@ -24,7 +35,7 @@ const Checkout = () => {
       setTotalAmount(sum);
     }
   }, [cartState]);
-
+  
   const formik = useFormik({
     initialValues: {
       country: "",
@@ -49,25 +60,13 @@ const Checkout = () => {
     onSubmit: (values) => {
      // alert(JSON.stringify(values, null, 2));
     setShoppingInfo(values)
-    setTimeout(() => {
-      checkoutHandler()
-    }, 300)
+    // setTimeout(() => {
+    //   checkoutHandler()
+    // }, 300)
     },
   });
 // console.log(shoppingInfo)
-  const loadScript = (src) => {
-    return new Promise((resolve) => {
-        const script = document.createElement("script");
-        script.src = src;
-        script.onload = () => {
-            resolve(true);
-        };
-        script.onerror = () => {
-            resolve(false);
-        };
-        document.body.appendChild(script);
-    });
-  }
+
 
   useEffect(() => {
     let items = []
@@ -75,84 +74,32 @@ const Checkout = () => {
       items.push({
         product: cartState[index]?.productId?._id,
         quantity: cartState[index]?.quantity,
-        price: cartState[index]?.price,
-        color: cartState[index]?.color?._id
-      })
+        price: cartState[index]?.price      })
     }
     setCartProductState(items)
   },[])
-  // console.log(cartProductState)
-  const checkoutHandler = async () => {
-    const res = await loadScript("https://checkout.razorpay.com/v1/checkout.js")
-    if(!res){
-        alert("Razorpay SDK Failed To Load")
-        return;
+
+  const postOrder = async () => {
+    try{
+      const response = await axios.post("http://localhost:5000/api/user/cart/create-order", {
+        country,
+        firstname, 
+        lastname,
+        address,
+        apartment,
+        city,
+        state,
+        pincode,
+    });
+    console.log(response)
+    }catch(error){
+      console.log(error)
     }
-
-    const getToken = localStorage.getItem("customer")
-  ? JSON.parse(localStorage.getItem("customer"))
-  : null;
-
-const configHeader = {
-  headers: {
-    Authorization: `Bearer ${getToken?.token}`,
-    Accept: "application/json",
-  },
-};
-
-    const result = await axios.post('http://localhost:4000/api/user/order/checkout', {amount: totalAmount + 5}, configHeader)
-    if(!result){
-        alert("Something Went Wrong")
-        return;
-    }
-   // alert("Hello")
-    const{ amount, order_id, id, currency } = result.data.order;
-
-    // console.log(result.data.order)
-
-    const options = {
-        key: "rzp_test_m4NW0heBziEXDz", // Enter the Key ID generated from the Dashboard
-        amount: amount,
-        currency: currency,
-        name: "Hassan Musa",
-        description: "Test Transaction",
-       // image: { logo },
-        order_id: id,
-        handler: async function (response) {
-          // console.log(response)
-            const data = {
-                orderCreationId: order_id,
-                razorpayPaymentId: response.razorpay_payment_id,
-                razorpayOrderId: response.razorpay_order_id,
-                razorpaySignature: response.razorpay_signature,
-            };
-          
-            const result = await axios.post("http://localhost:4000/api/user/order/paymentverification", data, configHeader);
-            // console.log(result)
-            // console.log(shoppingInfo)
-            setPaymentInfo({
-              razorpayPaymentId: response.razorpay_payment_id,
-              razorpayOrderId: response.razorpay_order_id,
-          })
-            dispatch(createUserOrder({totalPrice: totalAmount, totalPriceAfterDiscount: totalAmount, orderItems: cartProductState,  paymentInfo: paymentInfo,  shippingInfo: shoppingInfo}))
-
-        },
-        prefill: {
-            name: "Hassan Musa",
-            email: "hassanmusa3971@gmail.com",
-            contact: "+23278837468",
-        },
-        notes: {
-            address: "Up Town Bar Calabatown",
-        },
-        theme: {
-            color: "#61dafb",
-        },
-    };
-
-    const paymentObject = new window.Razorpay(options);
-    paymentObject.open();
   }
+ 
+  // console.log(cartProductState)
+
+  
   return (
     <>
       <Meta title="Checkout" />
@@ -160,7 +107,7 @@ const configHeader = {
         <div className="row">
           <div className="col-7">
             <div className="checkout-left-data">
-              <h3 className="website-name">Dev Corner</h3>
+              <h3 className="website-name">EasyBuy</h3>
               <nav style={{ "--bs breadcrumb-divider:": ">" }}>
                 <ol className="breadcrumb">
                   <li className="breadcrumb-item">
@@ -179,7 +126,7 @@ const configHeader = {
                 </ol>
               </nav>
               <h4 className="title total">Contact Information</h4>
-              <p className="user-details total">hassanmusa3971@gmail.com</p>
+              <p className="user-details total"><b>Email us at:</b> inquiries@easybuy.co.ke</p>
               <h4 className="mb-3">Shipping Address</h4>
               <form
                 action=""
@@ -343,7 +290,7 @@ const configHeader = {
                     <Link to="/cart" className="button">
                       Continue to Shipping
                     </Link>
-                    <button className="button"  type="submit">
+                    <button className="button"  type="submit" onClick={postOrder}>
                       Place Order
                     </button>
                   </div>
@@ -379,9 +326,7 @@ const configHeader = {
                         <h5 className="total-price">
                           {cartItem?.productId?.title}
                         </h5>
-                        <p className="total-price">
-                          s / {GetColorName(cartItem?.color?.title)}
-                        </p>
+                        <p className="total-price">{cartItem?.productId?.description}</p>
                       </div>
                     </div>
                     <div className="flex-grow-1">
@@ -399,11 +344,11 @@ const configHeader = {
               </div>
               <div className="d-flex justify-content-between align-items-center">
                 <p className="mb-0 total">Shipping</p>
-                <p className="mb-0 total-price">$5</p>
+                <p className="mb-0 total-price">$3</p>
               </div>
               <div className="d-flex justify-content-between align-items-center border-bottom py-4">
                 <h4>Total</h4>
-                <h5>${totalAmount ? totalAmount + 5 : 0}</h5>
+                <h5>${totalAmount ? totalAmount + 3 : 0}</h5>
               </div>
             </div>
           </div>

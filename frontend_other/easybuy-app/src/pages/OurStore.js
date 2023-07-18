@@ -19,10 +19,9 @@ const OurStore = () => {
   const [category, setCategory] = useState(null);
   const [tag, setTag] = useState(null);
   const [brand, setBrand] = useState(null);
-  const [minPrice, setMinPrice] = useState(null)
-  const [maxPrice, setMaxPrice] = useState(null)
-  const [sort, setSort] = useState(null)
-
+  const [minPrice, setMinPrice] = useState(null);
+  const [maxPrice, setMaxPrice] = useState(null);
+  const [sort, setSort] = useState(null);
 
   const dispatch = useDispatch();
   const productState = useSelector((state) => state.product.products); // first 'products' is the Redux slice, second 'products' is the array in the response
@@ -33,7 +32,7 @@ const OurStore = () => {
     let newBrand = [];
     let newCategory = [];
     let newTags = [];
-   // let newColors = [];
+    // let newColors = [];
     for (let index = 0; index < productState?.length; index++) {
       const element = productState[index];
       newBrand.push(element?.brand);
@@ -48,15 +47,17 @@ const OurStore = () => {
     //setColors(newColors);
   }, [productState]);
   useEffect(() => {
-    dispatch(getAllProducts({sort, tag, brand, category, minPrice, maxPrice}));
+    dispatch(
+      getAllProducts({ sort, tag, brand, category, minPrice, maxPrice })
+    );
   }, [dispatch, sort, tag, brand, category, minPrice, maxPrice]);
   const brandSet = new Set(brands);
   const categorySet = new Set(categories);
   const tagsSet = new Set(tags);
-//   console.log(brandSet);
-//   console.log(categorySet);
-//   console.log(tagsSet);
-// console.log(sort)
+  //   console.log(brandSet);
+  //   console.log(categorySet);
+  //   console.log(tagsSet);
+  // console.log(sort)
   return (
     <>
       <Meta title="Our Store" />
@@ -89,7 +90,9 @@ const OurStore = () => {
                       className="form-control"
                       id="floatingInput"
                       placeholder="From"
-                      onChange={(e) => {setMinPrice(e.target.value)}}
+                      onChange={(e) => {
+                        setMinPrice(e.target.value);
+                      }}
                       value={minPrice}
                     />
                     <label htmlFor="floatingInput">From</label>
@@ -102,15 +105,15 @@ const OurStore = () => {
                       id="floatingInput1"
                       placeholder="To"
                       min={1}
-                      onChange={(e) => {setMaxPrice(e.target.value)}}
+                      onChange={(e) => {
+                        setMaxPrice(e.target.value);
+                      }}
                       value={maxPrice}
                     />
                     <label htmlFor="floatingInput1">To</label>
                   </div>
                 </div>
-                <div>
-                </div>
-
+                <div></div>
               </div>
             </div>
             <div className="filter-card mb-3">
@@ -120,7 +123,7 @@ const OurStore = () => {
                   {tagsSet &&
                     Array.from(tagsSet).map((tagItem, index) => (
                       <span
-                      style={{cursor: "pointer"}}
+                        style={{ cursor: "pointer" }}
                         className="badge bg-light text-secondary rounded-3 py-2 px-3 text-capitalize"
                         key={index}
                         onClick={() => setTag(tagItem)}
@@ -138,7 +141,7 @@ const OurStore = () => {
                   {brandSet &&
                     Array.from(brandSet).map((brandItem, index) => (
                       <span
-                      style={{cursor: "pointer"}}
+                        style={{ cursor: "pointer" }}
                         className="badge bg-light text-secondary rounded-3 py-2 px-3 text-capitalize"
                         key={index}
                         onClick={() => setBrand(brandItem)}
@@ -209,13 +212,13 @@ const OurStore = () => {
                     defaultValue={"manual"}
                     name=""
                     id=""
-                    onChange={(e) => { setSort(e.target.value) }}
+                    onChange={(e) => {
+                      setSort(e.target.value);
+                    }}
                     className="form-control form-select"
                   >
                     <option value="title">Alphabetically, A-Z</option>
-                    <option value="-title">
-                      Alphabetically, Z-A
-                    </option>
+                    <option value="-title">Alphabetically, Z-A</option>
                     <option value="price">Price, low to high</option>
                     <option value="-price">Price, high to low</option>
                     <option value="createdAt">Date, old to new</option>
@@ -255,7 +258,7 @@ const OurStore = () => {
             </div>
             <div className="product-list pb-5">
               <div className="d-flex flex-wrap gap-10">
-                {productState &&
+                {Array.isArray(productState) &&
                   productState.map((product) => (
                     <ProductCard
                       products={product}

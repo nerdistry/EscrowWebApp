@@ -10,16 +10,18 @@ import {
   getUserCart,
   updateQuantity,
 } from "../features/user/userSlice";
-import { GetColorName } from "hex-color-to-color-name";
 
 const Cart = () => {
-  const [productDetail, setProductDetail] = useState(null);
-  const [totalAmount, setTotalAmount] = useState(null);
   const dispatch = useDispatch();
+  const cartState = useSelector((state) => state.auth.cart);
+  console.log(cartState);
 
   useEffect(() => {
     dispatch(getUserCart());
   }, [dispatch]);
+
+  const [productDetail, setProductDetail] = useState(null);
+  const [totalAmount, setTotalAmount] = useState(null);
 
   useEffect(() => {
     if (productDetail !== null) {
@@ -35,8 +37,6 @@ const Cart = () => {
     }
   }, [productDetail, dispatch]);
 
-  const cartState = useSelector((state) => state?.user?.cart);
-
   const deleteACartProduct = (id) => {
     dispatch(deleteCartProduct(id));
     setTimeout(() => {
@@ -46,8 +46,12 @@ const Cart = () => {
 
   useEffect(() => {
     let sum = 0;
-    for (let index = 0; index < cartState?.length; index++) {
-      sum += Number(cartState[index]?.quantity) * cartState[index]?.productId?.price;
+    if (cartState && cartState.length > 0) {
+      for (let index = 0; index < cartState.length; index++) {
+        sum +=
+          Number(cartState[index]?.quantity) *
+          cartState[index]?.productId?.price;
+      }
     }
     setTotalAmount(sum);
   }, [cartState]);
@@ -77,17 +81,18 @@ const Cart = () => {
                       <img
                         src={cartproduct?.productId?.images[0]?.url}
                         className="img-fluid"
-                        alt={cartproduct?.productId?.title}
+                        alt="image"
                       />
                     </div>
                     <div className="w-75">
-                      <p>{cartproduct?.productId?.title}</p>
-                      <p>Size: M</p>
-                      <p>Color: {GetColorName(cartproduct?.color?.title)}</p>
+                      <p>Title: {cartproduct?.productId?.title}</p>
+                      <p>Category: {cartproduct?.productId?.category}</p>
+                      <p>Brand: {cartproduct?.productId?.brand}</p>
+                      <p>Description: {cartproduct?.productId?.description}</p>
                     </div>
                   </div>
                   <div className="cart-col-2">
-                    <h5 className="price">${cartproduct?.productId?.price}</h5>
+                    <h5 className="price">c${cartproduct?.productId?.price}</h5>
                   </div>
                   <div className="cart-col-3 d-flex align-items-center gap-15">
                     <div>

@@ -1,0 +1,340 @@
+{
+  "address": "0x949297547f8ECE43931d542325Ec5930563E6c3D",
+  "abi": [
+    {
+      "inputs": [
+        {
+          "internalType": "address payable",
+          "name": "_buyer",
+          "type": "address"
+        },
+        {
+          "internalType": "address payable",
+          "name": "_seller",
+          "type": "address"
+        }
+      ],
+      "stateMutability": "nonpayable",
+      "type": "constructor"
+    },
+    {
+      "inputs": [],
+      "name": "Escrow__NotAdminRequestDenied",
+      "type": "error"
+    },
+    {
+      "inputs": [],
+      "name": "Escrow__OnlyBuyerConfirmDeposit",
+      "type": "error"
+    },
+    {
+      "inputs": [],
+      "name": "Escrow__OnlyBuyerDepositAllowed",
+      "type": "error"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": true,
+          "internalType": "address",
+          "name": "buyerAddress",
+          "type": "address"
+        }
+      ],
+      "name": "DeliveryConfirmed",
+      "type": "event"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": true,
+          "internalType": "address",
+          "name": "buyerAddress",
+          "type": "address"
+        },
+        {
+          "indexed": true,
+          "internalType": "uint256",
+          "name": "amount",
+          "type": "uint256"
+        }
+      ],
+      "name": "Deposit",
+      "type": "event"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": true,
+          "internalType": "address",
+          "name": "buyerAddress",
+          "type": "address"
+        },
+        {
+          "indexed": true,
+          "internalType": "address",
+          "name": "sellerAddress",
+          "type": "address"
+        },
+        {
+          "indexed": false,
+          "internalType": "uint256",
+          "name": "amount",
+          "type": "uint256"
+        }
+      ],
+      "name": "PaymentReleased",
+      "type": "event"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": true,
+          "internalType": "address",
+          "name": "sellerAddress",
+          "type": "address"
+        }
+      ],
+      "name": "ReceiptDone",
+      "type": "event"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "address payable",
+          "name": "buyer",
+          "type": "address"
+        },
+        {
+          "internalType": "address payable",
+          "name": "seller",
+          "type": "address"
+        }
+      ],
+      "name": "addParties",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "confirmBuyerReceipt",
+      "outputs": [],
+      "stateMutability": "payable",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "confirmSellerDelivery",
+      "outputs": [],
+      "stateMutability": "payable",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "deposit",
+      "outputs": [],
+      "stateMutability": "payable",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "getAdmin",
+      "outputs": [
+        {
+          "internalType": "address",
+          "name": "",
+          "type": "address"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "getBalance",
+      "outputs": [
+        {
+          "internalType": "uint256",
+          "name": "",
+          "type": "uint256"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "getBuyer",
+      "outputs": [
+        {
+          "internalType": "address",
+          "name": "",
+          "type": "address"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "getBuyerConfirmation",
+      "outputs": [
+        {
+          "internalType": "bool",
+          "name": "",
+          "type": "bool"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "getSeller",
+      "outputs": [
+        {
+          "internalType": "address",
+          "name": "",
+          "type": "address"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "getSellerConfirmation",
+      "outputs": [
+        {
+          "internalType": "bool",
+          "name": "",
+          "type": "bool"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    }
+  ],
+  "transactionHash": "0xe3ed8427a42ee380aa7d04278be69159dcf6f97ecfdbe46518dce17c89997067",
+  "receipt": {
+    "to": null,
+    "from": "0x6Afb764baB05F71285690dfae11eb38d665e5845",
+    "contractAddress": "0x949297547f8ECE43931d542325Ec5930563E6c3D",
+    "transactionIndex": 0,
+    "gasUsed": "690227",
+    "logsBloom": "0x00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000",
+    "blockHash": "0x8a3c73df0fe04f0908dcae1cdc9d98e2419ecab4fa36dcca95e033348af2f636",
+    "transactionHash": "0xe3ed8427a42ee380aa7d04278be69159dcf6f97ecfdbe46518dce17c89997067",
+    "logs": [],
+    "blockNumber": 18850118,
+    "cumulativeGasUsed": "690227",
+    "status": 1,
+    "byzantium": true
+  },
+  "args": [
+    "0x14b63e109F241762812492f320a8cFD177d01bC3",
+    "0x4Af9ec87568069012AD6CCFBe656BC3e3fe1a9fA"
+  ],
+  "numDeployments": 13,
+  "solcInputHash": "1f1a49a0164e8c342315e976c1d39e25",
+  "metadata": "{\"compiler\":{\"version\":\"0.8.18+commit.87f61d96\"},\"language\":\"Solidity\",\"output\":{\"abi\":[{\"inputs\":[{\"internalType\":\"address payable\",\"name\":\"_buyer\",\"type\":\"address\"},{\"internalType\":\"address payable\",\"name\":\"_seller\",\"type\":\"address\"}],\"stateMutability\":\"nonpayable\",\"type\":\"constructor\"},{\"inputs\":[],\"name\":\"Escrow__NotAdminRequestDenied\",\"type\":\"error\"},{\"inputs\":[],\"name\":\"Escrow__OnlyBuyerConfirmDeposit\",\"type\":\"error\"},{\"inputs\":[],\"name\":\"Escrow__OnlyBuyerDepositAllowed\",\"type\":\"error\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"address\",\"name\":\"buyerAddress\",\"type\":\"address\"}],\"name\":\"DeliveryConfirmed\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"address\",\"name\":\"buyerAddress\",\"type\":\"address\"},{\"indexed\":true,\"internalType\":\"uint256\",\"name\":\"amount\",\"type\":\"uint256\"}],\"name\":\"Deposit\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"address\",\"name\":\"buyerAddress\",\"type\":\"address\"},{\"indexed\":true,\"internalType\":\"address\",\"name\":\"sellerAddress\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"amount\",\"type\":\"uint256\"}],\"name\":\"PaymentReleased\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"address\",\"name\":\"sellerAddress\",\"type\":\"address\"}],\"name\":\"ReceiptDone\",\"type\":\"event\"},{\"inputs\":[{\"internalType\":\"address payable\",\"name\":\"buyer\",\"type\":\"address\"},{\"internalType\":\"address payable\",\"name\":\"seller\",\"type\":\"address\"}],\"name\":\"addParties\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"confirmBuyerReceipt\",\"outputs\":[],\"stateMutability\":\"payable\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"confirmSellerDelivery\",\"outputs\":[],\"stateMutability\":\"payable\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"deposit\",\"outputs\":[],\"stateMutability\":\"payable\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"getAdmin\",\"outputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"getBalance\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"getBuyer\",\"outputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"getBuyerConfirmation\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"getSeller\",\"outputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"getSellerConfirmation\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"stateMutability\":\"view\",\"type\":\"function\"}],\"devdoc\":{\"kind\":\"dev\",\"methods\":{},\"version\":1},\"userdoc\":{\"kind\":\"user\",\"methods\":{},\"version\":1}},\"settings\":{\"compilationTarget\":{\"contracts/Escrow.sol\":\"Escrow\"},\"evmVersion\":\"paris\",\"libraries\":{},\"metadata\":{\"bytecodeHash\":\"ipfs\",\"useLiteralContent\":true},\"optimizer\":{\"enabled\":false,\"runs\":200},\"remappings\":[]},\"sources\":{\"contracts/Escrow.sol\":{\"content\":\"// SPDX-License-Identifier: UNLICENSED\\r\\npragma solidity ^0.8.9;\\r\\n\\r\\nerror Escrow__NotAdminRequestDenied();\\r\\nerror Escrow__OnyBuyerDepositAllowed();\\r\\nerror Escrow__OnlyBuyerDepositAllowed();\\r\\nerror Escrow__InsufficientAmountDeposited();\\r\\nerror Escrow__OnlyBuyerConfirmDeposit();\\r\\nerror Escrow__ContractAlreadyInProgress();\\r\\nerror Escrow__BothPartiesMustConfirmFirst();\\r\\n\\r\\ncontract Escrow {\\r\\n    address private i_admin;\\r\\n    address payable private s_buyer;\\r\\n    address payable private s_seller;\\r\\n\\r\\n    uint256 private s_balance;\\r\\n    uint256 amount = 0;\\r\\n\\r\\n    bool private buyerConfirmation; // Track whether the buyer has confirmed the transaction.\\r\\n    bool private sellerConfirmation; // Track whether easybuy has confirmed the transaction.\\r\\n\\r\\n    /* Events; to keep track of the changes. */\\r\\n    event Deposit(address indexed buyerAddress, uint256 indexed amount); // when the buyer makes a depost.\\r\\n    event DeliveryConfirmed(address indexed buyerAddress); // when the buyer confirms delivery.\\r\\n    event ReceiptDone(address indexed sellerAddress); // when easybuy confirms the receipt.\\r\\n\\r\\n  \\r\\n    event PaymentReleased( \\r\\n        address indexed buyerAddress,\\r\\n        address indexed sellerAddress,\\r\\n        uint256 amount\\r\\n    );   // When the payment is released.\\r\\n\\r\\n\\r\\n    constructor(address payable _buyer, address payable _seller) {\\r\\n        i_admin = payable(msg.sender); \\r\\n        s_buyer = _buyer;\\r\\n        s_seller = _seller;\\r\\n        s_balance = 0;\\r\\n    }\\r\\n\\r\\n    /* The confirmSellerDelivery below is called buy the buyer who confirms the delivery of the product.\\r\\n     Verifies that only the buyer can call this function. */\\r\\n\\r\\nfunction deposit() public payable {\\r\\n  // Get the amount of Celo that was sent with the transaction\\r\\n  amount = msg.value;\\r\\n\\r\\n  // Verify that the buyer is only depositing\\r\\n  if (msg.sender != s_buyer) {\\r\\n    revert Escrow__OnlyBuyerDepositAllowed();\\r\\n  }\\r\\n\\r\\n  // Add funds to the escrow balance\\r\\n  s_balance += amount;\\r\\n\\r\\n  // Emit a deposit event\\r\\n  emit Deposit(msg.sender, amount);\\r\\n}\\r\\n\\r\\nfunction confirmSellerDelivery() public payable {\\r\\n  // Verify that only the buyer confirms the delivery\\r\\n  if (msg.sender != s_buyer) {\\r\\n    revert Escrow__OnlyBuyerConfirmDeposit();\\r\\n  }\\r\\n\\r\\n  buyerConfirmation = true;\\r\\n\\r\\n  // Emit a delivery confirmation event\\r\\n  emit DeliveryConfirmed(msg.sender);\\r\\n\\r\\n  // Release payment if both parties have confirmed\\r\\n  if (buyerConfirmation && sellerConfirmation) {\\r\\n    s_seller.transfer(s_balance);\\r\\n    buyerConfirmation = false;\\r\\n    sellerConfirmation = false;\\r\\n    s_balance = 0;\\r\\n  }\\r\\n}\\r\\n\\r\\n    /* The confirmBuyerReceipt below is called by easybuy who confirms the receipt of the payment.\\r\\n     Verifies that only the seller can call this function. */\\r\\n    function confirmBuyerReceipt() public payable {\\r\\n        // Verify that only the seller confirms the issuing the recipt\\r\\n        if (msg.sender != s_seller) {\\r\\n            revert Escrow__OnlyBuyerConfirmDeposit();\\r\\n        }\\r\\n\\r\\n        sellerConfirmation = true;\\r\\n\\r\\n        // Emit a recepit done event\\r\\n        emit ReceiptDone(msg.sender);\\r\\n\\r\\n        // Call the release payment here...\\r\\n        if (buyerConfirmation && sellerConfirmation) {\\r\\n            s_seller.transfer(address(this).balance);\\r\\n            sellerConfirmation = true;\\r\\n            s_balance = 0;\\r\\n        }\\r\\n    }\\r\\n\\r\\n\\r\\n    function addParties(address payable buyer, address payable seller) public {\\r\\n        if (msg.sender != i_admin) {\\r\\n            revert Escrow__NotAdminRequestDenied();\\r\\n        }\\r\\n\\r\\n        s_buyer = buyer;\\r\\n        s_seller = seller;\\r\\n    }\\r\\n\\r\\n    function getBalance() public view returns (uint256) {\\r\\n        return s_balance / 1e18;\\r\\n    }\\r\\n\\r\\n    function getAdmin() public view returns (address) {\\r\\n        return i_admin;\\r\\n    }\\r\\n\\r\\n    function getBuyer() public view returns (address) {\\r\\n        return s_buyer;\\r\\n    }\\r\\n\\r\\n    function getSeller() public view returns (address) {\\r\\n        return s_seller;\\r\\n    }\\r\\n\\r\\n    function getBuyerConfirmation() public view returns (bool) {\\r\\n        return buyerConfirmation;\\r\\n    }\\r\\n\\r\\n    function getSellerConfirmation() public view returns (bool) {\\r\\n        return sellerConfirmation;\\r\\n    }\\r\\n}\\r\\n\",\"keccak256\":\"0xdc80910dce4b5d319eec2a50a63c123a8971426da4fc0d0318b0774b3e9b22c4\",\"license\":\"UNLICENSED\"}},\"version\":1}",
+  "bytecode": "0x6080604052600060045534801561001557600080fd5b50604051610bfd380380610bfd8339818101604052810190610037919061016b565b336000806101000a81548173ffffffffffffffffffffffffffffffffffffffff021916908373ffffffffffffffffffffffffffffffffffffffff16021790555081600160006101000a81548173ffffffffffffffffffffffffffffffffffffffff021916908373ffffffffffffffffffffffffffffffffffffffff16021790555080600260006101000a81548173ffffffffffffffffffffffffffffffffffffffff021916908373ffffffffffffffffffffffffffffffffffffffff160217905550600060038190555050506101ab565b600080fd5b600073ffffffffffffffffffffffffffffffffffffffff82169050919050565b60006101388261010d565b9050919050565b6101488161012d565b811461015357600080fd5b50565b6000815190506101658161013f565b92915050565b6000806040838503121561018257610181610108565b5b600061019085828601610156565b92505060206101a185828601610156565b9150509250929050565b610a43806101ba6000396000f3fe6080604052600436106100905760003560e01c8063614439c011610059578063614439c01461012a5780636e9960c314610155578063b840657b14610180578063d0e30db0146101a9578063dbd0e1b6146101b357610090565b80623009c81461009557806312065fe0146100c05780631991b997146100eb578063400d717c146100f5578063603daf9a146100ff575b600080fd5b3480156100a157600080fd5b506100aa6101de565b6040516100b7919061081c565b60405180910390f35b3480156100cc57600080fd5b506100d56101f5565b6040516100e29190610850565b60405180910390f35b6100f3610212565b005b6100fd6103d0565b005b34801561010b57600080fd5b50610114610571565b60405161012191906108ac565b60405180910390f35b34801561013657600080fd5b5061013f61059b565b60405161014c919061081c565b60405180910390f35b34801561016157600080fd5b5061016a6105b2565b60405161017791906108ac565b60405180910390f35b34801561018c57600080fd5b506101a760048036038101906101a2919061090a565b6105db565b005b6101b16106e6565b005b3480156101bf57600080fd5b506101c86107d7565b6040516101d591906108ac565b60405180910390f35b6000600560019054906101000a900460ff16905090565b6000670de0b6b3a764000060035461020d91906109a8565b905090565b600160009054906101000a900473ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff163373ffffffffffffffffffffffffffffffffffffffff1614610299576040517f03fa8b1800000000000000000000000000000000000000000000000000000000815260040160405180910390fd5b6001600560006101000a81548160ff0219169083151502179055503373ffffffffffffffffffffffffffffffffffffffff167f7fe25e02f602b412aee7591e6643616f1f1259a4ca6a3ee3387fef583badcd0e60405160405180910390a2600560009054906101000a900460ff16801561031f5750600560019054906101000a900460ff165b156103ce57600260009054906101000a900473ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff166108fc6003549081150290604051600060405180830381858888f1935050505015801561038e573d6000803e3d6000fd5b506000600560006101000a81548160ff0219169083151502179055506000600560016101000a81548160ff02191690831515021790555060006003819055505b565b600260009054906101000a900473ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff163373ffffffffffffffffffffffffffffffffffffffff1614610457576040517f03fa8b1800000000000000000000000000000000000000000000000000000000815260040160405180910390fd5b6001600560016101000a81548160ff0219169083151502179055503373ffffffffffffffffffffffffffffffffffffffff167f2268e0e4ba45f20a48e5394b7c7d8dac5fca46a331c75fd878b5fd47fc1f267c60405160405180910390a2600560009054906101000a900460ff1680156104dd5750600560019054906101000a900460ff165b1561056f57600260009054906101000a900473ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff166108fc479081150290604051600060405180830381858888f1935050505015801561054a573d6000803e3d6000fd5b506001600560016101000a81548160ff02191690831515021790555060006003819055505b565b6000600160009054906101000a900473ffffffffffffffffffffffffffffffffffffffff16905090565b6000600560009054906101000a900460ff16905090565b60008060009054906101000a900473ffffffffffffffffffffffffffffffffffffffff16905090565b60008054906101000a900473ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff163373ffffffffffffffffffffffffffffffffffffffff1614610660576040517f4b15f5d000000000000000000000000000000000000000000000000000000000815260040160405180910390fd5b81600160006101000a81548173ffffffffffffffffffffffffffffffffffffffff021916908373ffffffffffffffffffffffffffffffffffffffff16021790555080600260006101000a81548173ffffffffffffffffffffffffffffffffffffffff021916908373ffffffffffffffffffffffffffffffffffffffff1602179055505050565b34600481905550600160009054906101000a900473ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff163373ffffffffffffffffffffffffffffffffffffffff1614610774576040517f1e87029700000000000000000000000000000000000000000000000000000000815260040160405180910390fd5b6004546003600082825461078891906109d9565b925050819055506004543373ffffffffffffffffffffffffffffffffffffffff167fe1fffcc4923d04b559f4d29a8bfc6cda04eb5b0d3c460751c2402c5c5cc9109c60405160405180910390a3565b6000600260009054906101000a900473ffffffffffffffffffffffffffffffffffffffff16905090565b60008115159050919050565b61081681610801565b82525050565b6000602082019050610831600083018461080d565b92915050565b6000819050919050565b61084a81610837565b82525050565b60006020820190506108656000830184610841565b92915050565b600073ffffffffffffffffffffffffffffffffffffffff82169050919050565b60006108968261086b565b9050919050565b6108a68161088b565b82525050565b60006020820190506108c1600083018461089d565b92915050565b600080fd5b60006108d78261086b565b9050919050565b6108e7816108cc565b81146108f257600080fd5b50565b600081359050610904816108de565b92915050565b60008060408385031215610921576109206108c7565b5b600061092f858286016108f5565b9250506020610940858286016108f5565b9150509250929050565b7f4e487b7100000000000000000000000000000000000000000000000000000000600052601260045260246000fd5b7f4e487b7100000000000000000000000000000000000000000000000000000000600052601160045260246000fd5b60006109b382610837565b91506109be83610837565b9250826109ce576109cd61094a565b5b828204905092915050565b60006109e482610837565b91506109ef83610837565b9250828201905080821115610a0757610a06610979565b5b9291505056fea26469706673582212202cefe6bf85de26beb49bed9b932f0bae8ccbe2e1b5fd1ea4ebdacdfe8e3970f364736f6c63430008120033",
+  "deployedBytecode": "0x6080604052600436106100905760003560e01c8063614439c011610059578063614439c01461012a5780636e9960c314610155578063b840657b14610180578063d0e30db0146101a9578063dbd0e1b6146101b357610090565b80623009c81461009557806312065fe0146100c05780631991b997146100eb578063400d717c146100f5578063603daf9a146100ff575b600080fd5b3480156100a157600080fd5b506100aa6101de565b6040516100b7919061081c565b60405180910390f35b3480156100cc57600080fd5b506100d56101f5565b6040516100e29190610850565b60405180910390f35b6100f3610212565b005b6100fd6103d0565b005b34801561010b57600080fd5b50610114610571565b60405161012191906108ac565b60405180910390f35b34801561013657600080fd5b5061013f61059b565b60405161014c919061081c565b60405180910390f35b34801561016157600080fd5b5061016a6105b2565b60405161017791906108ac565b60405180910390f35b34801561018c57600080fd5b506101a760048036038101906101a2919061090a565b6105db565b005b6101b16106e6565b005b3480156101bf57600080fd5b506101c86107d7565b6040516101d591906108ac565b60405180910390f35b6000600560019054906101000a900460ff16905090565b6000670de0b6b3a764000060035461020d91906109a8565b905090565b600160009054906101000a900473ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff163373ffffffffffffffffffffffffffffffffffffffff1614610299576040517f03fa8b1800000000000000000000000000000000000000000000000000000000815260040160405180910390fd5b6001600560006101000a81548160ff0219169083151502179055503373ffffffffffffffffffffffffffffffffffffffff167f7fe25e02f602b412aee7591e6643616f1f1259a4ca6a3ee3387fef583badcd0e60405160405180910390a2600560009054906101000a900460ff16801561031f5750600560019054906101000a900460ff165b156103ce57600260009054906101000a900473ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff166108fc6003549081150290604051600060405180830381858888f1935050505015801561038e573d6000803e3d6000fd5b506000600560006101000a81548160ff0219169083151502179055506000600560016101000a81548160ff02191690831515021790555060006003819055505b565b600260009054906101000a900473ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff163373ffffffffffffffffffffffffffffffffffffffff1614610457576040517f03fa8b1800000000000000000000000000000000000000000000000000000000815260040160405180910390fd5b6001600560016101000a81548160ff0219169083151502179055503373ffffffffffffffffffffffffffffffffffffffff167f2268e0e4ba45f20a48e5394b7c7d8dac5fca46a331c75fd878b5fd47fc1f267c60405160405180910390a2600560009054906101000a900460ff1680156104dd5750600560019054906101000a900460ff165b1561056f57600260009054906101000a900473ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff166108fc479081150290604051600060405180830381858888f1935050505015801561054a573d6000803e3d6000fd5b506001600560016101000a81548160ff02191690831515021790555060006003819055505b565b6000600160009054906101000a900473ffffffffffffffffffffffffffffffffffffffff16905090565b6000600560009054906101000a900460ff16905090565b60008060009054906101000a900473ffffffffffffffffffffffffffffffffffffffff16905090565b60008054906101000a900473ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff163373ffffffffffffffffffffffffffffffffffffffff1614610660576040517f4b15f5d000000000000000000000000000000000000000000000000000000000815260040160405180910390fd5b81600160006101000a81548173ffffffffffffffffffffffffffffffffffffffff021916908373ffffffffffffffffffffffffffffffffffffffff16021790555080600260006101000a81548173ffffffffffffffffffffffffffffffffffffffff021916908373ffffffffffffffffffffffffffffffffffffffff1602179055505050565b34600481905550600160009054906101000a900473ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff163373ffffffffffffffffffffffffffffffffffffffff1614610774576040517f1e87029700000000000000000000000000000000000000000000000000000000815260040160405180910390fd5b6004546003600082825461078891906109d9565b925050819055506004543373ffffffffffffffffffffffffffffffffffffffff167fe1fffcc4923d04b559f4d29a8bfc6cda04eb5b0d3c460751c2402c5c5cc9109c60405160405180910390a3565b6000600260009054906101000a900473ffffffffffffffffffffffffffffffffffffffff16905090565b60008115159050919050565b61081681610801565b82525050565b6000602082019050610831600083018461080d565b92915050565b6000819050919050565b61084a81610837565b82525050565b60006020820190506108656000830184610841565b92915050565b600073ffffffffffffffffffffffffffffffffffffffff82169050919050565b60006108968261086b565b9050919050565b6108a68161088b565b82525050565b60006020820190506108c1600083018461089d565b92915050565b600080fd5b60006108d78261086b565b9050919050565b6108e7816108cc565b81146108f257600080fd5b50565b600081359050610904816108de565b92915050565b60008060408385031215610921576109206108c7565b5b600061092f858286016108f5565b9250506020610940858286016108f5565b9150509250929050565b7f4e487b7100000000000000000000000000000000000000000000000000000000600052601260045260246000fd5b7f4e487b7100000000000000000000000000000000000000000000000000000000600052601160045260246000fd5b60006109b382610837565b91506109be83610837565b9250826109ce576109cd61094a565b5b828204905092915050565b60006109e482610837565b91506109ef83610837565b9250828201905080821115610a0757610a06610979565b5b9291505056fea26469706673582212202cefe6bf85de26beb49bed9b932f0bae8ccbe2e1b5fd1ea4ebdacdfe8e3970f364736f6c63430008120033",
+  "devdoc": {
+    "kind": "dev",
+    "methods": {},
+    "version": 1
+  },
+  "userdoc": {
+    "kind": "user",
+    "methods": {},
+    "version": 1
+  },
+  "storageLayout": {
+    "storage": [
+      {
+        "astId": 17,
+        "contract": "contracts/Escrow.sol:Escrow",
+        "label": "i_admin",
+        "offset": 0,
+        "slot": "0",
+        "type": "t_address"
+      },
+      {
+        "astId": 19,
+        "contract": "contracts/Escrow.sol:Escrow",
+        "label": "s_buyer",
+        "offset": 0,
+        "slot": "1",
+        "type": "t_address_payable"
+      },
+      {
+        "astId": 21,
+        "contract": "contracts/Escrow.sol:Escrow",
+        "label": "s_seller",
+        "offset": 0,
+        "slot": "2",
+        "type": "t_address_payable"
+      },
+      {
+        "astId": 23,
+        "contract": "contracts/Escrow.sol:Escrow",
+        "label": "s_balance",
+        "offset": 0,
+        "slot": "3",
+        "type": "t_uint256"
+      },
+      {
+        "astId": 26,
+        "contract": "contracts/Escrow.sol:Escrow",
+        "label": "amount",
+        "offset": 0,
+        "slot": "4",
+        "type": "t_uint256"
+      },
+      {
+        "astId": 28,
+        "contract": "contracts/Escrow.sol:Escrow",
+        "label": "buyerConfirmation",
+        "offset": 0,
+        "slot": "5",
+        "type": "t_bool"
+      },
+      {
+        "astId": 30,
+        "contract": "contracts/Escrow.sol:Escrow",
+        "label": "sellerConfirmation",
+        "offset": 1,
+        "slot": "5",
+        "type": "t_bool"
+      }
+    ],
+    "types": {
+      "t_address": {
+        "encoding": "inplace",
+        "label": "address",
+        "numberOfBytes": "20"
+      },
+      "t_address_payable": {
+        "encoding": "inplace",
+        "label": "address payable",
+        "numberOfBytes": "20"
+      },
+      "t_bool": {
+        "encoding": "inplace",
+        "label": "bool",
+        "numberOfBytes": "1"
+      },
+      "t_uint256": {
+        "encoding": "inplace",
+        "label": "uint256",
+        "numberOfBytes": "32"
+      }
+    }
+  }
+}

@@ -1,0 +1,35 @@
+{
+  "language": "Solidity",
+  "sources": {
+    "contracts/Escrow.sol": {
+      "content": "// SPDX-License-Identifier: UNLICENSED\r\npragma solidity ^0.8.9;\r\n\r\nerror Escrow__NotAdminRequestDenied();\r\nerror Escrow__OnyBuyerDepositAllowed();\r\nerror Escrow__OnlyBuyerDepositAllowed();\r\nerror Escrow__InsufficientAmountDeposited();\r\nerror Escrow__OnlyBuyerConfirmDeposit();\r\nerror Escrow__ContractAlreadyInProgress();\r\nerror Escrow__BothPartiesMustConfirmFirst();\r\n\r\ncontract Escrow {\r\n    address private i_admin;\r\n    address payable private s_buyer;\r\n    address payable private s_seller;\r\n\r\n    uint256 private s_balance;\r\n\r\n    bool private buyerConfirmation; // Track whether the buyer has confirmed the transaction.\r\n    bool private sellerConfirmation; // Track whether easybuy has confirmed the transaction.\r\n\r\n    /* Events; to keep track of the changes. */\r\n    event Deposit(address indexed buyerAddress, uint256 indexed amount); // when the buyer makes a depost.\r\n    event DeliveryConfirmed(address indexed buyerAddress); // when the buyer confirms delivery.\r\n    event ReceiptDone(address indexed sellerAddress); // when easybuy confirms the receipt.\r\n\r\n  \r\n    event PaymentReleased( \r\n        address indexed buyerAddress,\r\n        address indexed sellerAddress,\r\n        uint256 amount\r\n    );   // When the payment is released.\r\n\r\n\r\n    constructor(address payable _buyer, address payable _seller) {\r\n        i_admin = payable(msg.sender); \r\n        s_buyer = _buyer;\r\n        s_seller = _seller;\r\n        s_balance = 0;\r\n    }\r\n\r\n    /* The confirmSellerDelivery below is called buy the buyer who confirms the delivery of the product.\r\n     Verifies that only the buyer can call this function. */\r\n\r\n    function confirmSellerDelivery() public payable {\r\n        // Verify that only the buyer confirms the delivery\r\n        if (msg.sender != s_buyer) {\r\n            revert Escrow__OnlyBuyerConfirmDeposit();\r\n        }\r\n\r\n        buyerConfirmation = true;\r\n\r\n        // Emit a delivery condirmation event\r\n        emit DeliveryConfirmed(msg.sender);\r\n\r\n        // Call the release payment here...\r\n        if (buyerConfirmation && sellerConfirmation) {\r\n            s_seller.transfer(address(this).balance);\r\n            buyerConfirmation = false;\r\n            sellerConfirmation = false;\r\n            s_balance = 0;\r\n        }\r\n    }\r\n\r\n    /* The confirmBuyerReceipt below is called by easybuy who confirms the receipt of the payment.\r\n     Verifies that only the seller can call this function. */\r\n    function confirmBuyerReceipt() public payable {\r\n        // Verify that only the seller confirms the issuing the recipt\r\n        if (msg.sender != s_seller) {\r\n            revert Escrow__OnlyBuyerConfirmDeposit();\r\n        }\r\n\r\n        sellerConfirmation = true;\r\n\r\n        // Emit a recepit done event\r\n        emit ReceiptDone(msg.sender);\r\n\r\n        // Call the release payment here...\r\n        if (buyerConfirmation && sellerConfirmation) {\r\n            s_seller.transfer(address(this).balance);\r\n            sellerConfirmation = true;\r\n            s_balance = 0;\r\n        }\r\n    }\r\n\r\n    function deposit() public payable {\r\n        // Verify that the buyer is only depositing\r\n        if (msg.sender != s_buyer) {\r\n            revert Escrow__OnlyBuyerDepositAllowed();\r\n        }\r\n\r\n        // Verify that the amount of money deposited is not 0\r\n        if (msg.value <= 0) {\r\n            revert Escrow__InsufficientAmountDeposited();\r\n        }\r\n\r\n        // Update the contract's balance\r\n        s_balance += msg.value;\r\n\r\n        // Emit a deposit event\r\n        emit Deposit(msg.sender, msg.value);\r\n    }\r\n\r\n    function addParties(address payable buyer, address payable seller) public {\r\n        if (msg.sender != i_admin) {\r\n            revert Escrow__NotAdminRequestDenied();\r\n        }\r\n\r\n        s_buyer = buyer;\r\n        s_seller = seller;\r\n    }\r\n\r\n    function getBalance() public view returns (uint256) {\r\n        return s_balance;\r\n    }\r\n\r\n    function getAdmin() public view returns (address) {\r\n        return i_admin;\r\n    }\r\n\r\n    function getBuyer() public view returns (address) {\r\n        return s_buyer;\r\n    }\r\n\r\n    function getSeller() public view returns (address) {\r\n        return s_seller;\r\n    }\r\n\r\n    function getBuyerConfirmation() public view returns (bool) {\r\n        return buyerConfirmation;\r\n    }\r\n\r\n    function getSellerConfirmation() public view returns (bool) {\r\n        return sellerConfirmation;\r\n    }\r\n}\r\n"
+    }
+  },
+  "settings": {
+    "optimizer": {
+      "enabled": false,
+      "runs": 200
+    },
+    "outputSelection": {
+      "*": {
+        "*": [
+          "abi",
+          "evm.bytecode",
+          "evm.deployedBytecode",
+          "evm.methodIdentifiers",
+          "metadata",
+          "devdoc",
+          "userdoc",
+          "storageLayout",
+          "evm.gasEstimates"
+        ],
+        "": [
+          "ast"
+        ]
+      }
+    },
+    "metadata": {
+      "useLiteralContent": true
+    }
+  }
+}

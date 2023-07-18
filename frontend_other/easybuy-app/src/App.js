@@ -1,6 +1,5 @@
 import React, { useEffect } from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import "./App.css";
 import Layout from "./components/Layout";
 import Home from "./pages/Home";
 import About from "./pages/About";
@@ -23,6 +22,7 @@ import { PrivateRoutes } from "./routing/PrivateRoutes";
 import { OpenRoutes } from "./routing/OpenRoutes";
 import Order from "./pages/Order";
 import Profile from "./pages/Profile";
+import CeloPayment from "./pages/CeloPayment";
 
 function App() {
   return (
@@ -52,6 +52,8 @@ function App() {
             <Route path="my-profile" element={<PrivateRoutes><Profile /></PrivateRoutes>} />
             <Route path="checkout" element={<PrivateRoutes><Checkout /></PrivateRoutes>} />
           </Route>
+          <Route path="celo-payment" element={<PrivateRoutes><CeloPayment /></PrivateRoutes>} />
+
         </Routes>
       </BrowserRouter>
     </>
