@@ -259,7 +259,7 @@ function CeloPayment() {
               onClick={confirmDelivery}
               className="confirm"
             >
-              Confirm Delivery
+              Confirm You Have Received Your Product
             </button>
           )}
         {account &&
@@ -269,7 +269,7 @@ function CeloPayment() {
               onClick={confirmReceipt}
               className="confirm"
             >
-              Confirm Receipt
+              Confirm Your Delivery to Buyer
             </button>
           )}
       </div>

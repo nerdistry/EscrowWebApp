@@ -2,9 +2,10 @@ import React from "react";
 import "./App.css";
 import { Provider } from "react-redux";
 import { store } from "./app/store";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 
 
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+
 // import MainLayout from './components/MainLayout';
 import Login from "./pages/Login";
 import ResetPassword from "./pages/ResetPassword";
@@ -27,9 +28,9 @@ import AddProduct from "./pages/AddProduct";
 function App() {
   return (
     <Provider store={store}>
-    <Router>
+    <BrowserRouter>
       <Routes>
-        <Route path="/" element={<Login />} />
+        <Route path="/login" index element={<Login />} />
         <Route path="/reset-password" element={<ResetPassword />} />
         <Route path="/forgot-password" element={<ForgotPassword />} />
         <Route path="/admin" element={<MainLayout />}>
@@ -51,7 +52,7 @@ function App() {
           <Route path="customers" element={<Customers />} />
         </Route>
       </Routes>
-    </Router>
+    </BrowserRouter>
     </Provider>
   );
 }

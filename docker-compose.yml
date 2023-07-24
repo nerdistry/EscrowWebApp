@@ -1,0 +1,19 @@
+version: '3'
+services:
+  admin-app:
+    build:
+      context: ./admin-app
+    ports:
+      - "8081:8081"
+  backend:
+    build:
+      context: ./backend
+    ports:
+      - "8080:8080"
+
+  frontend_other:
+    build:
+      context: ./frontend_other
+    ports:
+      - "8082:8082"
+  

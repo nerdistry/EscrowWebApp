@@ -4,8 +4,8 @@ import ReactStars from "react-rating-stars-component";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import prodcompare from "../images/prodcompare.svg";
 import wish from "../images/wish.svg";
-import watch from "../images/watch.jpg";
-import watch2 from "../images/watch-1.avif";
+import watch from "../images/whiteimg.jpg";
+// import watch2 from "../images/watch-1.avif";
 import addcart from "../images/add-cart.svg";
 import view from "../images/view.svg";
 import { addToWishList } from "../features/products/productSlice";
@@ -40,7 +40,7 @@ const ProductCard = ({ grid, products }) => {
               width={160}
               alt="watch"
             />
-            <img src={watch2} className="img-fluid mx-auto" alt="watch" />
+            <img src={watch} className="img-fluid mx-auto" alt="watch" />
           </div>
           <div className="product-details">
             <h6 className="brand">{products?.brand}</h6>

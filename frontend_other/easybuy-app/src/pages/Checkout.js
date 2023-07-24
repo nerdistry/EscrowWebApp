@@ -261,7 +261,7 @@ const Checkout = () => {
                       Continue to Shipping
                     </Link>
                     <Link
-                      to={`/celo-payment?amount=${totalAmount ? totalAmount + 3 : 0}`}
+                      to={`/celo-payment?amount=${totalAmount ? totalAmount + 1 : 0}`}
                       className="button"
                     >
                       Place Order
@@ -319,11 +319,11 @@ const Checkout = () => {
               </div>
               <div className="d-flex justify-content-between align-items-center">
                 <p className="mb-0 total">Shipping</p>
-                <p className="mb-0 total-price">$3</p>
+                <p className="mb-0 total-price">$1</p>
               </div>
               <div className="d-flex justify-content-between align-items-center border-bottom py-4">
                 <h4>Total</h4>
-                <h5>${totalAmount ? totalAmount + 3 : 0}</h5>
+                <h5>${totalAmount ? totalAmount + 1 : 0}</h5>
               </div>
             </div>
           </div>

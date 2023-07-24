@@ -37,8 +37,8 @@ const MainLayout = () => {
       <Sider trigger={null} collapsible collapsed={collapsed}>
         <div className="demo-logo-vertical">
           <h2 className="fs-5 text-center text-white py-3 mb-0">
-            <span className="sm-logo">DC</span>
-            <span className="lg-logo">Dev Corner</span>
+            <span className="sm-logo">EB</span>
+            <span className="lg-logo">EasyBuy</span>
           </h2>
         </div>
         <Menu
@@ -110,11 +110,11 @@ const MainLayout = () => {
               ],
             },
             {
-              // key: "orders",
+              key: "orders",
               icon: <AiOutlineOrderedList className="fs-5" />,
               label: "Orders",
               onClick: () => {
-                window.location.href = "http://localhost:3000/celo-payment";
+                window.open("http://localhost:3000/celo-payment", "_blank");
               },
             },
             {
@@ -186,7 +186,7 @@ const MainLayout = () => {
                   <Link
                     className="dropdown-item py-1 mb-1"
                     style={{ height: "auto", lineHeight: "20px" }}
-                    to="/"
+                    to="/login"
                   >
                     Signout
                   </Link>

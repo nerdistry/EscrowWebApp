@@ -116,22 +116,22 @@ CeloPayment.css :
   }
 
   .timeline-circle {
-    width: 8px;
-    height: 8px;
+    width: 40px;
+    height: 40px;
     border-radius: 50%;
   }
 
   .timeline-text {
     position: absolute;
-    bottom: 5;
-    left: 10;
-    font-size: small;
+    bottom: 25px;
+    left: 44px;
+    font-size: 14px;
   }
 
   .timeline-line {
     width: 100%;
     margin: 0px 1px;
-    height: 2px;
+    height: 6px;
   }
 
   .green {

@@ -157,8 +157,8 @@ const OurStore = () => {
               <div>
                 <div className="random-products mb-3 d-flex">
                   <div className="w-50">
-                    <img
-                      src="images/watch.jpg"
+                  <img
+                      src="images/kidsheadphones.jpg"
                       className="img-fluid"
                       alt="watch"
                     />
@@ -174,14 +174,14 @@ const OurStore = () => {
                       size={24}
                       activeColor="#ffd700"
                     />
-                    <b>$ 300</b>
+                    <b>$ 3</b>
                   </div>
                 </div>
 
                 <div className="random-products d-flex">
                   <div className="w-50">
                     <img
-                      src="images/watch.jpg"
+                      src="images/kidsheadphones.jpg"
                       className="img-fluid"
                       alt="watch"
                     />
@@ -197,7 +197,7 @@ const OurStore = () => {
                       size={24}
                       activeColor="#ffd700"
                     />
-                    <b>$ 300</b>
+                    <b>$ 3</b>
                   </div>
                 </div>
               </div>

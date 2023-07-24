@@ -9,8 +9,7 @@ module.exports = async ({ getNamedAccounts, deployments }) => {
 
   const { deploy, log } = deployments
 
-  const args = ['0x14b63e109F241762812492f320a8cFD177d01bC3','0x4Af9ec87568069012AD6CCFBe656BC3e3fe1a9fA'
-  ]
+  const args = ['0xd3493C57528E086Afd51fe6fC2248958e3778feD','0x4b3178E74cF9F255FdCeD403497FaEB4E2270b43']
   const waitConfirmations = 1
 
   // Only verify the contract when we are deploying on celo test net
